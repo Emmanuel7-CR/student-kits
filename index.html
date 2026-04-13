@@ -1,0 +1,2206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FreeStudentKit — Everything You Need to Succeed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"/>
+  <style>
+    /* ============================================================
+       CSS VARIABLES & RESET
+    ============================================================ */
+    :root {
+      --primary:       #1d4ed8;
+      --primary-light: #3b82f6;
+      --primary-dark:  #1e3a8a;
+      --accent:        #10b981;
+      --accent-light:  #34d399;
+      --bg:            #f8faff;
+      --surface:       #ffffff;
+      --surface2:      #f1f5ff;
+      --border:        #e2e8f8;
+      --text:          #0f172a;
+      --text-muted:    #64748b;
+      --text-light:    #94a3b8;
+      --shadow-sm:     0 1px 3px rgba(29,78,216,.07), 0 1px 2px rgba(0,0,0,.04);
+      --shadow:        0 4px 16px rgba(29,78,216,.10), 0 1px 4px rgba(0,0,0,.04);
+      --shadow-lg:     0 12px 40px rgba(29,78,216,.14), 0 4px 12px rgba(0,0,0,.06);
+      --radius:        14px;
+      --radius-sm:     8px;
+      --radius-lg:     20px;
+      --font-display:  'Bricolage Grotesque', sans-serif;
+      --font-body:     'DM Sans', sans-serif;
+      --nav-h:         68px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    /* ============================================================
+       PAGE SYSTEM — show/hide sections
+    ============================================================ */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    #mainNav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      height: var(--nav-h);
+      transition: box-shadow .3s;
+    }
+    #mainNav.scrolled { box-shadow: var(--shadow); }
+    .nav-inner {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      height: var(--nav-h);
+      padding: 0 1.5rem;
+      max-width: 1280px; margin: 0 auto;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: .5rem;
+      text-decoration: none; cursor: pointer;
+    }
+    .nav-logo-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 18px; flex-shrink: 0;
+    }
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: 1.15rem; color: var(--text);
+    }
+    .nav-logo-text span { color: var(--primary); }
+    .nav-links {
+      display: flex; align-items: center; gap: .25rem;
+      list-style: none;
+    }
+    .nav-links li a, .nav-links li button {
+      padding: .45rem .85rem; border-radius: var(--radius-sm);
+      font-weight: 500; font-size: .9rem; color: var(--text-muted);
+      text-decoration: none; background: none; border: none; cursor: pointer;
+      transition: background .2s, color .2s;
+      font-family: var(--font-body);
+    }
+    .nav-links li a:hover, .nav-links li button:hover,
+    .nav-links li a.active, .nav-links li button.active {
+      background: var(--surface2); color: var(--primary);
+    }
+    .nav-cta {
+      background: var(--primary) !important;
+      color: #fff !important; padding: .45rem 1.1rem !important;
+      border-radius: var(--radius-sm) !important;
+    }
+    .nav-cta:hover { background: var(--primary-dark) !important; }
+    .nav-toggle {
+      display: none; background: none; border: none;
+      font-size: 1.4rem; color: var(--text); cursor: pointer;
+      padding: .4rem;
+    }
+    .nav-mobile {
+      display: none; position: absolute; top: var(--nav-h); left: 0; right: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 1.5rem 1.5rem;
+      box-shadow: var(--shadow);
+      flex-direction: column; gap: .5rem;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile button, .nav-mobile a {
+      padding: .7rem 1rem; border-radius: var(--radius-sm);
+      font-weight: 500; font-size: .95rem; color: var(--text);
+      text-decoration: none; background: none; border: none; cursor: pointer;
+      font-family: var(--font-body); text-align: left;
+      transition: background .2s, color .2s;
+    }
+    .nav-mobile button:hover, .nav-mobile a:hover { background: var(--surface2); color: var(--primary); }
+    .nav-mobile .nav-cta { background: var(--primary) !important; color: #fff !important; text-align: center; }
+
+    @media(max-width:768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+    }
+
+    /* ============================================================
+       HERO SECTION
+    ============================================================ */
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 45%, #0ea5e9 100%);
+      padding: 100px 0 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(16,185,129,.18) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(99,102,241,.25) 0%, transparent 45%);
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0; opacity: .07;
+      background-image:
+        linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.15); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.25);
+      color: #fff; padding: .35rem .9rem; border-radius: 50px;
+      font-size: .82rem; font-weight: 600; letter-spacing: .04em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge i { color: var(--accent-light); }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800; color: #fff;
+      line-height: 1.18; margin-bottom: 1.1rem;
+    }
+    .hero h1 em { color: var(--accent-light); font-style: normal; }
+    .hero-sub {
+      font-size: 1.05rem; color: rgba(255,255,255,.78);
+      max-width: 540px; margin-bottom: 2.2rem;
+    }
+    .hero-search {
+      background: #fff;
+      border-radius: 50px; padding: .5rem .5rem .5rem 1.2rem;
+      display: flex; align-items: center; gap: .5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,.18);
+      max-width: 580px; margin-bottom: 2rem;
+    }
+    .hero-search i { color: var(--text-light); font-size: 1.1rem; flex-shrink:0; }
+    .hero-search input {
+      flex: 1; border: none; outline: none;
+      font-family: var(--font-body); font-size: .95rem; color: var(--text);
+      background: transparent;
+    }
+    .hero-search button {
+      background: var(--primary); color: #fff;
+      border: none; border-radius: 40px;
+      padding: .6rem 1.5rem; font-weight: 600; font-size: .9rem;
+      cursor: pointer; transition: background .2s, transform .15s;
+      white-space: nowrap;
+      font-family: var(--font-body);
+    }
+    .hero-search button:hover { background: var(--primary-dark); transform: scale(1.03); }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .btn-hero-primary {
+      background: #fff; color: var(--primary);
+      border: none; border-radius: 50px;
+      padding: .7rem 1.6rem; font-weight: 700; font-size: .95rem;
+      cursor: pointer; transition: all .2s;
+      font-family: var(--font-body);
+    }
+    .btn-hero-primary:hover { background: var(--surface2); transform: translateY(-2px); }
+    .btn-hero-ghost {
+      background: rgba(255,255,255,.15); color: #fff;
+      border: 1px solid rgba(255,255,255,.35); border-radius: 50px;
+      padding: .7rem 1.6rem; font-weight: 600; font-size: .95rem;
+      cursor: pointer; transition: all .2s; backdrop-filter: blur(4px);
+      font-family: var(--font-body);
+    }
+    .btn-hero-ghost:hover { background: rgba(255,255,255,.25); transform: translateY(-2px); }
+    .hero-stats {
+      display: flex; flex-wrap: wrap; gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    .hero-stat { color: #fff; }
+    .hero-stat .num {
+      font-family: var(--font-display);
+      font-size: 1.7rem; font-weight: 800; display: block;
+    }
+    .hero-stat .lbl { font-size: .82rem; color: rgba(255,255,255,.65); }
+    .hero-visual {
+      display: flex; flex-direction: column; gap: 1rem;
+      position: relative; z-index: 1;
+    }
+    .hero-card-float {
+      background: rgba(255,255,255,.12);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      display: flex; align-items: center; gap: .85rem;
+      color: #fff;
+      transform: translateX(0);
+      transition: transform .3s;
+    }
+    .hero-card-float:hover { transform: translateX(-4px); }
+    .hero-card-float .ic {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .hero-card-float .ic.blue  { background: rgba(99,102,241,.4); }
+    .hero-card-float .ic.green { background: rgba(16,185,129,.4); }
+    .hero-card-float .ic.orange{ background: rgba(251,146,60,.4); }
+    .hero-card-float h6 { font-weight: 700; font-size: .88rem; margin-bottom: 0; }
+    .hero-card-float p  { font-size: .78rem; opacity: .75; margin: 0; }
+
+    /* ============================================================
+       SECTION SHARED STYLES
+    ============================================================ */
+    section { padding: 72px 0; }
+    .section-label {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .78rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--primary);
+      background: rgba(29,78,216,.08); padding: .3rem .8rem;
+      border-radius: 50px; margin-bottom: .9rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 800; color: var(--text);
+      margin-bottom: .6rem; line-height: 1.2;
+    }
+    .section-sub { color: var(--text-muted); max-width: 520px; margin-bottom: 2.5rem; }
+
+    /* ============================================================
+       CARD BASE
+    ============================================================ */
+    .fsk-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: box-shadow .25s, transform .25s, border-color .25s;
+      height: 100%;
+    }
+    .fsk-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+      border-color: var(--primary-light);
+    }
+    .card-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1rem;
+    }
+    .icon-blue   { background: rgba(29,78,216,.1);  color: var(--primary); }
+    .icon-green  { background: rgba(16,185,129,.1); color: var(--accent); }
+    .icon-orange { background: rgba(249,115,22,.1); color: #f97316; }
+    .icon-purple { background: rgba(139,92,246,.1); color: #8b5cf6; }
+    .icon-red    { background: rgba(239,68,68,.1);  color: #ef4444; }
+    .icon-teal   { background: rgba(20,184,166,.1); color: #14b8a6; }
+    .card-title  { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; margin-bottom: .4rem; }
+    .card-desc   { color: var(--text-muted); font-size: .875rem; margin-bottom: 1.1rem; line-height: 1.55; }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn-primary-fsk {
+      background: var(--primary); color: #fff;
+      border: none; border-radius: var(--radius-sm);
+      padding: .55rem 1.3rem; font-weight: 600; font-size: .875rem;
+      cursor: pointer; transition: background .2s, transform .15s;
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-family: var(--font-body); text-decoration: none;
+    }
+    .btn-primary-fsk:hover { background: var(--primary-dark); transform: translateY(-1px); color: #fff; }
+    .btn-outline-fsk {
+      background: transparent; color: var(--primary);
+      border: 1.5px solid var(--primary); border-radius: var(--radius-sm);
+      padding: .55rem 1.3rem; font-weight: 600; font-size: .875rem;
+      cursor: pointer; transition: all .2s;
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-family: var(--font-body); text-decoration: none;
+    }
+    .btn-outline-fsk:hover { background: var(--primary); color: #fff; }
+    .btn-green-fsk {
+      background: var(--accent); color: #fff;
+      border: none; border-radius: var(--radius-sm);
+      padding: .55rem 1.3rem; font-weight: 600; font-size: .875rem;
+      cursor: pointer; transition: background .2s, transform .15s;
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-family: var(--font-body);
+    }
+    .btn-green-fsk:hover { background: #059669; transform: translateY(-1px); }
+
+    /* ============================================================
+       CATEGORIES
+    ============================================================ */
+    .categories-wrap { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .cat-pill {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .75rem 1.3rem; border-radius: var(--radius);
+      background: var(--surface); border: 1.5px solid var(--border);
+      cursor: pointer; transition: all .25s;
+      font-weight: 600; font-size: .9rem; color: var(--text);
+      text-decoration: none;
+    }
+    .cat-pill i { font-size: 1.1rem; }
+    .cat-pill:hover, .cat-pill.active { border-color: var(--primary); color: var(--primary); background: rgba(29,78,216,.05); }
+    .cat-pill:hover .cat-arrow, .cat-pill.active .cat-arrow { transform: translateX(3px); }
+    .cat-arrow { transition: transform .2s; color: var(--text-light); }
+
+    /* ============================================================
+       TRENDING
+    ============================================================ */
+    .trending-item {
+      display: flex; align-items: flex-start; gap: .85rem;
+      padding: 1rem 1.2rem; border-radius: var(--radius);
+      background: var(--surface); border: 1px solid var(--border);
+      transition: box-shadow .2s, border-color .2s;
+    }
+    .trending-item:hover { box-shadow: var(--shadow); border-color: var(--primary-light); }
+    .trend-num {
+      font-family: var(--font-display); font-weight: 800; font-size: 1.3rem;
+      color: var(--border); flex-shrink: 0; line-height: 1; margin-top: 2px;
+      min-width: 28px;
+    }
+    .trend-title { font-weight: 600; font-size: .9rem; margin-bottom: .2rem; }
+    .trend-meta { font-size: .8rem; color: var(--text-muted); }
+    .trend-badge {
+      font-size: .7rem; font-weight: 700; padding: .18rem .55rem;
+      border-radius: 50px; white-space: nowrap;
+    }
+    .badge-hot  { background: rgba(239,68,68,.1); color: #ef4444; }
+    .badge-new  { background: rgba(16,185,129,.1); color: var(--accent); }
+    .badge-pop  { background: rgba(139,92,246,.1); color: #8b5cf6; }
+
+    /* ============================================================
+       TOOLS PAGE
+    ============================================================ */
+    .tools-sidebar {
+      position: sticky; top: calc(var(--nav-h) + 1rem);
+    }
+    .tool-nav-group { margin-bottom: 1.5rem; }
+    .tool-nav-label {
+      font-size: .72rem; font-weight: 700; letter-spacing: .09em;
+      text-transform: uppercase; color: var(--text-light); margin-bottom: .5rem;
+      padding: 0 .5rem;
+    }
+    .tool-nav-item {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .55rem .75rem; border-radius: var(--radius-sm);
+      cursor: pointer; transition: background .2s, color .2s;
+      font-size: .875rem; font-weight: 500; color: var(--text-muted);
+      border: none; background: none; width: 100%; text-align: left;
+      font-family: var(--font-body);
+    }
+    .tool-nav-item i { font-size: 1rem; flex-shrink: 0; }
+    .tool-nav-item:hover { background: var(--surface2); color: var(--text); }
+    .tool-nav-item.active { background: rgba(29,78,216,.1); color: var(--primary); font-weight: 600; }
+
+    /* Tool panels */
+    .tool-panel { display: none; }
+    .tool-panel.active { display: block; }
+    .tool-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .tool-box-title {
+      font-family: var(--font-display); font-size: 1.4rem; font-weight: 800;
+      margin-bottom: .4rem;
+    }
+    .tool-box-desc { color: var(--text-muted); margin-bottom: 1.5rem; font-size: .9rem; }
+
+    /* Form elements */
+    .fsk-label { font-weight: 600; font-size: .85rem; margin-bottom: .4rem; display: block; }
+    .fsk-input {
+      width: 100%; padding: .65rem .9rem; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border); font-family: var(--font-body);
+      font-size: .9rem; color: var(--text); background: var(--bg);
+      transition: border-color .2s, box-shadow .2s; outline: none;
+    }
+    .fsk-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(29,78,216,.08); }
+    .fsk-select {
+      width: 100%; padding: .65rem .9rem; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border); font-family: var(--font-body);
+      font-size: .9rem; color: var(--text); background: var(--bg);
+      transition: border-color .2s; outline: none; cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right .8rem center;
+      padding-right: 2rem;
+    }
+    .fsk-select:focus { border-color: var(--primary); }
+
+    .result-box {
+      background: linear-gradient(135deg, rgba(29,78,216,.06), rgba(16,185,129,.06));
+      border: 1.5px solid var(--primary-light);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem; margin-top: 1.2rem;
+      display: none;
+    }
+    .result-box.show { display: block; }
+    .result-title { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text-muted); margin-bottom: .4rem; }
+    .result-value { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: var(--primary); }
+    .result-sub { font-size: .85rem; color: var(--text-muted); margin-top: .2rem; }
+
+    /* CGPA rows */
+    .cgpa-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: .6rem; align-items: center; margin-bottom: .6rem; }
+    .cgpa-remove { background: none; border: none; color: var(--text-light); cursor: pointer; font-size: 1.1rem; transition: color .2s; padding: .3rem; }
+    .cgpa-remove:hover { color: #ef4444; }
+
+    /* Citation result */
+    .citation-output {
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); padding: 1rem;
+      font-size: .9rem; font-style: italic; color: var(--text);
+      margin-top: 1rem; line-height: 1.7; display: none;
+    }
+    .citation-output.show { display: block; }
+
+    /* Topics list */
+    .topic-list { list-style: none; padding: 0; }
+    .topic-list li {
+      padding: .75rem 1rem; border-radius: var(--radius-sm);
+      border-left: 3px solid var(--primary); background: var(--surface2);
+      margin-bottom: .5rem; font-size: .9rem; font-weight: 500;
+      cursor: pointer; transition: background .2s;
+    }
+    .topic-list li:hover { background: rgba(29,78,216,.08); }
+
+    /* Profit rows */
+    .profit-table {
+      width: 100%; border-collapse: collapse; font-size: .88rem;
+    }
+    .profit-table th, .profit-table td {
+      padding: .6rem .8rem; text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .profit-table th { font-weight: 700; color: var(--text-muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+    .profit-table td.num { font-family: var(--font-display); font-weight: 700; }
+    .profit-table tr:last-child td { border-bottom: none; }
+    .profit-green { color: var(--accent); }
+    .profit-red { color: #ef4444; }
+
+    /* Invoice */
+    .invoice-preview {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem; display: none;
+    }
+    .invoice-preview.show { display: block; }
+    .invoice-header-line { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
+    .invoice-title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; }
+    .invoice-sub { font-size: .8rem; color: var(--text-muted); }
+    .invoice-tbl { width: 100%; border-collapse: collapse; font-size: .88rem; margin-bottom: 1rem; }
+    .invoice-tbl th { padding: .5rem .75rem; text-align: left; background: var(--surface2); font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); }
+    .invoice-tbl td { padding: .5rem .75rem; border-bottom: 1px solid var(--border); }
+    .invoice-total { text-align: right; }
+    .invoice-total span { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; color: var(--primary); }
+
+    /* Related tools */
+    .related-chip {
+      display: inline-flex; align-items: center; gap: .4rem;
+      padding: .4rem .9rem; border-radius: 50px;
+      background: var(--surface); border: 1.5px solid var(--border);
+      font-size: .82rem; font-weight: 600; color: var(--text);
+      cursor: pointer; transition: all .2s;
+      margin-right: .5rem; margin-bottom: .5rem;
+    }
+    .related-chip:hover { border-color: var(--primary); color: var(--primary); background: rgba(29,78,216,.04); }
+
+    /* ============================================================
+       PAST QUESTIONS PAGE
+    ============================================================ */
+    .filter-bar {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem 1.5rem;
+      display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end;
+      margin-bottom: 2rem;
+    }
+    .filter-group { flex: 1; min-width: 160px; }
+    .pq-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.2rem 1.4rem;
+      display: flex; align-items: center; gap: 1rem;
+      transition: box-shadow .2s, border-color .2s;
+      margin-bottom: .85rem;
+    }
+    .pq-card:hover { box-shadow: var(--shadow); border-color: var(--primary-light); }
+    .pq-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(29,78,216,.08); color: var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .pq-title { font-weight: 700; font-size: .92rem; margin-bottom: .2rem; }
+    .pq-meta { font-size: .78rem; color: var(--text-muted); }
+    .pq-year { font-size: .75rem; background: rgba(29,78,216,.08); color: var(--primary); padding: .18rem .5rem; border-radius: 50px; font-weight: 700; }
+    .pq-actions { margin-left: auto; display: flex; gap: .5rem; flex-shrink: 0; }
+
+    /* ============================================================
+       PROJECTS PAGE
+    ============================================================ */
+    .dept-filter { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2rem; }
+    .dept-btn {
+      padding: .45rem 1rem; border-radius: 50px;
+      border: 1.5px solid var(--border); background: var(--surface);
+      font-size: .85rem; font-weight: 600; color: var(--text-muted);
+      cursor: pointer; transition: all .2s; font-family: var(--font-body);
+    }
+    .dept-btn:hover, .dept-btn.active { border-color: var(--primary); color: var(--primary); background: rgba(29,78,216,.06); }
+    .proj-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.4rem;
+      transition: box-shadow .25s, transform .25s;
+      height: 100%;
+    }
+    .proj-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .proj-dept-badge {
+      font-size: .72rem; font-weight: 700; padding: .2rem .65rem;
+      border-radius: 50px; margin-bottom: .85rem; display: inline-block;
+    }
+    .proj-title { font-family: var(--font-display); font-weight: 700; font-size: .95rem; margin-bottom: .5rem; line-height: 1.3; }
+    .proj-abstract { font-size: .82rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.55; }
+
+    /* ============================================================
+       TEMPLATES PAGE
+    ============================================================ */
+    .template-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.4rem;
+      display: flex; align-items: center; gap: 1.1rem;
+      transition: box-shadow .2s, border-color .2s; height: 100%;
+    }
+    .template-card:hover { box-shadow: var(--shadow); border-color: var(--primary-light); }
+    .template-file-icon {
+      width: 52px; height: 64px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; flex-shrink: 0; position: relative;
+    }
+    .tfi-word   { background: rgba(29,78,216,.1); color: #2563eb; }
+    .tfi-ppt    { background: rgba(249,115,22,.1); color: #f97316; }
+    .tfi-pdf    { background: rgba(239,68,68,.1);  color: #ef4444; }
+    .tfi-excel  { background: rgba(16,185,129,.1); color: var(--accent); }
+
+    /* ============================================================
+       SCHOLARSHIP PAGE
+    ============================================================ */
+    .schol-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.4rem;
+      transition: box-shadow .25s, transform .25s; height: 100%;
+      display: flex; flex-direction: column;
+    }
+    .schol-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+    .schol-header { display: flex; align-items: flex-start; gap: .85rem; margin-bottom: .9rem; }
+    .schol-logo {
+      width: 46px; height: 46px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .schol-title { font-family: var(--font-display); font-weight: 700; font-size: .95rem; margin-bottom: .2rem; line-height: 1.3; }
+    .schol-org { font-size: .8rem; color: var(--text-muted); }
+    .schol-desc { font-size: .85rem; color: var(--text-muted); margin-bottom: 1rem; flex: 1; line-height: 1.55; }
+    .schol-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
+    .deadline-pill {
+      display: flex; align-items: center; gap: .35rem;
+      font-size: .78rem; font-weight: 600;
+    }
+    .deadline-urgent { color: #ef4444; }
+    .deadline-ok { color: var(--accent); }
+    .deadline-soon { color: #f97316; }
+
+    /* ============================================================
+       PAGE HEADER BAND
+    ============================================================ */
+    .page-header {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      padding: 48px 0 44px; position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 80% 50%, rgba(16,185,129,.15), transparent 55%);
+    }
+    .page-header-inner { position: relative; z-index: 1; }
+    .page-header h1 {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800; color: #fff; margin-bottom: .4rem;
+    }
+    .page-header p { color: rgba(255,255,255,.72); font-size: .95rem; margin: 0; }
+    .breadcrumb-fsk { display: flex; align-items: center; gap: .4rem; margin-bottom: .75rem; }
+    .breadcrumb-fsk span, .breadcrumb-fsk a {
+      font-size: .8rem; color: rgba(255,255,255,.55); text-decoration: none; cursor: pointer;
+    }
+    .breadcrumb-fsk a:hover { color: rgba(255,255,255,.85); }
+    .breadcrumb-fsk .sep { color: rgba(255,255,255,.3); }
+    .breadcrumb-fsk .cur { color: rgba(255,255,255,.85); font-weight: 600; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .site-footer {
+      background: var(--text);
+      color: rgba(255,255,255,.65); padding: 60px 0 30px;
+    }
+    .footer-logo-wrap { margin-bottom: 1rem; }
+    .footer-logo {
+      display: inline-flex; align-items: center; gap: .5rem;
+      text-decoration: none; margin-bottom: .75rem;
+    }
+    .footer-logo-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 15px;
+    }
+    .footer-logo-text { font-family: var(--font-display); font-weight: 700; font-size: 1rem; color: #fff; }
+    .footer-logo-text span { color: var(--accent-light); }
+    .footer-tagline { font-size: .85rem; line-height: 1.6; max-width: 280px; }
+    .footer-heading { font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #fff; margin-bottom: .9rem; }
+    .footer-links { list-style: none; padding: 0; }
+    .footer-links li { margin-bottom: .45rem; }
+    .footer-links li a, .footer-links li button {
+      color: rgba(255,255,255,.55); text-decoration: none; font-size: .875rem;
+      transition: color .2s; background: none; border: none; cursor: pointer;
+      font-family: var(--font-body); padding: 0; text-align: left;
+    }
+    .footer-links li a:hover, .footer-links li button:hover { color: #fff; }
+    .footer-divider { border-color: rgba(255,255,255,.1); margin: 2rem 0 1.5rem; }
+    .footer-bottom { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: space-between; align-items: center; }
+    .footer-disclaimer { font-size: .78rem; color: rgba(255,255,255,.35); max-width: 500px; }
+    .footer-copy { font-size: .82rem; color: rgba(255,255,255,.45); }
+    .footer-socials { display: flex; gap: .6rem; }
+    .social-btn {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: rgba(255,255,255,.08); color: rgba(255,255,255,.6);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; font-size: .95rem;
+      transition: background .2s, color .2s;
+    }
+    .social-btn:hover { background: var(--primary); color: #fff; }
+
+    /* ============================================================
+       FLOATING WHATSAPP BUTTON
+    ============================================================ */
+    .wa-fab {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999;
+      width: 54px; height: 54px; border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; color: #fff; font-size: 1.4rem;
+      box-shadow: 0 6px 24px rgba(37,211,102,.4);
+      transition: transform .2s, box-shadow .2s;
+      animation: waPulse 3s ease infinite;
+    }
+    .wa-fab:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,.55); color: #fff; }
+    @keyframes waPulse {
+      0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,.4); }
+      50% { box-shadow: 0 6px 32px rgba(37,211,102,.65), 0 0 0 8px rgba(37,211,102,.1); }
+    }
+    .wa-tooltip {
+      position: fixed; bottom: 4.2rem; right: 4.5rem;
+      background: #fff; box-shadow: var(--shadow);
+      border-radius: var(--radius-sm); padding: .4rem .75rem;
+      font-size: .78rem; font-weight: 600; color: var(--text);
+      white-space: nowrap; opacity: 0; transform: translateX(8px);
+      transition: all .25s; pointer-events: none; z-index: 9998;
+    }
+    .wa-fab:hover + .wa-tooltip, .wa-tooltip:hover { opacity: 1; transform: translateX(0); }
+
+    /* ============================================================
+       MISC
+    ============================================================ */
+    .divider-deco {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem;
+    }
+    .divider-deco::before, .divider-deco::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .divider-deco span { font-size: .78rem; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
+    .info-alert {
+      background: rgba(29,78,216,.07); border: 1px solid rgba(29,78,216,.18);
+      border-radius: var(--radius-sm); padding: .7rem 1rem;
+      font-size: .84rem; color: var(--primary); display: flex; gap: .5rem; align-items: flex-start;
+    }
+    .green-alert {
+      background: rgba(16,185,129,.07); border: 1px solid rgba(16,185,129,.2);
+      color: #065f46;
+    }
+    .tag-chip {
+      display: inline-block; font-size: .72rem; font-weight: 700;
+      padding: .18rem .55rem; border-radius: 50px;
+      margin-right: .3rem; margin-bottom: .3rem;
+    }
+    .count-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--primary); color: #fff; font-size: .68rem; font-weight: 700;
+      margin-left: .35rem;
+    }
+
+    /* ============================================================
+       SEARCH RESULTS OVERLAY
+    ============================================================ */
+    .search-results-overlay {
+      position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 999;
+      background: rgba(15,23,42,.3); backdrop-filter: blur(4px);
+      display: none;
+    }
+    .search-results-overlay.show { display: block; }
+    .search-results-panel {
+      background: var(--surface); max-width: 640px; margin: 1rem auto;
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border); overflow: hidden;
+    }
+    .sr-item {
+      display: flex; align-items: center; gap: .85rem;
+      padding: .9rem 1.2rem; transition: background .15s; cursor: pointer;
+      border-bottom: 1px solid var(--border);
+    }
+    .sr-item:last-child { border-bottom: none; }
+    .sr-item:hover { background: var(--surface2); }
+    .sr-item-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: .95rem; flex-shrink: 0; }
+    .sr-item-text .sr-title { font-weight: 600; font-size: .9rem; margin-bottom: .1rem; }
+    .sr-item-text .sr-cat { font-size: .75rem; color: var(--text-muted); }
+
+    /* scroll reveal */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    /* ============================================================
+       UTILITY
+    ============================================================ */
+    .bg-surface { background: var(--surface); }
+    .bg-surface2 { background: var(--surface2); }
+    .text-muted-fsk { color: var(--text-muted); }
+    .gap-sm { gap: .5rem; }
+    @media(max-width:576px) {
+      section { padding: 50px 0; }
+      .hero { padding: 64px 0 52px; }
+      .tool-box { padding: 1.2rem; }
+      .hero-visual { display: none; }
+      .pq-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a class="nav-logo" onclick="showPage('home')" href="javascript:void(0)">
+      <div class="nav-logo-icon"><i class="bi bi-mortarboard-fill"></i></div>
+      <span class="nav-logo-text">Free<span>StudentKit</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><button class="nav-link-btn" onclick="showPage('home')">Home</button></li>
+      <li><button class="nav-link-btn" onclick="showPage('tools')">Tools</button></li>
+      <li><button class="nav-link-btn" onclick="showPage('pastq')">Past Questions</button></li>
+      <li><button class="nav-link-btn" onclick="showPage('projects')">Projects</button></li>
+      <li><button class="nav-link-btn" onclick="showPage('templates')">Templates</button></li>
+      <li><button class="nav-link-btn" onclick="showPage('scholarships')">Scholarships</button></li>
+      <li><button class="nav-cta nav-link-btn" onclick="showPage('tools')"><i class="bi bi-stars me-1"></i>Free Tools</button></li>
+    </ul>
+    <button class="nav-toggle" id="mobileToggle" onclick="toggleMobileNav()"><i class="bi bi-list"></i></button>
+  </div>
+  <!-- Mobile Nav -->
+  <div class="nav-mobile" id="mobileNav">
+    <button onclick="showPage('home');toggleMobileNav()">🏠 Home</button>
+    <button onclick="showPage('tools');toggleMobileNav()">🧰 Tools</button>
+    <button onclick="showPage('pastq');toggleMobileNav()">📚 Past Questions</button>
+    <button onclick="showPage('projects');toggleMobileNav()">🎓 Final Year Projects</button>
+    <button onclick="showPage('templates');toggleMobileNav()">📝 Templates</button>
+    <button onclick="showPage('scholarships');toggleMobileNav()">🏅 Scholarships</button>
+    <button class="nav-cta" onclick="showPage('tools');toggleMobileNav()"><i class="bi bi-stars me-1"></i> Free Tools</button>
+  </div>
+</nav>
+
+<!-- Search Results Overlay -->
+<div class="search-results-overlay" id="searchOverlay" onclick="closeSearch(event)">
+  <div class="search-results-panel" onclick="event.stopPropagation()">
+    <div id="searchResultsList"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: HOME
+============================================================ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7 hero-content">
+          <div class="hero-badge"><i class="bi bi-stars"></i> 100% Free for Students</div>
+          <h1>Everything You Need to <em>Succeed</em> as a Student</h1>
+          <p class="hero-sub">FreeStudentKit brings academic tools, past questions, project materials, templates, and scholarships into one clean, fast platform — built for students, by students.</p>
+          <div class="hero-search">
+            <i class="bi bi-search"></i>
+            <input type="text" id="heroSearchInput" placeholder="Search for tools, past questions, projects..." oninput="handleSearch(this.value)" onkeydown="if(event.key==='Escape')closeSearch()"/>
+            <button onclick="handleSearchBtn()">Search</button>
+          </div>
+          <div class="hero-btns">
+            <button class="btn-hero-primary" onclick="showPage('tools')"><i class="bi bi-tools me-1"></i>Explore Tools</button>
+            <button class="btn-hero-ghost" onclick="showPage('pastq')"><i class="bi bi-collection me-1"></i>Browse Resources</button>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat"><span class="num">50+</span><span class="lbl">Academic Tools</span></div>
+            <div class="hero-stat"><span class="num">1,200+</span><span class="lbl">Past Questions</span></div>
+            <div class="hero-stat"><span class="num">800+</span><span class="lbl">Project Topics</span></div>
+            <div class="hero-stat"><span class="num">100%</span><span class="lbl">Free Access</span></div>
+          </div>
+        </div>
+        <div class="col-lg-5 d-none d-lg-block">
+          <div class="hero-visual">
+            <div class="hero-card-float">
+              <div class="ic blue"><i class="bi bi-calculator-fill"></i></div>
+              <div><h6>CGPA Calculator</h6><p>Calculate your cumulative GPA instantly</p></div>
+            </div>
+            <div class="hero-card-float" style="margin-left:2rem">
+              <div class="ic green"><i class="bi bi-lightbulb-fill"></i></div>
+              <div><h6>Project Topic Generator</h6><p>AI-powered final year project ideas</p></div>
+            </div>
+            <div class="hero-card-float">
+              <div class="ic orange"><i class="bi bi-file-earmark-text-fill"></i></div>
+              <div><h6>SIWES Logbook</h6><p>Professional template — download free</p></div>
+            </div>
+            <div class="hero-card-float" style="margin-left:2rem">
+              <div class="ic blue"><i class="bi bi-award-fill"></i></div>
+              <div><h6>Scholarship Finder</h6><p>Latest scholarships for Nigerian students</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED TOOLS -->
+  <section class="bg-surface">
+    <div class="container">
+      <div class="text-center mb-5">
+        <div class="section-label"><i class="bi bi-stars"></i> Featured Tools</div>
+        <h2 class="section-title">Academic Tools That Actually Work</h2>
+        <p class="text-muted-fsk mx-auto" style="max-width:480px">Smart, fast, and built specifically for university students. No login required.</p>
+      </div>
+      <div class="row g-4">
+        <!-- Card 1 -->
+        <div class="col-sm-6 col-lg-3 reveal reveal-delay-1">
+          <div class="fsk-card text-center">
+            <div class="card-icon icon-blue mx-auto"><i class="bi bi-calculator-fill"></i></div>
+            <div class="card-title">Project Topic Generator</div>
+            <div class="card-desc">Generate unique, department-specific final year project topics in seconds.</div>
+            <button class="btn-primary-fsk w-100 justify-content-center" onclick="showTool('topicGen')"><i class="bi bi-arrow-right"></i> Use Tool</button>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-sm-6 col-lg-3 reveal reveal-delay-2">
+          <div class="fsk-card text-center">
+            <div class="card-icon icon-green mx-auto"><i class="bi bi-graph-up"></i></div>
+            <div class="card-title">CGPA Calculator</div>
+            <div class="card-desc">Add your courses and grades. Get your GPA and CGPA calculated instantly.</div>
+            <button class="btn-primary-fsk w-100 justify-content-center" onclick="showTool('cgpa')"><i class="bi bi-arrow-right"></i> Use Tool</button>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-sm-6 col-lg-3 reveal reveal-delay-3">
+          <div class="fsk-card text-center">
+            <div class="card-icon icon-orange mx-auto"><i class="bi bi-award-fill"></i></div>
+            <div class="card-title">Scholarship Finder</div>
+            <div class="card-desc">Browse active scholarships available to undergraduate and postgraduate students.</div>
+            <button class="btn-primary-fsk w-100 justify-content-center" onclick="showPage('scholarships')"><i class="bi bi-arrow-right"></i> Use Tool</button>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="col-sm-6 col-lg-3 reveal reveal-delay-4">
+          <div class="fsk-card text-center">
+            <div class="card-icon icon-purple mx-auto"><i class="bi bi-journal-text"></i></div>
+            <div class="card-title">Citation Formatter</div>
+            <div class="card-desc">Generate APA, MLA, and Harvard citations from book or journal details.</div>
+            <button class="btn-primary-fsk w-100 justify-content-center" onclick="showTool('citation')"><i class="bi bi-arrow-right"></i> Use Tool</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section>
+    <div class="container">
+      <div class="section-label"><i class="bi bi-grid-3x3-gap-fill"></i> Categories</div>
+      <h2 class="section-title">Find What You Need Fast</h2>
+      <p class="section-sub">Tap any category to jump straight to the resources you need.</p>
+      <div class="categories-wrap">
+        <a class="cat-pill" onclick="showPage('tools')" href="javascript:void(0)">
+          <i class="bi bi-tools" style="color:var(--primary)"></i> Tools
+          <span class="count-badge">12</span>
+          <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
+        </a>
+        <a class="cat-pill" onclick="showPage('pastq')" href="javascript:void(0)">
+          <i class="bi bi-book-fill" style="color:#8b5cf6"></i> Past Questions
+          <span class="count-badge" style="background:#8b5cf6">24</span>
+          <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
+        </a>
+        <a class="cat-pill" onclick="showPage('projects')" href="javascript:void(0)">
+          <i class="bi bi-mortarboard-fill" style="color:#f97316"></i> Final Year Projects
+          <span class="count-badge" style="background:#f97316">36</span>
+          <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
+        </a>
+        <a class="cat-pill" onclick="showPage('templates')" href="javascript:void(0)">
+          <i class="bi bi-file-earmark-text-fill" style="color:var(--accent)"></i> Templates
+          <span class="count-badge" style="background:var(--accent)">8</span>
+          <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
+        </a>
+        <a class="cat-pill" onclick="showPage('scholarships')" href="javascript:void(0)">
+          <i class="bi bi-award-fill" style="color:#ef4444"></i> Scholarships
+          <span class="count-badge" style="background:#ef4444">6</span>
+          <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRENDING -->
+  <section class="bg-surface2">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-6">
+          <div class="section-label"><i class="bi bi-fire"></i> Trending Now</div>
+          <h2 class="section-title mb-4">Popular This Week</h2>
+          <div class="d-flex flex-column gap-2">
+            <div class="trending-item"><div class="trend-num">01</div><div class="flex-1"><div class="trend-title">Introduction to Machine Learning — CSC 401 Past Q</div><div class="trend-meta d-flex align-items-center gap-2">Computer Science &nbsp;·&nbsp; 2023 <span class="trend-badge badge-hot">🔥 Hot</span></div></div></div>
+            <div class="trending-item"><div class="trend-num">02</div><div class="flex-1"><div class="trend-title">Blockchain-Based Voting System Project</div><div class="trend-meta d-flex align-items-center gap-2">Computer Science &nbsp;·&nbsp; Project Topic <span class="trend-badge badge-new">✨ New</span></div></div></div>
+            <div class="trending-item"><div class="trend-num">03</div><div class="flex-1"><div class="trend-title">SIWES Report Template (Engineering)</div><div class="trend-meta d-flex align-items-center gap-2">Template &nbsp;·&nbsp; 4,200 downloads <span class="trend-badge badge-pop">⭐ Popular</span></div></div></div>
+            <div class="trending-item"><div class="trend-num">04</div><div class="flex-1"><div class="trend-title">MTN Foundation Scholarship 2024/2025</div><div class="trend-meta d-flex align-items-center gap-2">Scholarship &nbsp;·&nbsp; Deadline: Dec 31 <span class="trend-badge badge-hot">🔥 Hot</span></div></div></div>
+            <div class="trending-item"><div class="trend-num">05</div><div class="flex-1"><div class="trend-title">Financial Accounting — ACC 201 Past Questions</div><div class="trend-meta d-flex align-items-center gap-2">Accounting &nbsp;·&nbsp; 2022 & 2023 <span class="trend-badge badge-pop">⭐ Popular</span></div></div></div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="section-label"><i class="bi bi-lightning-fill"></i> Quick Access</div>
+          <h2 class="section-title mb-4">Recently Added</h2>
+          <div class="row g-3">
+            <div class="col-6">
+              <div class="fsk-card p-3" onclick="showPage('tools')" style="cursor:pointer">
+                <div class="card-icon icon-teal mb-2" style="width:40px;height:40px;font-size:1.1rem"><i class="bi bi-receipt-cutoff"></i></div>
+                <div class="card-title" style="font-size:.88rem">Invoice Generator</div>
+                <div class="card-desc" style="font-size:.78rem;margin-bottom:0">Create professional invoices</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="fsk-card p-3" onclick="showTool('gpa')" style="cursor:pointer">
+                <div class="card-icon icon-orange mb-2" style="width:40px;height:40px;font-size:1.1rem"><i class="bi bi-arrow-repeat"></i></div>
+                <div class="card-title" style="font-size:.88rem">GPA Converter</div>
+                <div class="card-desc" style="font-size:.78rem;margin-bottom:0">Convert GPA between scales</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="fsk-card p-3" onclick="showPage('projects')" style="cursor:pointer">
+                <div class="card-icon icon-blue mb-2" style="width:40px;height:40px;font-size:1.1rem"><i class="bi bi-diagram-3-fill"></i></div>
+                <div class="card-title" style="font-size:.88rem">Projects — EEE</div>
+                <div class="card-desc" style="font-size:.78rem;margin-bottom:0">48 topics added this week</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="fsk-card p-3" onclick="showPage('pastq')" style="cursor:pointer">
+                <div class="card-icon icon-purple mb-2" style="width:40px;height:40px;font-size:1.1rem"><i class="bi bi-file-earmark-pdf-fill"></i></div>
+                <div class="card-title" style="font-size:.88rem">Law Past Questions</div>
+                <div class="card-desc" style="font-size:.78rem;margin-bottom:0">2019 – 2023 series</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER CTA -->
+  <section style="padding:56px 0">
+    <div class="container">
+      <div style="background:linear-gradient(135deg,var(--primary-dark),var(--primary));border-radius:var(--radius-lg);padding:48px 40px;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle at 80% 50%,rgba(16,185,129,.2),transparent 55%);pointer-events:none"></div>
+        <div class="row align-items-center g-4" style="position:relative;z-index:1">
+          <div class="col-md-7">
+            <h3 style="font-family:var(--font-display);font-weight:800;font-size:clamp(1.4rem,3vw,2rem);color:#fff;margin-bottom:.6rem">Get Smarter, Study Faster</h3>
+            <p style="color:rgba(255,255,255,.72);margin:0;font-size:.95rem">Join thousands of Nigerian students using FreeStudentKit to ace their academics and land opportunities.</p>
+          </div>
+          <div class="col-md-5 d-flex gap-3 justify-content-md-end flex-wrap">
+            <button class="btn-hero-primary" onclick="showPage('tools')"><i class="bi bi-tools me-1"></i> Open Toolkit</button>
+            <button class="btn-hero-ghost" onclick="showPage('scholarships')"><i class="bi bi-award me-1"></i> Find Scholarships</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER inside home -->
+  <div id="homeFooter"></div>
+</div>
+
+<!-- ============================================================
+     PAGE: TOOLS
+============================================================ -->
+<div class="page" id="page-tools">
+  <div class="page-header">
+    <div class="container page-header-inner">
+      <div class="breadcrumb-fsk">
+        <a onclick="showPage('home')">Home</a>
+        <span class="sep">/</span>
+        <span class="cur">Tools</span>
+      </div>
+      <h1><i class="bi bi-tools me-2"></i>Academic Tools</h1>
+      <p>Free tools built for university students. No sign-up. No cost. Just results.</p>
+    </div>
+  </div>
+  <section>
+    <div class="container">
+      <div class="row g-4">
+        <!-- Sidebar -->
+        <div class="col-lg-3 d-none d-lg-block">
+          <div class="tools-sidebar">
+            <div class="tool-nav-group">
+              <div class="tool-nav-label">Academic</div>
+              <button class="tool-nav-item active" id="nav-cgpa" onclick="showTool('cgpa')"><i class="bi bi-graph-up"></i> CGPA Calculator</button>
+              <button class="tool-nav-item" id="nav-gpa" onclick="showTool('gpa')"><i class="bi bi-arrow-repeat"></i> GPA Converter</button>
+              <button class="tool-nav-item" id="nav-citation" onclick="showTool('citation')"><i class="bi bi-journal-bookmark"></i> Citation Generator</button>
+            </div>
+            <div class="tool-nav-group">
+              <div class="tool-nav-label">Project</div>
+              <button class="tool-nav-item" id="nav-topicGen" onclick="showTool('topicGen')"><i class="bi bi-lightbulb"></i> Topic Generator</button>
+              <button class="tool-nav-item" id="nav-seminarIdea" onclick="showTool('seminarIdea')"><i class="bi bi-chat-square-text"></i> Seminar Ideas</button>
+            </div>
+            <div class="tool-nav-group">
+              <div class="tool-nav-label">Utility</div>
+              <button class="tool-nav-item" id="nav-invoice" onclick="showTool('invoice')"><i class="bi bi-receipt-cutoff"></i> Invoice Generator</button>
+              <button class="tool-nav-item" id="nav-profit" onclick="showTool('profit')"><i class="bi bi-cash-coin"></i> Profit Calculator</button>
+            </div>
+          </div>
+        </div>
+        <!-- Tool content -->
+        <div class="col-lg-9">
+          <!-- Mobile tool selector -->
+          <div class="d-lg-none mb-3">
+            <select class="fsk-select" onchange="showTool(this.value)">
+              <optgroup label="Academic Tools">
+                <option value="cgpa">CGPA Calculator</option>
+                <option value="gpa">GPA Converter</option>
+                <option value="citation">Citation Generator</option>
+              </optgroup>
+              <optgroup label="Project Tools">
+                <option value="topicGen">Project Topic Generator</option>
+                <option value="seminarIdea">Seminar Idea Generator</option>
+              </optgroup>
+              <optgroup label="Utility Tools">
+                <option value="invoice">Invoice Generator</option>
+                <option value="profit">Profit Calculator</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <!-- ── TOOL: CGPA CALCULATOR ── -->
+          <div class="tool-panel active" id="tool-cgpa">
+            <div class="tool-box">
+              <div class="d-flex align-items-start gap-3 mb-3">
+                <div class="card-icon icon-green" style="flex-shrink:0"><i class="bi bi-graph-up"></i></div>
+                <div>
+                  <div class="tool-box-title">CGPA Calculator</div>
+                  <div class="tool-box-desc">Add your courses, credit units, and grades. Your GPA is calculated in real time.</div>
+                </div>
+              </div>
+              <div class="info-alert mb-3"><i class="bi bi-info-circle-fill mt-1"></i> Uses the 5-point grading scale (A=5, B=4, C=3, D=2, E=1, F=0). Commonly used by Nigerian universities.</div>
+              <!-- Grade scale guide -->
+              <div class="row g-2 mb-3">
+                <div class="col-12"><div class="tool-nav-label mb-1">Grade Scale</div></div>
+                <div class="col-auto"><span class="tag-chip" style="background:rgba(16,185,129,.1);color:var(--accent)">A = 70–100% (5pts)</span></div>
+                <div class="col-auto"><span class="tag-chip" style="background:rgba(29,78,216,.1);color:var(--primary)">B = 60–69% (4pts)</span></div>
+                <div class="col-auto"><span class="tag-chip" style="background:rgba(234,179,8,.1);color:#ca8a04">C = 50–59% (3pts)</span></div>
+                <div class="col-auto"><span class="tag-chip" style="background:rgba(249,115,22,.1);color:#f97316">D = 45–49% (2pts)</span></div>
+                <div class="col-auto"><span class="tag-chip" style="background:rgba(239,68,68,.1);color:#ef4444">F = 0–44% (0pts)</span></div>
+              </div>
+              <div id="cgpaRows"></div>
+              <button class="btn-outline-fsk mt-1 mb-3" onclick="addCgpaRow()"><i class="bi bi-plus-lg"></i> Add Course</button>
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn-primary-fsk" onclick="calcCgpa()"><i class="bi bi-calculator"></i> Calculate CGPA</button>
+                <button class="btn-outline-fsk" onclick="clearCgpa()"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+              </div>
+              <div class="result-box" id="cgpaResult">
+                <div class="result-title">Your CGPA</div>
+                <div class="result-value" id="cgpaValue">0.00</div>
+                <div class="result-sub" id="cgpaClass">—</div>
+              </div>
+            </div>
+            <!-- Related Tools -->
+            <div class="tool-box">
+              <div class="tool-nav-label mb-2">Related Tools</div>
+              <div>
+                <span class="related-chip" onclick="showTool('gpa')"><i class="bi bi-arrow-repeat"></i> GPA Converter</span>
+                <span class="related-chip" onclick="showTool('topicGen')"><i class="bi bi-lightbulb"></i> Topic Generator</span>
+                <span class="related-chip" onclick="showTool('citation')"><i class="bi bi-journal-bookmark"></i> Citation Generator</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── TOOL: GPA CONVERTER ── -->
+          <div class="tool-panel" id="tool-gpa">
+            <div class="tool-box">
+              <div class="d-flex align-items-start gap-3 mb-3">
+                <div class="card-icon icon-orange" style="flex-shrink:0"><i class="bi bi-arrow-repeat"></i></div>
+                <div>
+                  <div class="tool-box-title">GPA Converter</div>
+                  <div class="tool-box-desc">Convert your GPA between the 5.0 and 4.0 grading scales used by different universities.</div>
+                </div>
+              </div>
+              <div class="row g-3">
+                <div class="col-md-5">
+                  <label class="fsk-label">Your GPA</label>
+                  <input type="number" id="gpaInput" class="fsk-input" placeholder="e.g. 3.85" step="0.01" min="0" max="5" oninput="convertGpa()"/>
+                </div>
+                <div class="col-md-4">
+                  <label class="fsk-label">From Scale</label>
+                  <select class="fsk-select" id="gpaScaleFrom" onchange="convertGpa()">
+                    <option value="5">5.0 Scale</option>
+                    <option value="4">4.0 Scale</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label class="fsk-label">To Scale</label>
+                  <select class="fsk-select" id="gpaScaleTo" onchange="convertGpa()">
+                    <option value="4">4.0 Scale</option>
+                    <option value="5">5.0 Scale</option>
+                  </select>
+                </div>
+              </div>
+              <div class="result-box" id="gpaResult">
+                <div class="result-title">Converted GPA</div>
+                <div class="result-value" id="gpaConverted">—</div>
+                <div class="result-sub" id="gpaConvertedClass">—</div>
+              </div>
+            </div>
+            <div class="tool-box">
+              <div class="tool-nav-label mb-2">Related Tools</div>
+              <span class="related-chip" onclick="showTool('cgpa')"><i class="bi bi-graph-up"></i> CGPA Calculator</span>
+              <span class="related-chip" onclick="showTool('topicGen')"><i class="bi bi-lightbulb"></i> Topic Generator</span>
+            </div>
+          </div>
+
+          <!-- ── TOOL: CITATION GENERATOR ── -->
+          <div class="tool-panel" id="tool-citation">
+            <div class="tool-box">
+              <div class="d-flex align-items-start gap-3 mb-3">
+                <div class="card-icon icon-purple" style="flex-shrink:0"><i class="bi bi-journal-bookmark"></i></div>
+                <div>
+                  <div class="tool-box-title">Citation Generator</div>
+                  <div class="tool-box-desc">Generate properly formatted citations in APA, MLA, or Harvard style instantly.</div>
+                </div>
+              </div>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="fsk-label">Citation Style</label>
+                  <select class="fsk-select" id="citeStyle">
+                    <option value="apa">APA 7th Edition</option>
+                    <option value="mla">MLA 9th Edition</option>
+                    <option value="harvard">Harvard</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label class="fsk-label">Source Type</label>
+                  <select class="fsk-select" id="citeType">
+                    <option value="book">Book</option>
+                    <option value="journal">Journal Article</option>
+                    <option value="website">Website</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label class="fsk-label">Year Published</label>
+                  <input type="number" id="citeYear" class="fsk-input" placeholder="2023" min="1900" max="2030"/>
+                </div>
+                <div class="col-md-6">
+                  <label class="fsk-label">Author(s) Last Name, First</label>
+                  <input type="text" id="citeAuthor" class="fsk-input" placeholder="e.g. Okafor, Emeka"/>
+                </div>
+                <div class="col-md-6">
+                  <label class="fsk-label">Title of Work</label>
+                  <input type="text" id="citeTitle" class="fsk-input" placeholder="e.g. Introduction to Data Science"/>
+                </div>
+                <div class="col-md-6">
+                  <label class="fsk-label">Publisher / Journal Name</label>
+                  <input type="text" id="citePublisher" class="fsk-input" placeholder="e.g. Pearson Education"/>
+                </div>
+                <div class="col-md-6">
+                  <label class="fsk-label">City / URL (optional)</label>
+                  <input type="text" id="citeCity" class="fsk-input" placeholder="e.g. Lagos or https://..."/>
+                </div>
+              </div>
+              <button class="btn-primary-fsk mt-3" onclick="generateCitation()"><i class="bi bi-quote"></i> Generate Citation</button>
+              <div class="citation-output" id="citationOutput"></div>
+              <button class="btn-outline-fsk mt-2 d-none" id="copyCiteBtn" onclick="copyCitation()"><i class="bi bi-clipboard"></i> Copy to Clipboard</button>
+            </div>
+            <div class="tool-box">
+              <div class="tool-nav-label mb-2">Related Tools</div>
+              <span class="related-chip" onclick="showTool('cgpa')"><i class="bi bi-graph-up"></i> CGPA Calculator</span>
+              <span class="related-chip" onclick="showPage('templates')"><i class="bi bi-file-earmark-text"></i> Report Templates</span>
+            </div>
+          </div>
+
+          <!-- ── TOOL: TOPIC GENERATOR ── -->
+          <div class="tool-panel" id="tool-topicGen">
+            <div class="tool-box">
+              <div class="d-flex align-items-start gap-3 mb-3">
+                <div class="card-icon icon-blue" style="flex-shrink:0"><i class="bi bi-lightbulb-fill"></i></div>
+                <div>
+                  <div class="tool-box-title">Project Topic Generator</div>
+                  <div class="tool-box-desc">Select your department and focus area to generate fresh, unique final year project topics.</div>
+                </div>
+              </div>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="fsk-label">Department</label>
+                  <select class="fsk-select" id="topicDept">
+                    <option value="csc">Computer Science</option>
+                    <option value="eee">Electrical Engineering</option>
+                    <option value="mec">Mechanical Engineering</option>
+                    <option value="acc">Accounting</option>
+                    <option value="bus">Business Administration</option>
+                    <option value="med">Nursing / Medicine</option>
+                    <option value="law">Law</option>
+                    <option value="edu">Education</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="fsk-label">Focus Area (optional keyword)</label>
+                  <input type="text" id="topicKeyword" class="fsk-input" placeholder="e.g. blockchain, AI, finance"/>
+                </div>
+              </div>
+              <button class="btn-primary-fsk mt-3" onclick="generateTopics()"><i class="bi bi-magic"></i> Generate Topics</button>
+              <div id="topicResults" class="mt-3"></div>
+            </div>
+            <div class="tool-box">
+              <div class="tool-nav-label mb-2">Related Tools</div>
+              <span class="related-chip" onclick="showTool('seminarIdea')"><i class="bi bi-chat-square-text"></i> Seminar Ideas</span>
+              <span class="related-chip" onclick="showPage('projects')"><i class="bi bi-collection"></i> Browse Projects</span>
+              <span class="related-chip" onclick="showPage('templates')"><i class="bi bi-file-earmark-text"></i> Templates</span>
+            </div>
+          </div>
+
+          <!-- ── TOOL: SEMINAR IDEA GENERATOR ── -->
+          <div class="tool-panel" id="tool-seminarIdea">
+            <div class="tool-box">
+              <div class="d-flex align-items-start gap-3 mb-3">
+                <div class="card-icon icon-teal" style="flex-shrink:0"><i class="bi bi-chat-square-text"></i></div>
+                <div>
+                  <div class="tool-box-title">Seminar Idea Generator</div>
+                  <div class="tool-box-desc">Generate compelling seminar topics and paper ideas for any course or discipline.</div>
+                </div>
+              </div>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="fsk-label">Subject / Course</label>
+                  <input type="text" id="seminarSubject" class="fsk-input" placeholder="e.g. Environmental Science"/>
+                </div>
+                <div class="col-md-6">
+                  <label class="fsk-label">Format</label>
+                  <select class="fsk-select" id="seminarFormat">
+                    <option>Research Paper</option>
+                    <option>Presentation Topic</option>
+                    <option>Group Discussion</option>
+                    <option>Debate Motion</option>
+                  </select>
+                </div>
+              </div>
+              <button class="btn-primary-fsk mt-3" onclick="generateSeminarIdeas()"><i class="bi bi-magic"></i> Generate Ideas</button>
+              <div id="seminarResults" class="mt-3"></div>
+            </div>
+            <div class="tool-box">
+              <div class="tool-nav-label mb-2">Related Tools</div>
+              <span class="related-chip" onclick="showTool('topicGen')"><i class="bi bi-lightbulb"></i> Project Topics</span>
+              <span class="related-chip" onclick="showPage('templates')"><i class="bi bi-file-earmark-slides"></i> Seminar Slides</span>
+            </div>
+          </div>
+
+          <!-- ── TOOL: INVOICE GENERATOR ── -->
+          <div class="tool-panel" id="tool-invoice">
+            <div class="tool-box">
+              <div class="d-flex align-items-start gap-3 mb-3">
+                <div class="card-icon icon-teal" style="flex-shrink:0"><i class="bi bi-receipt-cutoff"></i></div>
+                <div>
+                  <div class="tool-box-title">Invoice Generator</div>
+                  <div class="tool-box-desc">Create clean, professional invoices for freelance work or student projects.</div>
+                </div>
+              </div>
+              <div class="row g-3 mb-3">
+                <div class="col-md-6"><label class="fsk-label">Your Name / Business</label><input id="invFrom" type="text" class="fsk-input" placeholder="e.g. Emeka Designs"/></div>
+                <div class="col-md-6"><label class="fsk-label">Client Name</label><input id="invTo" type="text" class="fsk-input" placeholder="e.g. TechCorp Ltd"/></div>
+                <div class="col-md-4"><label class="fsk-label">Invoice #</label><input id="invNum" type="text" class="fsk-input" value="INV-001"/></div>
+                <div class="col-md-4"><label class="fsk-label">Date</label><input id="invDate" type="date" class="fsk-input"/></div>
+                <div class="col-md-4"><label class="fsk-label">Currency</label><select id="invCurrency" class="fsk-select"><option>₦</option><option>$</option><option>£</option><option>€</option></select></div>
+              </div>
+              <div class="tool-nav-label mb-2">Line Items</div>
+              <div id="invoiceItems"></div>
+              <button class="btn-outline-fsk mt-1 mb-3" onclick="addInvoiceItem()"><i class="bi bi-plus-lg"></i> Add Item</button>
+              <div class="d-flex gap-2">
+                <button class="btn-primary-fsk" onclick="generateInvoice()"><i class="bi bi-eye"></i> Preview Invoice</button>
+                <button class="btn-green-fsk" onclick="printInvoice()"><i class="bi bi-printer"></i> Print / Save PDF</button>
+              </div>
+              <div class="invoice-preview mt-3" id="invoicePreview"></div>
+            </div>
+            <div class="tool-box">
+              <div class="tool-nav-label mb-2">Related Tools</div>
+              <span class="related-chip" onclick="showTool('profit')"><i class="bi bi-cash-coin"></i> Profit Calculator</span>
+              <span class="related-chip" onclick="showPage('templates')"><i class="bi bi-file-earmark-text"></i> Templates</span>
+            </div>
+          </div>
+
+          <!-- ── TOOL: PROFIT CALCULATOR ── -->
+          <div class="tool-panel" id="tool-profit">
+            <div class="tool-box">
+              <div class="d-flex align-items-start gap-3 mb-3">
+                <div class="card-icon icon-green" style="flex-shrink:0"><i class="bi bi-cash-coin"></i></div>
+                <div>
+                  <div class="tool-box-title">Profit Calculator</div>
+                  <div class="tool-box-desc">Calculate profit, revenue, margin, and markup for business or accounting assignments.</div>
+                </div>
+              </div>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="fsk-label">Cost Price (₦)</label>
+                  <input type="number" id="profCost" class="fsk-input" placeholder="e.g. 5000" oninput="calcProfit()"/>
+                </div>
+                <div class="col-md-4">
+                  <label class="fsk-label">Selling Price (₦)</label>
+                  <input type="number" id="profSell" class="fsk-input" placeholder="e.g. 8000" oninput="calcProfit()"/>
+                </div>
+                <div class="col-md-4">
+                  <label class="fsk-label">Quantity</label>
+                  <input type="number" id="profQty" class="fsk-input" placeholder="e.g. 10" value="1" oninput="calcProfit()"/>
+                </div>
+              </div>
+              <div class="result-box mt-3" id="profitResult">
+                <table class="profit-table">
+                  <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+                  <tbody id="profitTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="tool-box">
+              <div class="tool-nav-label mb-2">Related Tools</div>
+              <span class="related-chip" onclick="showTool('invoice')"><i class="bi bi-receipt-cutoff"></i> Invoice Generator</span>
+              <span class="related-chip" onclick="showTool('cgpa')"><i class="bi bi-graph-up"></i> CGPA Calculator</span>
+            </div>
+          </div>
+
+        </div><!-- /col -->
+      </div><!-- /row -->
+    </div><!-- /container -->
+  </section>
+  <div id="toolsFooter"></div>
+</div>
+
+<!-- ============================================================
+     PAGE: PAST QUESTIONS
+============================================================ -->
+<div class="page" id="page-pastq">
+  <div class="page-header">
+    <div class="container page-header-inner">
+      <div class="breadcrumb-fsk"><a onclick="showPage('home')">Home</a><span class="sep">/</span><span class="cur">Past Questions</span></div>
+      <h1><i class="bi bi-book-fill me-2"></i>Past Questions & Answers</h1>
+      <p>Download past exam questions across all departments — free, fast, and organized.</p>
+    </div>
+  </div>
+  <section>
+    <div class="container">
+      <div class="filter-bar">
+        <div class="filter-group">
+          <label class="fsk-label">Department</label>
+          <select class="fsk-select" id="pqDeptFilter" onchange="filterPQ()">
+            <option value="">All Departments</option>
+            <option>Computer Science</option>
+            <option>Electrical Engineering</option>
+            <option>Accounting</option>
+            <option>Law</option>
+            <option>Business Administration</option>
+            <option>Nursing</option>
+            <option>Mass Communication</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="fsk-label">Exam Type</label>
+          <select class="fsk-select" id="pqTypeFilter" onchange="filterPQ()">
+            <option value="">All Types</option>
+            <option>Semester Exam</option>
+            <option>Continuous Assessment</option>
+            <option>WAEC/NECO</option>
+            <option>UTME / Post-UTME</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="fsk-label">Year</label>
+          <select class="fsk-select" id="pqYearFilter" onchange="filterPQ()">
+            <option value="">Any Year</option>
+            <option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option>
+          </select>
+        </div>
+        <div>
+          <label class="fsk-label">&nbsp;</label>
+          <button class="btn-outline-fsk d-flex" onclick="resetPQFilters()"><i class="bi bi-x-circle"></i> Reset</button>
+        </div>
+      </div>
+
+      <div id="pqList"></div>
+    </div>
+  </section>
+  <div id="pastqFooter"></div>
+</div>
+
+<!-- ============================================================
+     PAGE: PROJECTS
+============================================================ -->
+<div class="page" id="page-projects">
+  <div class="page-header">
+    <div class="container page-header-inner">
+      <div class="breadcrumb-fsk"><a onclick="showPage('home')">Home</a><span class="sep">/</span><span class="cur">Final Year Projects</span></div>
+      <h1><i class="bi bi-mortarboard-fill me-2"></i>Final Year Project Topics</h1>
+      <p>Browse hundreds of approved project topics with abstracts, sorted by department.</p>
+    </div>
+  </div>
+  <section>
+    <div class="container">
+      <div class="dept-filter" id="deptFilterBtns">
+        <button class="dept-btn active" onclick="filterProjects('all',this)">All Departments</button>
+        <button class="dept-btn" onclick="filterProjects('CSC',this)">Computer Science</button>
+        <button class="dept-btn" onclick="filterProjects('EEE',this)">Electrical Eng.</button>
+        <button class="dept-btn" onclick="filterProjects('MEC',this)">Mechanical Eng.</button>
+        <button class="dept-btn" onclick="filterProjects('ACC',this)">Accounting</button>
+        <button class="dept-btn" onclick="filterProjects('BUS',this)">Business Admin.</button>
+        <button class="dept-btn" onclick="filterProjects('LAW',this)">Law</button>
+        <button class="dept-btn" onclick="filterProjects('NUR',this)">Nursing</button>
+      </div>
+      <div class="row g-4" id="projectsGrid"></div>
+    </div>
+  </section>
+  <div id="projectsFooter"></div>
+</div>
+
+<!-- ============================================================
+     PAGE: TEMPLATES
+============================================================ -->
+<div class="page" id="page-templates">
+  <div class="page-header">
+    <div class="container page-header-inner">
+      <div class="breadcrumb-fsk"><a onclick="showPage('home')">Home</a><span class="sep">/</span><span class="cur">Templates</span></div>
+      <h1><i class="bi bi-file-earmark-text-fill me-2"></i>Student Templates</h1>
+      <p>Download professionally designed templates for your academic and professional needs.</p>
+    </div>
+  </div>
+  <section>
+    <div class="container">
+      <div class="section-label mb-3"><i class="bi bi-folder-fill"></i> Academic Documents</div>
+      <div class="row g-4 mb-5" id="templateGrid1"></div>
+      <div class="section-label mb-3"><i class="bi bi-laptop"></i> Digital & Presentation</div>
+      <div class="row g-4" id="templateGrid2"></div>
+    </div>
+  </section>
+  <div id="templatesFooter"></div>
+</div>
+
+<!-- ============================================================
+     PAGE: SCHOLARSHIPS
+============================================================ -->
+<div class="page" id="page-scholarships">
+  <div class="page-header">
+    <div class="container page-header-inner">
+      <div class="breadcrumb-fsk"><a onclick="showPage('home')">Home</a><span class="sep">/</span><span class="cur">Scholarships</span></div>
+      <h1><i class="bi bi-award-fill me-2"></i>Scholarships & Funding</h1>
+      <p>Active scholarships available to Nigerian undergraduate and postgraduate students.</p>
+    </div>
+  </div>
+  <section>
+    <div class="container">
+      <div class="d-flex flex-wrap gap-2 mb-4" id="scholFilters">
+        <button class="dept-btn active" onclick="filterSchols('all',this)">All</button>
+        <button class="dept-btn" onclick="filterSchols('Undergraduate',this)">Undergraduate</button>
+        <button class="dept-btn" onclick="filterSchols('Postgraduate',this)">Postgraduate</button>
+        <button class="dept-btn" onclick="filterSchols('Both',this)">Open to All</button>
+      </div>
+      <div class="row g-4" id="scholGrid"></div>
+    </div>
+  </section>
+  <div id="scholFooter"></div>
+</div>
+
+<!-- ============================================================
+     FLOATING WHATSAPP BUTTON
+============================================================ -->
+<a class="wa-fab" href="https://wa.me/2348000000000?text=Hello%2C%20I%20need%20help%20with%20FreeStudentKit" target="_blank" rel="noopener" title="Chat on WhatsApp">
+  <i class="bi bi-whatsapp"></i>
+</a>
+<div class="wa-tooltip">Chat with us on WhatsApp</div>
+
+<!-- FOOTER TEMPLATE -->
+<template id="footerTemplate">
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="footer-logo-wrap">
+            <a class="footer-logo" onclick="showPage('home')" href="javascript:void(0)">
+              <div class="footer-logo-icon"><i class="bi bi-mortarboard-fill"></i></div>
+              <span class="footer-logo-text">Free<span>StudentKit</span></span>
+            </a>
+            <p class="footer-tagline">A free academic platform built to empower Nigerian students with the tools, materials, and opportunities they need to succeed.</p>
+          </div>
+          <div class="footer-socials mt-3">
+            <a href="#" class="social-btn"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-btn"><i class="bi bi-youtube"></i></a>
+            <a href="#" class="social-btn"><i class="bi bi-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="footer-heading">Tools</div>
+          <ul class="footer-links">
+            <li><button onclick="showTool('cgpa')">CGPA Calculator</button></li>
+            <li><button onclick="showTool('gpa')">GPA Converter</button></li>
+            <li><button onclick="showTool('citation')">Citation Generator</button></li>
+            <li><button onclick="showTool('topicGen')">Topic Generator</button></li>
+            <li><button onclick="showTool('invoice')">Invoice Generator</button></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="footer-heading">Resources</div>
+          <ul class="footer-links">
+            <li><button onclick="showPage('pastq')">Past Questions</button></li>
+            <li><button onclick="showPage('projects')">Project Topics</button></li>
+            <li><button onclick="showPage('templates')">Templates</button></li>
+            <li><button onclick="showPage('scholarships')">Scholarships</button></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="footer-heading">Company</div>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Submit Resource</a></li>
+            <li><a href="#">Advertise</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="footer-heading">Legal</div>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">DMCA</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="footer-divider"/>
+      <div class="footer-bottom">
+        <div class="footer-disclaimer">⚠️ Disclaimer: FreeStudentKit provides free academic resources for educational purposes only. We do not promote academic dishonesty. All materials should be used as references and study aids only.</div>
+        <div class="footer-copy">© 2025 FreeStudentKit. Made with ❤️ for students.</div>
+      </div>
+    </div>
+  </footer>
+</template>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+/* ============================================================
+   DATA STORES
+============================================================ */
+
+// Past Questions data
+const PQ_DATA = [
+  { title:"Introduction to Machine Learning – CSC 401", dept:"Computer Science", type:"Semester Exam", year:"2023", desc:"20 theory questions covering supervised learning, neural networks, and evaluation metrics." },
+  { title:"Data Structures and Algorithms – CSC 302", dept:"Computer Science", type:"Semester Exam", year:"2022", desc:"Array operations, linked lists, trees, sorting algorithms, and Big-O notation." },
+  { title:"Computer Networks – CSC 310", dept:"Computer Science", type:"Semester Exam", year:"2021", desc:"OSI model, TCP/IP protocols, routing algorithms, and network security fundamentals." },
+  { title:"Financial Accounting – ACC 201", dept:"Accounting", type:"Semester Exam", year:"2023", desc:"Trial balance, double-entry bookkeeping, depreciation methods, and financial statements." },
+  { title:"Cost Accounting – ACC 305", dept:"Accounting", type:"Semester Exam", year:"2022", desc:"Job-order costing, process costing, variance analysis, and break-even calculations." },
+  { title:"Principles of Management – BUS 101", dept:"Business Administration", type:"Continuous Assessment", year:"2023", desc:"Functions of management, planning, organizing, leading, and controlling." },
+  { title:"Circuit Theory I – EEE 201", dept:"Electrical Engineering", type:"Semester Exam", year:"2023", desc:"Kirchhoff's laws, Thevenin/Norton theorems, AC and DC circuit analysis." },
+  { title:"Law of Contract – LAW 202", dept:"Law", type:"Semester Exam", year:"2022", desc:"Offer, acceptance, consideration, capacity, and remedies for breach of contract." },
+  { title:"Medical/Surgical Nursing – NUR 301", dept:"Nursing", type:"Semester Exam", year:"2023", desc:"Post-operative care, wound management, drug administration, and patient assessment." },
+  { title:"Mass Communication Theory – MAC 201", dept:"Mass Communication", type:"Semester Exam", year:"2022", desc:"Agenda setting, uses and gratifications, spiral of silence, and media effects theories." },
+  { title:"Post-UTME Prep – Combined Sciences", dept:"Computer Science", type:"UTME / Post-UTME", year:"2023", desc:"Mathematics, English, Physics, and Chemistry questions from leading universities." },
+  { title:"Database Management Systems – CSC 405", dept:"Computer Science", type:"Semester Exam", year:"2024", desc:"ER diagrams, SQL queries, normalization forms, and database transactions." },
+];
+
+// Projects data
+const PROJECTS_DATA = [
+  { dept:"CSC", title:"Blockchain-Based Secure Voting System", abstract:"This project implements a decentralized voting application using Ethereum smart contracts to ensure transparency, immutability, and tamper-proof election results in university settings." },
+  { dept:"CSC", title:"AI-Powered Student Performance Prediction System", abstract:"A machine learning model using decision trees and neural networks to predict academic performance based on attendance, assignment scores, and socio-economic factors." },
+  { dept:"CSC", title:"Smart Library Management System with QR Code", abstract:"A web-based library system enabling digital cataloguing, QR-code book checkout, automated reminders, and real-time inventory management." },
+  { dept:"CSC", title:"Real-Time Telemedicine Application for Rural Areas", abstract:"A mobile application providing video consultation, symptom assessment, and prescription management to underserved communities with limited internet bandwidth." },
+  { dept:"EEE", title:"Solar-Powered Automated Irrigation System", abstract:"Design and implementation of a solar energy harvesting circuit coupled with soil moisture sensors to automate farmland irrigation, reducing water waste by up to 60%." },
+  { dept:"EEE", title:"Smart Grid Energy Monitoring System", abstract:"An IoT-based energy consumption monitoring device that transmits real-time power usage data to a cloud dashboard for predictive fault detection and billing optimization." },
+  { dept:"MEC", title:"Design of a Low-Cost Prosthetic Hand Using 3D Printing", abstract:"Development of a functional, affordable prosthetic limb using FDM 3D printing technology and servo motor actuation, targeted at amputees in developing nations." },
+  { dept:"MEC", title:"Waste Heat Recovery System for Industrial Boilers", abstract:"Thermodynamic analysis and physical design of a recuperator system to recover exhaust heat from industrial boilers, improving overall thermal efficiency by approximately 18%." },
+  { dept:"ACC", title:"The Impact of IFRS Adoption on Financial Reporting Quality", abstract:"An empirical study examining how International Financial Reporting Standards adoption affected the comparability, relevance, and reliability of financial statements in Nigerian banks." },
+  { dept:"ACC", title:"Forensic Accounting and Fraud Detection in Public Sector", abstract:"Investigation into the role of forensic accountants in identifying, investigating, and preventing financial fraud within Nigerian government ministries and agencies." },
+  { dept:"BUS", title:"Effect of Digital Marketing on SME Revenue Growth", abstract:"A survey-based study analyzing how adoption of social media marketing, SEO, and email campaigns correlates with revenue increases in small and medium enterprises in Lagos." },
+  { dept:"BUS", title:"Corporate Governance and Firm Performance in Nigeria", abstract:"Examining how board composition, ownership structure, and audit committee independence influence the financial performance of listed companies on the Nigerian Stock Exchange." },
+  { dept:"LAW", title:"Legal Framework for Cybercrime Prevention in Nigeria", abstract:"Critical analysis of the Cybercrimes (Prohibition, Prevention, Etc.) Act 2015, its enforcement challenges, loopholes, and comparative review against international standards." },
+  { dept:"LAW", title:"Child Rights and Protection Under Nigerian Law", abstract:"Evaluation of the Child Rights Act 2003, its domestication across Nigerian states, and the practical enforcement gap in protecting minors from abuse and exploitation." },
+  { dept:"NUR", title:"Assessment of Nurses' Knowledge on Infection Control", abstract:"Cross-sectional study evaluating hand hygiene compliance, PPE usage, and sterilization practices among nurses in selected federal teaching hospitals in Nigeria." },
+  { dept:"NUR", title:"Maternal Mortality and Antenatal Care Attendance", abstract:"Investigating the correlation between frequency of antenatal visits, skilled birth attendance, and maternal mortality rates in rural local government areas in Kogi State." },
+];
+
+// Templates data
+const TEMPLATES1 = [
+  { icon:"bi-file-earmark-word-fill", cls:"tfi-word", title:"SIWES Industrial Training Report", desc:"Full Word template with pre-filled sections for introduction, weekly activities, skills acquired, and supervisor endorsement.", pages:"45 pages", format:"DOCX" },
+  { icon:"bi-journal-text", cls:"tfi-word", title:"Student Industrial Training Logbook", desc:"Daily activity logbook with structured tables for 6 months of SIWES documentation, following ITF guidelines.", pages:"120 pages", format:"DOCX" },
+  { icon:"bi-file-earmark-pdf-fill", cls:"tfi-pdf", title:"Project Proposal Template", desc:"Structured final year project proposal including background, problem statement, objectives, scope, and methodology sections.", pages:"12 pages", format:"PDF + DOCX" },
+  { icon:"bi-file-earmark-word-fill", cls:"tfi-word", title:"Research Report Template (APA)", desc:"Complete research/thesis document template formatted in APA 7th edition with table of contents, abstract, references.", pages:"80 pages", format:"DOCX" },
+];
+const TEMPLATES2 = [
+  { icon:"bi-file-earmark-slides-fill", cls:"tfi-ppt", title:"Seminar Presentation Slides", desc:"Professional 20-slide PowerPoint template with title slide, agenda, content layouts, and conclusion for academic seminars.", pages:"20 slides", format:"PPTX" },
+  { icon:"bi-file-earmark-slides-fill", cls:"tfi-ppt", title:"Final Year Project Defense Slides", desc:"Clean, minimal defense presentation template with sections for introduction, methodology, results, and Q&A preparation.", pages:"18 slides", format:"PPTX" },
+  { icon:"bi-file-earmark-spreadsheet-fill", cls:"tfi-excel", title:"Research Data Collection Sheet", desc:"Excel workbook with pre-built survey data entry, pivot tables, basic charts, and statistical summary formulas.", pages:"5 sheets", format:"XLSX" },
+  { icon:"bi-file-earmark-pdf-fill", cls:"tfi-pdf", title:"Student CV / Resume Template", desc:"Modern, ATS-friendly resume template designed for fresh graduates, with sections for education, skills, and work experience.", pages:"2 pages", format:"PDF + DOCX" },
+];
+
+// Scholarships data
+const SCHOLARSHIPS = [
+  { logo:"bi-building", logoBg:"icon-blue", title:"MTN Foundation Scholarship", org:"MTN Nigeria Foundation", level:"Undergraduate", desc:"Annual scholarship for 500 Nigerian undergraduates in science, technology, engineering, and mathematics disciplines. Award covers tuition and quarterly stipend.", deadline:"Dec 31, 2025", urgency:"ok", amount:"₦250,000/year", apply:"https://mtnfoundation.com" },
+  { logo:"bi-globe2", logoBg:"icon-green", title:"Chevron Niger Delta Scholarship", org:"Chevron Nigeria Limited", level:"Both", desc:"Merit-based scholarship for students from oil-producing communities in Delta, Rivers, Bayelsa, and Ondo states studying engineering or geosciences.", deadline:"Nov 15, 2025", urgency:"soon", amount:"Full tuition + stipend", apply:"#" },
+  { logo:"bi-bank2", logoBg:"icon-purple", title:"CBN Educational Loan Scheme", org:"Central Bank of Nigeria", level:"Both", desc:"Subsidized student loan program offering zero-interest financing for tuition, accommodation, and learning materials to Nigerian students at accredited institutions.", deadline:"Ongoing", urgency:"ok", amount:"Up to ₦2,000,000", apply:"#" },
+  { logo:"bi-star-fill", logoBg:"icon-orange", title:"Shell Nigeria Scholarship Award", org:"Shell Nigeria Exploration", level:"Undergraduate", desc:"Scholarship for science and engineering students in the final two years of study, requiring a minimum 3.5/5.0 CGPA and demonstration of leadership.", deadline:"Oct 31, 2025", urgency:"urgent", amount:"₦500,000/year", apply:"#" },
+  { logo:"bi-airplane-fill", logoBg:"icon-teal", title:"Commonwealth Scholarship (UK)", org:"Commonwealth Scholarship Commission", level:"Postgraduate", desc:"Fully funded Masters and PhD scholarships at UK universities for candidates from Commonwealth countries demonstrating outstanding academic achievement.", deadline:"Dec 17, 2025", urgency:"soon", amount:"Fully funded", apply:"https://cscuk.fcdo.gov.uk" },
+  { logo:"bi-patch-exclamation-fill", logoBg:"icon-red", title:"NNPC/SNEPCo National Merit Award", org:"SNEPCO Nigeria", level:"Undergraduate", desc:"Competitive academic excellence scholarship for students studying petroleum engineering, geology, chemistry, physics, and related fields in Nigerian universities.", deadline:"Sep 30, 2025", urgency:"urgent", amount:"₦400,000 + mentorship", apply:"#" },
+];
+
+// Topic bank
+const TOPIC_BANK = {
+  csc: ["Development of a Machine Learning-Based Spam Detection System","Design and Implementation of a Blockchain Attendance Management System","AI-Powered Medical Diagnosis Assistant Using Symptom Input","Real-Time Object Detection App for Visually Impaired Users","Cloud-Based Collaborative Note-Taking Platform for Students","Smart Traffic Management System Using Computer Vision","Cryptocurrency Wallet Application with Multi-Signature Security","Automated Resume Screening System Using NLP","IoT-Based Environmental Pollution Monitoring Network","Online Peer-to-Peer Tutoring Marketplace"],
+  eee: ["Design of a Smart Street Lighting System with Daylight Harvesting","Wireless Power Transfer System for Low-Power IoT Devices","PLC-Based Industrial Conveyor Belt Automation","Solar Charge Controller with MPPT Algorithm","Design of a Variable-Frequency Drive for Induction Motors","Smart Home Automation System via Voice Commands","High-Efficiency Inverter Design for Rural Electrification","Real-Time Power Quality Monitoring Using ESP32","Automatic Transfer Switch for Backup Power Systems","Design of a Capacitive Touch Screen Controller"],
+  mec: ["Design and Fabrication of a Small-Scale Wind Turbine Blade","Thermal Analysis of a Finned Heat Exchanger","Design of a Pneumatic Pick-and-Place Robotic Arm","Optimization of CNC Machining Parameters for Aluminum","Design of a Portable Biomass Gasification Stove","Stress Analysis of a Composite Bicycle Frame Using FEA","Design and Testing of a Speed Bump Energy Harvester","Fabrication of an Automated Seed Planting Machine","Analysis of Vibration in High-Speed Rotating Shafts","Design of a Low-Cost Water Purification System"],
+  acc: ["Impact of Artificial Intelligence on External Auditing Practices","Tax Compliance and Revenue Generation in Nigeria","Adoption of Cloud Accounting Software by SMEs in Lagos","Earnings Management and Corporate Governance in Nigerian Banks","Effect of Audit Quality on Investor Confidence","IFRS 9 Adoption and Loan Loss Provisioning in Banks","Budget Implementation and Financial Performance of Local Government","Corporate Social Responsibility Reporting in the Oil and Gas Sector","Internal Control Systems and Fraud Prevention","Transfer Pricing and Tax Avoidance by Multinational Companies"],
+  bus: ["Digital Transformation and Competitive Advantage in Nigerian Banks","Work-From-Home Policy and Employee Productivity Post-COVID","Customer Relationship Management and Customer Retention","Entrepreneurship Education and Youth Employment in Nigeria","Impact of Brand Identity on Consumer Purchase Intention","Corporate Culture and Organizational Performance","E-Commerce Adoption Among Small Retailers in Abuja","Leadership Style and Employee Morale in the Public Sector","Impact of Fintech on Traditional Banking Services","Emotional Intelligence and Managerial Effectiveness"],
+  med: ["Knowledge and Practice of Standard Precautions Among ICU Nurses","Self-Medication Practices and Associated Risks Among Undergraduates","Effectiveness of Health Education on Malaria Prevention","Nurse-Patient Ratio and Patient Outcomes in Secondary Hospitals","Adherence to HIV/AIDS Treatment Protocols in ART Clinics","Assessment of Maternal Health Services in Peri-Urban Areas","Nutritional Status and Academic Performance of Primary School Children","Burnout and Coping Strategies Among Healthcare Workers","Knowledge of Cervical Cancer Screening Among Women 25–45","Childhood Immunization Coverage and Barriers in Rural LGAs"],
+  law: ["Regulation of Cryptocurrency and Digital Assets in Nigeria","Constitutional Limitations on State Power to Tax","Enforcement of Arbitration Awards in Nigeria: Challenges","Women's Land Rights Under Customary Law in Southeast Nigeria","The Right to a Fair Hearing in Administrative Proceedings","Cyberstalking and Legal Protection for Online Harassment Victims","Regulation of Social Media and Freedom of Expression","Oil Spill Liability and Environmental Justice in the Niger Delta","Human Trafficking: Legal Framework and Law Enforcement Gaps","Corporate Insolvency and Creditor Protection Under CAMA 2020"],
+  edu: ["Effect of Technology Integration on Student Learning Outcomes","Teacher Motivation and Quality of Education in Public Schools","Inclusive Education Practices for Students with Disabilities","Parental Involvement and Academic Achievement in Secondary Schools","Assessment of Early Childhood Education Programs in Nigeria","Impact of Social Media on Study Habits of Undergraduates","Curriculum Relevance and Graduate Employability in Nigerian Universities","Peer Learning and Collaborative Problem-Solving Skills","Effect of Classroom Size on Effective Teaching and Learning","Professional Development and Teacher Effectiveness"],
+};
+
+const SEMINAR_BANK = {
+  "Research Paper":["Climate Change Policy and Its Economic Implications for Developing Nations","The Ethics of Generative AI in Academic Research","Mental Health Crisis Among University Students: Causes and Solutions","Universal Basic Income: A Sustainable Alternative to Unemployment?","Microplastics in the Food Chain: Health Risks and Regulatory Response"],
+  "Presentation Topic":["The Future of Work: Automation, Remote Work, and the Gig Economy","Cybersecurity in the Age of AI: Risks and Best Practices","Sustainable Agriculture and Food Security in Sub-Saharan Africa","Blockchain Beyond Bitcoin: Real-World Applications","Student Loan Crisis: Policy Reforms for Affordable Higher Education"],
+  "Group Discussion":["Should universities make attendance compulsory?","Is social media making students less productive?","Does the Nigerian educational curriculum prepare students for the modern economy?","Should there be an age limit for political leadership in Africa?","Technology in the classroom: Blessing or distraction?"],
+  "Debate Motion":["This house believes that social media does more harm than good to students","THBT African nations should reject foreign aid","THW make voting mandatory for all citizens","THBT artificial intelligence will eliminate more jobs than it creates","This house would ban smartphones in secondary schools"],
+};
+
+/* ============================================================
+   PAGE NAVIGATION
+============================================================ */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  // Update nav active state
+  document.querySelectorAll('.nav-link-btn').forEach(b => b.classList.remove('active'));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Inject footer if not already there
+  const footerMap = { home:'homeFooter', tools:'toolsFooter', pastq:'pastqFooter', projects:'projectsFooter', templates:'templatesFooter', scholarships:'scholFooter' };
+  const fid = footerMap[id];
+  if (fid && !document.getElementById(fid).innerHTML.trim()) {
+    document.getElementById(fid).innerHTML = document.getElementById('footerTemplate').innerHTML;
+  }
+}
+
+function toggleMobileNav() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+/* ============================================================
+   TOOL NAVIGATION
+============================================================ */
+function showTool(toolId) {
+  // Navigate to tools page first
+  showPage('tools');
+  // Update panels
+  document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tool-' + toolId)?.classList.add('active');
+  // Update nav items
+  document.querySelectorAll('.tool-nav-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('nav-' + toolId)?.classList.add('active');
+  // Update mobile select
+  const sel = document.querySelector('.d-lg-none select');
+  if (sel) sel.value = toolId;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============================================================
+   STICKY NAV SCROLL
+============================================================ */
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+/* ============================================================
+   SCROLL REVEAL
+============================================================ */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ============================================================
+   SEARCH
+============================================================ */
+const SEARCH_INDEX = [
+  { title:"CGPA Calculator", cat:"Tool", page:"tools", tool:"cgpa", icon:"bi-graph-up", cls:"icon-green" },
+  { title:"GPA Converter", cat:"Tool", page:"tools", tool:"gpa", icon:"bi-arrow-repeat", cls:"icon-orange" },
+  { title:"Citation Generator", cat:"Tool", page:"tools", tool:"citation", icon:"bi-journal-bookmark", cls:"icon-purple" },
+  { title:"Project Topic Generator", cat:"Tool", page:"tools", tool:"topicGen", icon:"bi-lightbulb-fill", cls:"icon-blue" },
+  { title:"Seminar Idea Generator", cat:"Tool", page:"tools", tool:"seminarIdea", icon:"bi-chat-square-text", cls:"icon-teal" },
+  { title:"Invoice Generator", cat:"Tool", page:"tools", tool:"invoice", icon:"bi-receipt-cutoff", cls:"icon-teal" },
+  { title:"Profit Calculator", cat:"Tool", page:"tools", tool:"profit", icon:"bi-cash-coin", cls:"icon-green" },
+  { title:"Past Questions", cat:"Resource", page:"pastq", icon:"bi-book-fill", cls:"icon-purple" },
+  { title:"Final Year Projects", cat:"Resource", page:"projects", icon:"bi-mortarboard-fill", cls:"icon-blue" },
+  { title:"Templates & Downloads", cat:"Resource", page:"templates", icon:"bi-file-earmark-text-fill", cls:"icon-green" },
+  { title:"Scholarships", cat:"Resource", page:"scholarships", icon:"bi-award-fill", cls:"icon-orange" },
+  { title:"SIWES Report Template", cat:"Template", page:"templates", icon:"bi-file-earmark-word-fill", cls:"icon-blue" },
+  { title:"Student Logbook Template", cat:"Template", page:"templates", icon:"bi-journal-text", cls:"icon-blue" },
+];
+
+function handleSearch(q) {
+  if (!q || q.length < 2) { document.getElementById('searchOverlay').classList.remove('show'); return; }
+  const results = SEARCH_INDEX.filter(i => i.title.toLowerCase().includes(q.toLowerCase())).slice(0,8);
+  if (!results.length) { document.getElementById('searchOverlay').classList.remove('show'); return; }
+  document.getElementById('searchResultsList').innerHTML = results.map(r => `
+    <div class="sr-item" onclick="handleSearchClick('${r.page}','${r.tool||''}')">
+      <div class="sr-item-icon ${r.cls}"><i class="bi ${r.icon}"></i></div>
+      <div class="sr-item-text">
+        <div class="sr-title">${r.title}</div>
+        <div class="sr-cat">${r.cat}</div>
+      </div>
+      <i class="bi bi-arrow-right ms-auto text-muted-fsk" style="font-size:.8rem"></i>
+    </div>`).join('');
+  document.getElementById('searchOverlay').classList.add('show');
+}
+function handleSearchBtn() {
+  const q = document.getElementById('heroSearchInput').value;
+  handleSearch(q);
+}
+function handleSearchClick(page, tool) {
+  closeSearch();
+  if (tool) showTool(tool);
+  else showPage(page);
+}
+function closeSearch(e) {
+  if (!e || e.target === document.getElementById('searchOverlay')) {
+    document.getElementById('searchOverlay').classList.remove('show');
+    document.getElementById('heroSearchInput').value = '';
+  }
+}
+
+/* ============================================================
+   CGPA CALCULATOR
+============================================================ */
+function addCgpaRow(course='', unit='', grade='') {
+  const id = Date.now();
+  const row = document.createElement('div');
+  row.className = 'cgpa-row';
+  row.id = 'cgpa-' + id;
+  row.innerHTML = `
+    <input type="text" class="fsk-input" placeholder="Course name (optional)" value="${course}" style="font-size:.85rem"/>
+    <input type="number" class="fsk-input cgpa-unit" placeholder="Credit units" min="1" max="6" value="${unit}" style="font-size:.85rem" oninput="calcCgpa()"/>
+    <select class="fsk-select cgpa-grade" style="font-size:.85rem" onchange="calcCgpa()">
+      <option ${grade===''?'selected':''} value="">Grade</option>
+      <option ${grade==='5'?'selected':''} value="5">A (5)</option>
+      <option ${grade==='4'?'selected':''} value="4">B (4)</option>
+      <option ${grade==='3'?'selected':''} value="3">C (3)</option>
+      <option ${grade==='2'?'selected':''} value="2">D (2)</option>
+      <option ${grade==='1'?'selected':''} value="1">E (1)</option>
+      <option ${grade==='0'?'selected':''} value="0">F (0)</option>
+    </select>
+    <button class="cgpa-remove" onclick="document.getElementById('cgpa-${id}').remove();calcCgpa()"><i class="bi bi-x-circle"></i></button>
+  `;
+  document.getElementById('cgpaRows').appendChild(row);
+}
+// Init with sample rows
+addCgpaRow('Intro to Programming', 3, '5');
+addCgpaRow('Calculus I', 3, '4');
+addCgpaRow('Technical Writing', 2, '4');
+addCgpaRow('Logic Design', 2, '3');
+
+function calcCgpa() {
+  let totalPoints = 0, totalUnits = 0;
+  document.querySelectorAll('.cgpa-row').forEach(row => {
+    const u = parseFloat(row.querySelector('.cgpa-unit')?.value) || 0;
+    const g = parseFloat(row.querySelector('.cgpa-grade')?.value);
+    if (u > 0 && !isNaN(g)) { totalPoints += u * g; totalUnits += u; }
+  });
+  if (totalUnits === 0) { document.getElementById('cgpaResult').classList.remove('show'); return; }
+  const gpa = (totalPoints / totalUnits).toFixed(2);
+  let cls = '';
+  if (gpa >= 4.5) cls = '🏆 First Class';
+  else if (gpa >= 3.5) cls = '🥈 Second Class Upper';
+  else if (gpa >= 2.5) cls = '🥉 Second Class Lower';
+  else if (gpa >= 1.5) cls = '📄 Third Class';
+  else cls = '❌ Pass / Below';
+  document.getElementById('cgpaValue').textContent = gpa;
+  document.getElementById('cgpaClass').textContent = cls + ` — Total Units: ${totalUnits}`;
+  document.getElementById('cgpaResult').classList.add('show');
+}
+function clearCgpa() {
+  document.getElementById('cgpaRows').innerHTML = '';
+  document.getElementById('cgpaResult').classList.remove('show');
+}
+
+/* ============================================================
+   GPA CONVERTER
+============================================================ */
+function convertGpa() {
+  const val = parseFloat(document.getElementById('gpaInput').value);
+  const from = parseFloat(document.getElementById('gpaScaleFrom').value);
+  const to = parseFloat(document.getElementById('gpaScaleTo').value);
+  if (isNaN(val) || val < 0) { document.getElementById('gpaResult').classList.remove('show'); return; }
+  const clamped = Math.min(val, from);
+  const converted = ((clamped / from) * to).toFixed(2);
+  let cls = '';
+  if (to === 4) {
+    if (converted >= 3.7) cls = 'First Class / Summa Cum Laude';
+    else if (converted >= 3.3) cls = 'Second Class Upper';
+    else if (converted >= 2.7) cls = 'Second Class Lower';
+    else if (converted >= 2.0) cls = 'Third Class / Pass';
+    else cls = 'Below Pass';
+  } else {
+    if (converted >= 4.5) cls = 'First Class';
+    else if (converted >= 3.5) cls = 'Second Class Upper';
+    else if (converted >= 2.5) cls = 'Second Class Lower';
+    else if (converted >= 1.5) cls = 'Third Class';
+    else cls = 'Below Pass';
+  }
+  document.getElementById('gpaConverted').textContent = converted + ' / ' + to + '.0';
+  document.getElementById('gpaConvertedClass').textContent = cls;
+  document.getElementById('gpaResult').classList.add('show');
+}
+
+/* ============================================================
+   CITATION GENERATOR
+============================================================ */
+function generateCitation() {
+  const style = document.getElementById('citeStyle').value;
+  const type = document.getElementById('citeType').value;
+  const author = document.getElementById('citeAuthor').value.trim() || 'Author, A.';
+  const title = document.getElementById('citeTitle').value.trim() || 'Untitled Work';
+  const year = document.getElementById('citeYear').value.trim() || 'n.d.';
+  const publisher = document.getElementById('citePublisher').value.trim() || 'Publisher';
+  const city = document.getElementById('citeCity').value.trim() || 'Location';
+  let cite = '';
+  if (style === 'apa') {
+    if (type === 'book') cite = `${author} (${year}). <em>${title}</em>. ${publisher}.`;
+    else if (type === 'journal') cite = `${author} (${year}). ${title}. <em>${publisher}</em>. ${city}.`;
+    else cite = `${author} (${year}). <em>${title}</em>. Retrieved from ${city}`;
+  } else if (style === 'mla') {
+    if (type === 'book') cite = `${author} <em>${title}</em>. ${publisher}, ${year}.`;
+    else if (type === 'journal') cite = `${author} "${title}." <em>${publisher}</em>, ${year}, pp. 1–15.`;
+    else cite = `${author} "${title}." <em>Web</em>. ${year}. &lt;${city}&gt;.`;
+  } else {
+    if (type === 'book') cite = `${author} ${year}, <em>${title}</em>, ${publisher}, ${city}.`;
+    else if (type === 'journal') cite = `${author} ${year}, '${title}', <em>${publisher}</em>, viewed ${year}, &lt;${city}&gt;.`;
+    else cite = `${author} ${year}, <em>${title}</em>, ${publisher}, viewed ${year}, &lt;${city}&gt;.`;
+  }
+  document.getElementById('citationOutput').innerHTML = cite;
+  document.getElementById('citationOutput').classList.add('show');
+  document.getElementById('copyCiteBtn').classList.remove('d-none');
+}
+function copyCitation() {
+  const text = document.getElementById('citationOutput').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyCiteBtn');
+    btn.innerHTML = '<i class="bi bi-check2-circle"></i> Copied!';
+    setTimeout(() => btn.innerHTML = '<i class="bi bi-clipboard"></i> Copy to Clipboard', 2000);
+  });
+}
+
+/* ============================================================
+   TOPIC GENERATOR
+============================================================ */
+function generateTopics() {
+  const dept = document.getElementById('topicDept').value;
+  const kw = document.getElementById('topicKeyword').value.toLowerCase().trim();
+  let topics = [...(TOPIC_BANK[dept] || [])];
+  if (kw) topics = topics.filter(t => t.toLowerCase().includes(kw)).concat(topics.filter(t => !t.toLowerCase().includes(kw)));
+  // Shuffle top set
+  const top = topics.slice(0, 5).sort(() => Math.random() - 0.5);
+  const rest = topics.slice(5);
+  const all = [...top, ...rest].slice(0, 8);
+  document.getElementById('topicResults').innerHTML = `
+    <div class="info-alert green-alert mb-3"><i class="bi bi-check-circle-fill mt-1"></i> ${all.length} project topics generated. Click any topic to copy it.</div>
+    <ul class="topic-list">${all.map(t => `<li onclick="copyText('${t.replace(/'/g,"\\'")}', this)"><i class="bi bi-file-earmark-text me-2" style="color:var(--primary)"></i>${t} <i class="bi bi-clipboard float-end text-muted-fsk" style="font-size:.8rem"></i></li>`).join('')}</ul>
+  `;
+}
+function copyText(text, el) {
+  navigator.clipboard.writeText(text).catch(() => {});
+  el.style.background = 'rgba(16,185,129,.15)';
+  el.style.borderLeftColor = 'var(--accent)';
+  setTimeout(() => { el.style.background = ''; el.style.borderLeftColor = 'var(--primary)'; }, 1500);
+}
+
+/* ============================================================
+   SEMINAR IDEA GENERATOR
+============================================================ */
+function generateSeminarIdeas() {
+  const subject = document.getElementById('seminarSubject').value.trim();
+  const format = document.getElementById('seminarFormat').value;
+  let ideas = [...(SEMINAR_BANK[format] || [])];
+  if (subject) {
+    ideas = ideas.map((idea, i) => i === 0 ? `${subject}: ${idea}` : idea);
+  }
+  ideas = ideas.sort(() => Math.random() - 0.5).slice(0, 5);
+  document.getElementById('seminarResults').innerHTML = `
+    <div class="info-alert green-alert mb-3"><i class="bi bi-check-circle-fill mt-1"></i> ${ideas.length} ideas generated for <strong>${format}</strong>.</div>
+    <ul class="topic-list">${ideas.map(t => `<li onclick="copyText('${t.replace(/'/g,"\\'")}',this)"><i class="bi bi-chat-quote me-2" style="color:var(--accent)"></i>${t}</li>`).join('')}</ul>
+  `;
+}
+
+/* ============================================================
+   INVOICE GENERATOR
+============================================================ */
+function initInvoice() {
+  document.getElementById('invDate').value = new Date().toISOString().split('T')[0];
+  addInvoiceItem();
+}
+function addInvoiceItem() {
+  const id = Date.now();
+  const wrap = document.createElement('div');
+  wrap.id = 'invItem-' + id;
+  wrap.className = 'cgpa-row mb-2';
+  wrap.style.gridTemplateColumns = '2fr 1fr 1fr auto';
+  wrap.innerHTML = `
+    <input type="text" class="fsk-input inv-desc" placeholder="Item description" style="font-size:.85rem"/>
+    <input type="number" class="fsk-input inv-qty" placeholder="Qty" value="1" min="1" style="font-size:.85rem"/>
+    <input type="number" class="fsk-input inv-price" placeholder="Unit price" min="0" style="font-size:.85rem"/>
+    <button class="cgpa-remove" onclick="document.getElementById('invItem-${id}').remove()"><i class="bi bi-x-circle"></i></button>
+  `;
+  document.getElementById('invoiceItems').appendChild(wrap);
+}
+function generateInvoice() {
+  const from = document.getElementById('invFrom').value || 'Your Business';
+  const to = document.getElementById('invTo').value || 'Client Name';
+  const num = document.getElementById('invNum').value || 'INV-001';
+  const date = document.getElementById('invDate').value || new Date().toLocaleDateString();
+  const curr = document.getElementById('invCurrency').value;
+  let rows = '', subtotal = 0;
+  document.querySelectorAll('#invoiceItems > div').forEach(item => {
+    const desc = item.querySelector('.inv-desc').value || 'Item';
+    const qty = parseFloat(item.querySelector('.inv-qty').value) || 1;
+    const price = parseFloat(item.querySelector('.inv-price').value) || 0;
+    const total = qty * price;
+    subtotal += total;
+    rows += `<tr><td>${desc}</td><td>${qty}</td><td>${curr}${price.toLocaleString()}</td><td><strong>${curr}${total.toLocaleString()}</strong></td></tr>`;
+  });
+  const vat = subtotal * 0.075;
+  const grand = subtotal + vat;
+  document.getElementById('invoicePreview').innerHTML = `
+    <div class="invoice-header-line">
+      <div><div class="invoice-title">INVOICE</div><div class="invoice-sub">Issued by: <strong>${from}</strong></div></div>
+      <div class="text-end"><div style="font-size:.8rem;color:var(--text-muted)">Invoice # <strong>${num}</strong></div><div style="font-size:.8rem;color:var(--text-muted)">Date: ${date}</div></div>
+    </div>
+    <div class="row g-3 mb-3">
+      <div class="col-6"><div style="font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:.2rem">BILL TO</div><strong>${to}</strong></div>
+    </div>
+    <table class="invoice-tbl"><thead><tr><th>Description</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr></thead><tbody>${rows}</tbody></table>
+    <div class="invoice-total">
+      <div style="font-size:.85rem;color:var(--text-muted)">Subtotal: ${curr}${subtotal.toLocaleString(undefined,{minimumFractionDigits:2})}</div>
+      <div style="font-size:.85rem;color:var(--text-muted)">VAT (7.5%): ${curr}${vat.toLocaleString(undefined,{minimumFractionDigits:2})}</div>
+      <div class="mt-1">Total Due: <span>${curr}${grand.toLocaleString(undefined,{minimumFractionDigits:2})}</span></div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text-light);margin-top:1rem;border-top:1px solid var(--border);padding-top:.75rem">Thank you for your business. Generated with FreeStudentKit Invoice Generator.</div>
+  `;
+  document.getElementById('invoicePreview').classList.add('show');
+}
+function printInvoice() {
+  generateInvoice();
+  setTimeout(() => window.print(), 300);
+}
+
+/* ============================================================
+   PROFIT CALCULATOR
+============================================================ */
+function calcProfit() {
+  const cost = parseFloat(document.getElementById('profCost').value) || 0;
+  const sell = parseFloat(document.getElementById('profSell').value) || 0;
+  const qty = parseFloat(document.getElementById('profQty').value) || 1;
+  if (cost <= 0 || sell <= 0) { document.getElementById('profitResult').classList.remove('show'); return; }
+  const profit = (sell - cost) * qty;
+  const revenue = sell * qty;
+  const totalCost = cost * qty;
+  const margin = ((profit / revenue) * 100).toFixed(2);
+  const markup = (((sell - cost) / cost) * 100).toFixed(2);
+  const profitClass = profit >= 0 ? 'profit-green' : 'profit-red';
+  document.getElementById('profitTableBody').innerHTML = `
+    <tr><td>Revenue</td><td class="num">₦${revenue.toLocaleString()}</td></tr>
+    <tr><td>Total Cost</td><td class="num">₦${totalCost.toLocaleString()}</td></tr>
+    <tr><td>Net Profit / Loss</td><td class="num ${profitClass}">₦${profit.toLocaleString()}</td></tr>
+    <tr><td>Profit Margin</td><td class="num ${profitClass}">${margin}%</td></tr>
+    <tr><td>Markup</td><td class="num">${markup}%</td></tr>
+  `;
+  document.getElementById('profitResult').classList.add('show');
+}
+
+/* ============================================================
+   PAST QUESTIONS RENDER
+============================================================ */
+function renderPQ(data) {
+  if (!data.length) {
+    document.getElementById('pqList').innerHTML = `<div class="info-alert"><i class="bi bi-info-circle mt-1"></i> No results found for the selected filters. Try adjusting your search.</div>`;
+    return;
+  }
+  document.getElementById('pqList').innerHTML = data.map(q => `
+    <div class="pq-card">
+      <div class="pq-icon"><i class="bi bi-file-earmark-text-fill"></i></div>
+      <div class="flex-grow-1">
+        <div class="pq-title">${q.title}</div>
+        <div class="pq-meta d-flex align-items-center flex-wrap gap-2 mt-1">
+          <span>${q.dept}</span> · <span>${q.type}</span>
+          <span class="pq-year">${q.year}</span>
+        </div>
+        <div style="font-size:.8rem;color:var(--text-muted);margin-top:.3rem">${q.desc}</div>
+      </div>
+      <div class="pq-actions">
+        <button class="btn-primary-fsk" onclick="alert('Downloading: ${q.title.replace(/'/g,"\\'")}\\n\\nThis is a demo. In a live version, this would trigger a real download.')"><i class="bi bi-download"></i> Download</button>
+        <button class="btn-outline-fsk" onclick="alert('Preview: ${q.title.replace(/'/g,"\\'")}')"><i class="bi bi-eye"></i></button>
+      </div>
+    </div>`).join('');
+}
+function filterPQ() {
+  const dept = document.getElementById('pqDeptFilter').value;
+  const type = document.getElementById('pqTypeFilter').value;
+  const year = document.getElementById('pqYearFilter').value;
+  let filtered = PQ_DATA.filter(q =>
+    (!dept || q.dept === dept) &&
+    (!type || q.type === type) &&
+    (!year || q.year === year)
+  );
+  renderPQ(filtered);
+}
+function resetPQFilters() {
+  ['pqDeptFilter','pqTypeFilter','pqYearFilter'].forEach(id => document.getElementById(id).value = '');
+  renderPQ(PQ_DATA);
+}
+
+/* ============================================================
+   PROJECTS RENDER
+============================================================ */
+const DEPT_COLORS = { CSC:'rgba(29,78,216,.1);color:var(--primary)', EEE:'rgba(16,185,129,.1);color:var(--accent)', MEC:'rgba(249,115,22,.1);color:#f97316', ACC:'rgba(234,179,8,.1);color:#b45309', BUS:'rgba(139,92,246,.1);color:#7c3aed', LAW:'rgba(239,68,68,.1);color:#dc2626', NUR:'rgba(20,184,166,.1);color:#0d9488' };
+
+function renderProjects(data) {
+  document.getElementById('projectsGrid').innerHTML = data.map(p => `
+    <div class="col-md-6 col-lg-4">
+      <div class="proj-card">
+        <span class="proj-dept-badge" style="background:${(DEPT_COLORS[p.dept]||'rgba(100,116,139,.1);color:#64748b').split(';')[0]};${(DEPT_COLORS[p.dept]||'rgba(100,116,139,.1);color:#64748b').split(';')[1]}">${p.dept}</span>
+        <div class="proj-title">${p.title}</div>
+        <div class="proj-abstract">${p.abstract}</div>
+        <div class="d-flex gap-2">
+          <button class="btn-primary-fsk flex-grow-1 justify-content-center" onclick="alert('Full details for:\\n\\n${p.title.replace(/'/g,"\\'")}\\n\\n${p.abstract.replace(/'/g,"\\'")}')"><i class="bi bi-eye"></i> View Details</button>
+          <button class="btn-outline-fsk" onclick="copyText('${p.title.replace(/'/g,"\\'")}',this)"><i class="bi bi-clipboard"></i></button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function filterProjects(dept, btn) {
+  document.querySelectorAll('#deptFilterBtns .dept-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered = dept === 'all' ? PROJECTS_DATA : PROJECTS_DATA.filter(p => p.dept === dept);
+  renderProjects(filtered);
+}
+
+/* ============================================================
+   TEMPLATES RENDER
+============================================================ */
+function renderTemplates() {
+  document.getElementById('templateGrid1').innerHTML = TEMPLATES1.map(t => `
+    <div class="col-sm-6 col-lg-3">
+      <div class="template-card flex-column align-items-start">
+        <div class="template-file-icon ${t.cls} mb-3"><i class="bi ${t.icon}"></i></div>
+        <div class="card-title">${t.title}</div>
+        <div class="card-desc">${t.desc}</div>
+        <div class="d-flex align-items-center justify-content-between w-100 mt-auto">
+          <div>
+            <span class="tag-chip" style="background:var(--surface2);color:var(--text-muted)">${t.pages}</span>
+            <span class="tag-chip" style="background:rgba(29,78,216,.08);color:var(--primary)">${t.format}</span>
+          </div>
+          <button class="btn-primary-fsk" onclick="alert('Downloading ${t.title.replace(/'/g,"\\'")}...')"><i class="bi bi-download"></i></button>
+        </div>
+      </div>
+    </div>`).join('');
+  document.getElementById('templateGrid2').innerHTML = TEMPLATES2.map(t => `
+    <div class="col-sm-6 col-lg-3">
+      <div class="template-card flex-column align-items-start">
+        <div class="template-file-icon ${t.cls} mb-3"><i class="bi ${t.icon}"></i></div>
+        <div class="card-title">${t.title}</div>
+        <div class="card-desc">${t.desc}</div>
+        <div class="d-flex align-items-center justify-content-between w-100 mt-auto">
+          <div>
+            <span class="tag-chip" style="background:var(--surface2);color:var(--text-muted)">${t.pages}</span>
+            <span class="tag-chip" style="background:rgba(29,78,216,.08);color:var(--primary)">${t.format}</span>
+          </div>
+          <button class="btn-primary-fsk" onclick="alert('Downloading ${t.title.replace(/'/g,"\\'")}...')"><i class="bi bi-download"></i></button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+/* ============================================================
+   SCHOLARSHIPS RENDER
+============================================================ */
+function renderSchols(data) {
+  const urgencyColors = { urgent:'deadline-urgent', soon:'deadline-soon', ok:'deadline-ok' };
+  const urgencyIcons = { urgent:'⚠️', soon:'📅', ok:'✅' };
+  document.getElementById('scholGrid').innerHTML = data.map(s => `
+    <div class="col-md-6 col-lg-4" data-level="${s.level}">
+      <div class="schol-card">
+        <div class="schol-header">
+          <div class="schol-logo ${s.logoBg}"><i class="bi ${s.logo}"></i></div>
+          <div><div class="schol-title">${s.title}</div><div class="schol-org">${s.org}</div></div>
+        </div>
+        <div class="schol-desc">${s.desc}</div>
+        <div class="mb-2">
+          <span class="tag-chip" style="background:rgba(29,78,216,.08);color:var(--primary)">${s.level}</span>
+          <span class="tag-chip" style="background:rgba(16,185,129,.08);color:var(--accent)">${s.amount}</span>
+        </div>
+        <div class="schol-footer">
+          <div class="deadline-pill ${urgencyColors[s.urgency]}">${urgencyIcons[s.urgency]} Deadline: ${s.deadline}</div>
+          <a href="${s.apply}" target="_blank" rel="noopener" class="btn-primary-fsk" style="font-size:.8rem"><i class="bi bi-box-arrow-up-right"></i> Apply</a>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function filterSchols(level, btn) {
+  document.querySelectorAll('#scholFilters .dept-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered = level === 'all' ? SCHOLARSHIPS : SCHOLARSHIPS.filter(s => s.level === level || s.level === 'Both');
+  renderSchols(filtered);
+}
+
+/* ============================================================
+   INIT
+============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  renderPQ(PQ_DATA);
+  renderProjects(PROJECTS_DATA);
+  renderTemplates();
+  renderSchols(SCHOLARSHIPS);
+  initInvoice();
+  calcCgpa();
+  // Render footer in home on load
+  document.getElementById('homeFooter').innerHTML = document.getElementById('footerTemplate').innerHTML;
+});
+</script>
+</body>
+</html>
