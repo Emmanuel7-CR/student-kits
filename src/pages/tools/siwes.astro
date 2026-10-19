@@ -1,0 +1,97 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+---
+
+<Base
+  title="SIWES Logbook Pages and Placement Letter"
+  description="Print weekly SIWES logbook pages with the correct dates and write a placement request letter. Free, and your details stay on your device."
+>
+  <nav class="mb-3 text-sm no-print" aria-label="Breadcrumb">
+    <a class="link" href="/tools/">Tools</a> <span class="text-muted">/</span> <span>SIWES Logbook and Letters</span>
+  </nav>
+  <h1 class="text-3xl font-extrabold tracking-tight no-print">SIWES Logbook and Letters</h1>
+  <p class="mt-2 max-w-2xl text-muted no-print">
+    Type your details once. You get weekly logbook pages with the right dates, and a placement request letter.
+  </p>
+  <p class="mt-3 max-w-2xl rounded-lg p-3 text-sm no-print" style="background:var(--warn-bg);color:var(--warn-fg)">
+    <strong>Important:</strong> SIWES usually has an official logbook from your school or the ITF. Use that one for what you
+    submit. These pages are for drafting, practice, or if your school accepts a printed copy. Confirm with your SIWES unit.
+  </p>
+
+  <div class="mt-6 grid gap-6 lg:grid-cols-[22rem_1fr]">
+    <form class="card space-y-3 no-print" novalidate onsubmit="return false">
+      <h2 class="text-lg font-bold">Your details</h2>
+      <label class="field"><span class="label">Full name</span><input id="si-name" class="input" type="text" maxlength="80" autocomplete="name" /></label>
+      <label class="field"><span class="label">Matric number</span><input id="si-matric" class="input" type="text" maxlength="40" /></label>
+      <label class="field"><span class="label">Department</span><input id="si-dept" class="input" type="text" maxlength="80" placeholder="Computer Science" /></label>
+      <label class="field"><span class="label">Institution</span><input id="si-school" class="input" type="text" maxlength="100" /></label>
+      <label class="field"><span class="label">Level (optional)</span><input id="si-level" class="input" type="text" maxlength="30" placeholder="300 level" /></label>
+      <label class="field"><span class="label">Company or place of attachment</span><input id="si-company" class="input" type="text" maxlength="100" /></label>
+      <label class="field"><span class="label">Company address</span><input id="si-caddress" class="input" type="text" maxlength="140" /></label>
+      <label class="field"><span class="label">Industry-based supervisor (optional)</span><input id="si-supervisor" class="input" type="text" maxlength="80" /></label>
+      <div class="grid grid-cols-2 gap-3">
+        <label class="field col-span-2"><span class="label">First day of training</span><input id="si-start" class="input" type="date" /></label>
+        <label class="field"><span class="label">Weeks</span><input id="si-weeks" class="input" type="number" inputmode="numeric" min="1" max="52" /></label>
+        <label class="field"><span class="label">Working days</span>
+          <select id="si-days" class="select"><option value="5">Monday to Friday</option><option value="6">Monday to Saturday</option></select>
+        </label>
+      </div>
+      <h2 class="pt-2 text-lg font-bold">For the letter</h2>
+      <label class="field"><span class="label">Addressed to</span><input id="si-recipient" class="input" type="text" maxlength="80" /></label>
+      <label class="field"><span class="label">How long (optional)</span><input id="si-duration" class="input" type="text" maxlength="60" placeholder="six months" /></label>
+      <label class="field"><span class="label">Your phone</span><input id="si-phone" class="input" type="tel" maxlength="30" autocomplete="tel" /></label>
+      <label class="field"><span class="label">Your email</span><input id="si-email" class="input" type="email" maxlength="80" autocomplete="email" /></label>
+      <p class="text-sm text-muted">Saved on this device only.</p>
+      <button id="si-clear" type="button" class="btn btn-quiet"><Icon name="trash" size={18} /> Clear my details</button>
+    </form>
+
+    <div class="min-w-0">
+      <div role="tablist" aria-label="Output" class="flex flex-wrap gap-2 no-print">
+        <button type="button" role="tab" data-tab="logbook" aria-selected="true" class="btn tab">Logbook pages</button>
+        <button type="button" role="tab" data-tab="letter" aria-selected="false" class="btn tab">Placement letter</button>
+      </div>
+
+      <section data-panel="logbook" class="mt-4" aria-label="Logbook pages">
+        <p id="si-count" class="mb-2 text-sm text-muted no-print" role="status" aria-live="polite"></p>
+        <div id="si-logbook" class="card print-area siwes-scroll" style="background:#fff;color:#111;"></div>
+        <button id="si-print-log" type="button" class="btn btn-primary mt-3 no-print"><Icon name="printer" size={18} /> Print or save as PDF</button>
+      </section>
+
+      <section data-panel="letter" class="mt-4" aria-label="Placement letter" hidden>
+        <div id="si-letter" class="card print-area" style="background:#fff;color:#111;font-size:13.5px;line-height:1.5;"></div>
+        <div class="mt-3 flex flex-wrap gap-2 no-print">
+          <button id="si-print-letter" type="button" class="btn btn-primary"><Icon name="printer" size={18} /> Print or save as PDF</button>
+          <button id="si-copy-letter" type="button" class="btn"><Icon name="copy" size={18} /> <span>Copy letter text</span></button>
+        </div>
+        <p class="mt-3 text-sm text-muted no-print">Read it through and change anything that is not true for you before you send it.</p>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    import '../../scripts/siwes-ui';
+  </script>
+</Base>
+
+<style is:global>
+  .tab[aria-selected='true'] {
+    background: var(--tint);
+    border-color: var(--primary);
+    color: var(--primary-strong);
+    font-weight: 700;
+  }
+  .siwes-scroll {
+    max-height: 70vh;
+    overflow: auto;
+  }
+  @media print {
+    .siwes-scroll {
+      max-height: none !important;
+      overflow: visible !important;
+    }
+    [data-panel][hidden] {
+      display: none !important;
+    }
+  }
+</style>

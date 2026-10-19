@@ -36,6 +36,27 @@ export const tools: Tool[] = [
     keywords: ['reference', 'apa', 'mla', 'harvard', 'bibliography', 'cite', 'project', 'thesis'],
   },
   {
+    slug: 'pdf',
+    title: 'PDF Tools',
+    blurb: 'Merge PDFs, turn photos into a PDF, or keep and remove pages. Files never leave your phone.',
+    icon: 'file',
+    keywords: ['pdf', 'merge', 'combine', 'split', 'extract pages', 'images to pdf', 'jpg to pdf', 'assignment', 'scan'],
+  },
+  {
+    slug: 'cv',
+    title: 'CV Builder',
+    blurb: 'Build a clean one or two page CV for internships and jobs, then print it or save it as PDF.',
+    icon: 'user',
+    keywords: ['cv', 'resume', 'curriculum vitae', 'job', 'internship', 'siwes', 'referees', 'application'],
+  },
+  {
+    slug: 'siwes',
+    title: 'SIWES Logbook and Letters',
+    blurb: 'Print a weekly SIWES logbook with the right dates, and write your placement request letter.',
+    icon: 'clipboard',
+    keywords: ['siwes', 'itf', 'industrial training', 'logbook', 'placement', 'attachment', 'letter', 'it'],
+  },
+  {
     slug: 'project-topics',
     title: 'Project Topic Ideas',
     blurb: 'Starting ideas for final year projects by department. Always agree the final topic with your supervisor.',

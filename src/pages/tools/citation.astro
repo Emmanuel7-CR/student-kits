@@ -18,6 +18,17 @@ import Icon from '../../components/Icon.astro';
 
   <div class="mt-6 grid gap-6 lg:grid-cols-2">
     <form id="cite-form" class="card space-y-4" novalidate>
+      <div class="rounded-lg border border-border p-3">
+        <label class="field">
+          <span class="label">Fill it in for me (optional)</span>
+          <div class="flex gap-2">
+            <input id="c-lookup" class="input" type="text" inputmode="url" autocomplete="off" placeholder="DOI or ISBN" aria-describedby="c-lookup-hint" />
+            <button id="c-lookup-go" type="button" class="btn shrink-0">Look up</button>
+          </div>
+          <span id="c-lookup-hint" class="hint">Paste a DOI (10.1234/abc) or a book ISBN. Needs data. Always check what it returns.</span>
+        </label>
+        <p id="c-lookup-msg" class="mt-2 text-sm" role="status" aria-live="polite" hidden></p>
+      </div>
       <div class="grid grid-cols-2 gap-3">
         <label class="field">
           <span class="label">Style</span>
@@ -113,6 +124,7 @@ import Icon from '../../components/Icon.astro';
 
   <script>
     import { cite, type CiteInput } from '../../lib/citation';
+    import { cleanIsbn, fromCrossref, fromOpenLibrary, normaliseDoi, type Filled } from '../../lib/lookup';
     import { copyText, el } from '../../scripts/dom';
 
     const $v = (id: string) => (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement).value;
@@ -180,6 +192,78 @@ import Icon from '../../components/Icon.astro';
       const label = copyBtn.querySelector('span')!;
       label.textContent = ok ? 'Copied (plain text; italicise titles in your document)' : 'Copy not available here';
       setTimeout(() => (label.textContent = 'Copy reference'), 2500);
+    });
+
+    const lookupMsg = document.getElementById('c-lookup-msg') as HTMLElement;
+    const lookupBtn = document.getElementById('c-lookup-go') as HTMLButtonElement;
+    const form = document.getElementById('cite-form') as HTMLFormElement;
+    const FIELD_IDS: Record<keyof Filled, string> = {
+      type: 'c-type', authors: 'c-authors', year: 'c-year', title: 'c-title', publisher: 'c-publisher', edition: 'c-edition',
+      place: 'c-place', journal: 'c-journal', volume: 'c-volume', issue: 'c-issue', pages: 'c-pages', doi: 'c-doi', url: 'c-url',
+    };
+
+    function lookupSay(text: string) {
+      lookupMsg.textContent = text;
+      lookupMsg.hidden = !text;
+    }
+
+    function applyFilled(f: Filled) {
+      // Start from a clean form so details from an earlier source do not linger.
+      for (const id of Object.values(FIELD_IDS)) {
+        if (id !== 'c-type') (document.getElementById(id) as HTMLInputElement).value = '';
+      }
+      for (const [key, value] of Object.entries(f) as [keyof Filled, string][]) {
+        (document.getElementById(FIELD_IDS[key]) as HTMLInputElement).value = value;
+      }
+      form.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+
+    async function getJson(url: string): Promise<unknown> {
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), 12000);
+      try {
+        const res = await fetch(url, { signal: ctl.signal, headers: { Accept: 'application/json' } });
+        if (res.status === 404) return null;
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return await res.json();
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    async function lookup() {
+      const raw = (document.getElementById('c-lookup') as HTMLInputElement).value.trim();
+      if (!raw) return lookupSay('Paste a DOI or an ISBN first.');
+      const doi = normaliseDoi(raw);
+      const isbn = doi ? null : cleanIsbn(raw);
+      if (!doi && !isbn) {
+        return lookupSay('That does not look like a DOI (starts with 10.) or a valid ISBN. Check for typing mistakes.');
+      }
+      lookupBtn.disabled = true;
+      lookupSay('Looking it up…');
+      try {
+        let filled: Filled | null;
+        if (doi) {
+          const encoded = doi.split('/').map(encodeURIComponent).join('/');
+          filled = fromCrossref(await getJson(`https://api.crossref.org/works/${encoded}`));
+        } else {
+          filled = fromOpenLibrary(await getJson(`https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`), isbn!);
+        }
+        if (!filled) return lookupSay('Nothing found for that. Fill the form in by hand instead.');
+        applyFilled(filled);
+        lookupSay('Filled in. Check every field against the source, and fix capitalisation to match your style.');
+      } catch {
+        lookupSay('Could not reach the lookup service. Check your data connection and try again, or fill the form in by hand.');
+      } finally {
+        lookupBtn.disabled = false;
+      }
+    }
+    lookupBtn.addEventListener('click', lookup);
+    document.getElementById('c-lookup')!.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter') {
+        e.preventDefault();
+        lookup();
+      }
     });
 
     toggleFields();

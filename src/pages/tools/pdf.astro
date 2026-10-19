@@ -1,0 +1,108 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+---
+
+<Base
+  title="Free PDF Tools: Merge, Images to PDF, Remove Pages"
+  description="Merge PDFs, turn photos or scans into one PDF, or keep and remove pages. It runs on your device, so your files are never uploaded."
+>
+  <nav class="mb-3 text-sm" aria-label="Breadcrumb">
+    <a class="link" href="/tools/">Tools</a> <span class="text-muted">/</span> <span>PDF Tools</span>
+  </nav>
+  <h1 class="text-3xl font-extrabold tracking-tight">PDF Tools</h1>
+  <p class="mt-2 max-w-2xl text-muted">
+    Handy for assignments, scanned notes and application documents. Everything happens in your browser, so your files are
+    never uploaded and nothing is sent anywhere.
+  </p>
+
+  <div role="tablist" aria-label="PDF tools" class="mt-6 flex flex-wrap gap-2">
+    <button type="button" role="tab" data-tab="merge" aria-selected="true" class="btn tab">Merge PDFs</button>
+    <button type="button" role="tab" data-tab="images" aria-selected="false" class="btn tab">Photos to PDF</button>
+    <button type="button" role="tab" data-tab="pages" aria-selected="false" class="btn tab">Keep or remove pages</button>
+  </div>
+
+  <section data-panel="merge" class="card mt-4 max-w-2xl space-y-4" aria-label="Merge PDFs">
+    <p class="text-sm text-muted">Pick two or more PDFs, put them in order, then merge.</p>
+    <label class="btn btn-primary cursor-pointer">
+      <Icon name="plus" size={18} /> <span>Add PDF files</span>
+      <input id="merge-files" type="file" accept="application/pdf,.pdf" multiple class="sr-only" />
+    </label>
+    <p id="merge-empty" class="text-sm text-muted">No files yet.</p>
+    <ol id="merge-list" class="space-y-2"></ol>
+    <button id="merge-go" type="button" class="btn btn-primary" disabled>Merge and download</button>
+    <p id="merge-msg" class="msg" role="status" aria-live="polite" hidden></p>
+  </section>
+
+  <section data-panel="images" class="card mt-4 max-w-2xl space-y-4" aria-label="Photos to PDF" hidden>
+    <p class="text-sm text-muted">Pick photos or scans (JPG, PNG, WebP). Each one becomes a page, in the order shown.</p>
+    <label class="btn btn-primary cursor-pointer">
+      <Icon name="plus" size={18} /> <span>Add photos</span>
+      <input id="img-files" type="file" accept="image/*" multiple class="sr-only" />
+    </label>
+    <p id="img-empty" class="text-sm text-muted">No photos yet.</p>
+    <ol id="img-list" class="space-y-2"></ol>
+    <label class="field max-w-xs">
+      <span class="label">Page size</span>
+      <select id="img-size" class="select">
+        <option value="a4">A4 pages, photo centred</option>
+        <option value="fit">Same size as each photo</option>
+      </select>
+    </label>
+    <button id="img-go" type="button" class="btn btn-primary" disabled>Make PDF and download</button>
+    <p id="img-msg" class="msg" role="status" aria-live="polite" hidden></p>
+  </section>
+
+  <section data-panel="pages" class="card mt-4 max-w-2xl space-y-4" aria-label="Keep or remove pages" hidden>
+    <p class="text-sm text-muted">Pick one PDF, then say which pages to keep or remove.</p>
+    <label class="btn btn-primary cursor-pointer">
+      <Icon name="plus" size={18} /> <span>Choose a PDF</span>
+      <input id="pg-file" type="file" accept="application/pdf,.pdf" class="sr-only" />
+    </label>
+    <p id="pg-info" class="text-sm font-semibold"></p>
+    <div class="grid gap-3 sm:grid-cols-2">
+      <label class="field">
+        <span class="label">What to do</span>
+        <select id="pg-mode" class="select">
+          <option value="keep">Keep only these pages</option>
+          <option value="remove">Remove these pages</option>
+        </select>
+      </label>
+      <label class="field">
+        <span class="label">Pages</span>
+        <input id="pg-range" class="input" type="text" inputmode="numeric" placeholder="1-3, 5, 8-" autocomplete="off" />
+        <span class="hint">Use commas and dashes. “8-” means page 8 to the end. Pages come out in the order you type them.</span>
+      </label>
+    </div>
+    <button id="pg-go" type="button" class="btn btn-primary" disabled>Make new PDF</button>
+    <p id="pg-msg" class="msg" role="status" aria-live="polite" hidden></p>
+  </section>
+
+  <p class="mt-6 max-w-2xl text-sm text-muted">
+    These tools do not compress files, and they cannot open password protected PDFs. Very large files can be slow on older
+    phones, so close other tabs first.
+  </p>
+
+  <script>
+    import '../../scripts/pdf-ui';
+  </script>
+</Base>
+
+<style is:global>
+  .tab[aria-selected='true'] {
+    background: var(--tint);
+    border-color: var(--primary);
+    color: var(--primary-strong);
+    font-weight: 700;
+  }
+  .msg {
+    border-radius: 0.5rem;
+    padding: 0.625rem 0.75rem;
+    background: var(--tint);
+    font-size: 0.9rem;
+  }
+  .msg[data-kind='error'] {
+    border: 1px solid var(--outline);
+    font-weight: 600;
+  }
+</style>

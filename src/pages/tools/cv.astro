@@ -1,0 +1,94 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+---
+
+<Base
+  title="Free CV Builder for Students"
+  description="Build a clean CV for internships, SIWES and first jobs. Print it or save it as a PDF. Your details stay on your device."
+>
+  <nav class="mb-3 text-sm no-print" aria-label="Breadcrumb">
+    <a class="link" href="/tools/">Tools</a> <span class="text-muted">/</span> <span>CV Builder</span>
+  </nav>
+  <h1 class="text-3xl font-extrabold tracking-tight no-print">CV Builder</h1>
+  <p class="mt-2 max-w-2xl text-muted no-print">
+    Fill in what you have and leave the rest empty. Empty sections do not appear. When you are happy, print it and choose
+    “Save as PDF”. Your CV is saved on this device only.
+  </p>
+
+  <div class="mt-6 grid gap-6 lg:grid-cols-2">
+    <form class="space-y-5 no-print" novalidate onsubmit="return false">
+      <section class="card space-y-3" aria-labelledby="cv-h1">
+        <h2 id="cv-h1" class="text-lg font-bold">About you</h2>
+        <label class="field"><span class="label">Full name</span><input id="cv-name" class="input" type="text" maxlength="80" autocomplete="name" /></label>
+        <label class="field"><span class="label">Headline</span><input id="cv-headline" class="input" type="text" maxlength="100" placeholder="Final year Computer Science student" /></label>
+        <div class="grid gap-3 sm:grid-cols-2">
+          <label class="field"><span class="label">Email</span><input id="cv-email" class="input" type="email" maxlength="80" autocomplete="email" /></label>
+          <label class="field"><span class="label">Phone</span><input id="cv-phone" class="input" type="tel" maxlength="40" autocomplete="tel" /></label>
+        </div>
+        <label class="field"><span class="label">Address or city</span><input id="cv-address" class="input" type="text" maxlength="100" autocomplete="street-address" /></label>
+        <label class="field">
+          <span class="label">Links (one per line, optional)</span>
+          <textarea id="cv-links" class="textarea" rows="2" maxlength="300" placeholder="linkedin.com/in/yourname"></textarea>
+        </label>
+        <label class="field">
+          <span class="label">Profile (2 to 3 sentences)</span>
+          <textarea id="cv-summary" class="textarea" rows="4" maxlength="700"></textarea>
+        </label>
+      </section>
+
+      <section class="card space-y-3" aria-labelledby="cv-h2">
+        <h2 id="cv-h2" class="text-lg font-bold">Education</h2>
+        <div id="cv-edu" class="space-y-3"></div>
+        <button id="cv-add-edu" type="button" class="btn"><Icon name="plus" size={18} /> Add education</button>
+      </section>
+
+      <section class="card space-y-3" aria-labelledby="cv-h3">
+        <h2 id="cv-h3" class="text-lg font-bold">Experience</h2>
+        <p class="text-sm text-muted">SIWES, volunteering, class projects and leadership roles all count.</p>
+        <div id="cv-exp" class="space-y-3"></div>
+        <button id="cv-add-exp" type="button" class="btn"><Icon name="plus" size={18} /> Add experience</button>
+      </section>
+
+      <section class="card space-y-3" aria-labelledby="cv-h4">
+        <h2 id="cv-h4" class="text-lg font-bold">Skills</h2>
+        <label class="field">
+          <span class="label">Skills (separate with commas)</span>
+          <textarea id="cv-skills" class="textarea" rows="2" maxlength="500" placeholder="Microsoft Excel, HTML and CSS, Public speaking"></textarea>
+        </label>
+      </section>
+
+      <section class="card space-y-3" aria-labelledby="cv-h5">
+        <h2 id="cv-h5" class="text-lg font-bold">Referees</h2>
+        <div id="cv-refs" class="space-y-3"></div>
+        <button id="cv-add-ref" type="button" class="btn"><Icon name="plus" size={18} /> Add referee</button>
+        <label class="flex items-center gap-2 text-sm">
+          <input id="cv-onrequest" type="checkbox" class="h-5 w-5" />
+          <span>Write “Available on request” when I list no referees</span>
+        </label>
+      </section>
+
+      <section class="card space-y-3">
+        <label class="field max-w-xs">
+          <span class="label">Heading colour</span>
+          <select id="cv-accent" class="select"><option value="blue">Blue</option><option value="black">Black</option></select>
+        </label>
+        <p id="cv-save-note" class="text-sm text-muted" role="status"></p>
+        <button id="cv-clear" type="button" class="btn btn-quiet"><Icon name="trash" size={18} /> Clear my CV</button>
+      </section>
+    </form>
+
+    <section aria-labelledby="cv-prev-h" class="lg:sticky lg:top-20 lg:self-start">
+      <h2 id="cv-prev-h" class="mb-2 text-lg font-bold no-print">Preview</h2>
+      <div id="cv-preview" class="card print-area" style="background:#fff;color:#111;font-size:12.5px;line-height:1.45;"></div>
+      <button id="cv-print" type="button" class="btn btn-primary mt-3 no-print"><Icon name="printer" size={18} /> Print or save as PDF</button>
+      <p class="mt-3 text-sm text-muted no-print">
+        Tip: keep it to one page for internships. Put your strongest points first and use numbers where you can.
+      </p>
+    </section>
+  </div>
+
+  <script>
+    import '../../scripts/cv-ui';
+  </script>
+</Base>
