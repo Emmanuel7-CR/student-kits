@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { tools } from '../data/tools';
+import scholarships from '../data/scholarships.json';
+import { formatDate } from '../lib/scholarships';
+---
+
+<Base
+  title="FreeStudentKit: free tools for Nigerian students"
+  description="Free CGPA calculator (4.0 and 5.0), citation generator, Post-UTME aggregate calculator, project topic ideas and checked scholarship information for Nigerian students. No sign-up."
+>
+  <section class="rounded-2xl border border-line bg-tint px-5 py-8 sm:px-8 sm:py-12">
+    <h1 class="max-w-2xl text-3xl font-extrabold tracking-tight sm:text-4xl">Free tools and honest information for Nigerian students</h1>
+    <p class="mt-3 max-w-2xl text-lg text-muted">
+      Work out your CGPA, format your references and keep track of scholarship deadlines. No sign-up, no payment, and it works
+      on a phone.
+    </p>
+    <form action="/search/" method="get" role="search" class="mt-5 flex max-w-xl gap-2">
+      <label class="sr-only" for="home-q">Search tools and scholarships</label>
+      <input id="home-q" name="q" type="search" class="input" placeholder="Search, for example “CGPA” or “NNPC”" autocomplete="off" />
+      <button class="btn btn-primary" type="submit"><Icon name="search" size={18} /> Search</button>
+    </form>
+    <div class="mt-5 flex flex-wrap gap-2">
+      <a class="btn btn-primary" href="/tools/cgpa/"><Icon name="calculator" size={18} /> Calculate my CGPA</a>
+      <a class="btn" href="/scholarships/"><Icon name="award" size={18} /> See scholarships</a>
+    </div>
+  </section>
+
+  <section class="mt-10" aria-labelledby="tools-h">
+    <div class="flex items-end justify-between gap-3">
+      <h2 id="tools-h" class="text-2xl font-bold">Tools</h2>
+      <a class="link text-sm" href="/tools/">All tools</a>
+    </div>
+    <ul class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        tools.map((t) => (
+          <li>
+            <a href={`/tools/${t.slug}/`} class="card flex h-full flex-col gap-2 no-underline transition-colors hover:bg-tint" style="color: inherit">
+              <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-tint text-brand-strong">
+                <Icon name={t.icon} size={22} />
+              </span>
+              <span class="text-lg font-bold">{t.title}</span>
+              <span class="text-sm text-muted">{t.blurb}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="mt-10 grid gap-4 md:grid-cols-2" aria-labelledby="schol-h">
+    <div class="card">
+      <h2 id="schol-h" class="text-2xl font-bold">Scholarships you can trust</h2>
+      <p class="mt-2 text-muted">
+        Every entry shows where the information came from, whether an official page confirms it, and when it was last checked
+        ({formatDate(scholarships.checkedOn)}). Closed rounds are kept so you can prepare early.
+      </p>
+      <a class="btn btn-primary mt-4" href="/scholarships/">Open the list</a>
+    </div>
+    <div class="card">
+      <h2 class="text-2xl font-bold">Built for real life</h2>
+      <ul class="mt-2 space-y-2 text-muted">
+        <li><strong class="text-ink">Free.</strong> No account and nothing to pay.</li>
+        <li><strong class="text-ink">Light.</strong> Pages are small, so they load on weak networks and save data.</li>
+        <li><strong class="text-ink">Works offline.</strong> After you open a tool once, it keeps working without data.</li>
+        <li><strong class="text-ink">Private.</strong> Your CGPA and semesters stay on your device.</li>
+      </ul>
+    </div>
+  </section>
+</Base>

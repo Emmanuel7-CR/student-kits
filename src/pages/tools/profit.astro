@@ -1,0 +1,99 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="Profit Calculator"
+  description="Work out profit, margin and markup, and the selling price you need for a target margin. Free, in naira."
+>
+  <nav class="mb-3 text-sm" aria-label="Breadcrumb">
+    <a class="link" href="/tools/">Tools</a> <span class="text-muted">/</span> <span>Profit Calculator</span>
+  </nav>
+  <h1 class="text-3xl font-extrabold tracking-tight">Profit Calculator</h1>
+  <p class="mt-2 max-w-2xl text-muted">For small businesses and accounting assignments. Amounts are in naira.</p>
+
+  <div class="mt-6 grid gap-6 md:grid-cols-2">
+    <form class="card space-y-4" novalidate>
+      <label class="field">
+        <span class="label">Cost price per item (₦)</span>
+        <input id="pf-cost" class="input" type="number" inputmode="decimal" min="0" step="any" />
+      </label>
+      <label class="field">
+        <span class="label">Selling price per item (₦)</span>
+        <input id="pf-sell" class="input" type="number" inputmode="decimal" min="0" step="any" />
+      </label>
+      <label class="field">
+        <span class="label">Quantity</span>
+        <input id="pf-qty" class="input" type="number" inputmode="numeric" min="1" step="1" value="1" />
+      </label>
+    </form>
+
+    <div class="space-y-6">
+      <section class="card" aria-labelledby="pf-h">
+        <h2 id="pf-h" class="text-lg font-bold">Result</h2>
+        <p id="pf-msg" class="mt-2 text-muted" role="status" aria-live="polite">Enter a cost price and a selling price.</p>
+        <table class="tbl mt-2" id="pf-table" hidden>
+          <tbody id="pf-body"></tbody>
+        </table>
+      </section>
+
+      <section class="card" aria-labelledby="tm-h">
+        <h2 id="tm-h" class="text-lg font-bold">Price for a target margin</h2>
+        <label class="field mt-2">
+          <span class="label">Margin you want (%)</span>
+          <input id="tm-margin" class="input" type="number" inputmode="decimal" min="0" max="99" step="any" />
+        </label>
+        <p id="tm-out" class="result-box mt-3" role="status" aria-live="polite">Enter a cost price and a margin.</p>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    import { el, money } from '../../scripts/dom';
+    const num = (id: string) => parseFloat((document.getElementById(id) as HTMLInputElement).value);
+    const body = document.getElementById('pf-body')!;
+    const table = document.getElementById('pf-table') as HTMLElement;
+    const msg = document.getElementById('pf-msg')!;
+    const tm = document.getElementById('tm-out')!;
+
+    function row(label: string, value: string, cls = '') {
+      return el('tr', {}, el('td', {}, label), el('td', { class: `num ${cls}` }, value));
+    }
+
+    function run() {
+      const cost = num('pf-cost');
+      const sell = num('pf-sell');
+      const qty = Number.isFinite(num('pf-qty')) && num('pf-qty') > 0 ? num('pf-qty') : 1;
+
+      if (Number.isFinite(cost) && cost >= 0 && Number.isFinite(sell) && sell > 0) {
+        const revenue = sell * qty;
+        const totalCost = cost * qty;
+        const profit = revenue - totalCost;
+        const margin = (profit / revenue) * 100;
+        const markup = cost > 0 ? (profit / totalCost) * 100 : NaN;
+        msg.textContent = profit >= 0 ? 'You make a profit.' : 'You make a loss at this price.';
+        body.replaceChildren(
+          row('Revenue', money(revenue)),
+          row('Total cost', money(totalCost)),
+          row(profit >= 0 ? 'Profit' : 'Loss', money(profit), profit >= 0 ? 'font-bold' : 'font-bold'),
+          row('Profit margin (of selling price)', `${margin.toFixed(2)}%`),
+          row('Markup (on cost)', Number.isFinite(markup) ? `${markup.toFixed(2)}%` : 'n/a (cost is zero)'),
+        );
+        table.hidden = false;
+      } else {
+        msg.textContent = 'Enter a cost price and a selling price.';
+        table.hidden = true;
+      }
+
+      const m = num('tm-margin');
+      if (Number.isFinite(cost) && cost > 0 && Number.isFinite(m) && m >= 0 && m < 100) {
+        const price = cost / (1 - m / 100);
+        tm.textContent = `To earn a ${m}% margin you need to sell at ${money(price)} per item (a markup of ${((price / cost - 1) * 100).toFixed(2)}%).`;
+      } else {
+        tm.textContent = 'Enter a cost price and a margin between 0 and 99.';
+      }
+    }
+    ['pf-cost', 'pf-sell', 'pf-qty', 'tm-margin'].forEach((id) => document.getElementById(id)!.addEventListener('input', run));
+    run();
+  </script>
+</Base>

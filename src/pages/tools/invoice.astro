@@ -1,0 +1,171 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+---
+
+<Base
+  title="Invoice Generator"
+  description="Make a clean invoice for freelance work and print it or save it as a PDF. VAT is optional and you set the rate."
+>
+  <nav class="mb-3 text-sm no-print" aria-label="Breadcrumb">
+    <a class="link" href="/tools/">Tools</a> <span class="text-muted">/</span> <span>Invoice Generator</span>
+  </nav>
+  <h1 class="text-3xl font-extrabold tracking-tight no-print">Invoice Generator</h1>
+  <p class="mt-2 max-w-2xl text-muted no-print">
+    Fill in the details, check the preview, then print it or choose “Save as PDF” in the print window. Nothing leaves your
+    device.
+  </p>
+
+  <div class="mt-6 grid gap-6 lg:grid-cols-2">
+    <form class="card space-y-4 no-print" id="inv-form" novalidate>
+      <label class="field">
+        <span class="label">Your name or business</span>
+        <input id="inv-from" class="input" type="text" maxlength="120" />
+      </label>
+      <label class="field">
+        <span class="label">Billed to</span>
+        <input id="inv-to" class="input" type="text" maxlength="120" />
+      </label>
+      <div class="grid grid-cols-2 gap-3">
+        <label class="field">
+          <span class="label">Invoice number</span>
+          <input id="inv-num" class="input" type="text" maxlength="30" value="INV-001" />
+        </label>
+        <label class="field">
+          <span class="label">Date</span>
+          <input id="inv-date" class="input" type="date" />
+        </label>
+        <label class="field">
+          <span class="label">Currency</span>
+          <select id="inv-cur" class="select">
+            <option value="₦">₦ Naira</option>
+            <option value="$">$ Dollar</option>
+            <option value="£">£ Pound</option>
+            <option value="€">€ Euro</option>
+          </select>
+        </label>
+        <label class="field">
+          <span class="label">VAT rate (%)</span>
+          <div class="flex items-center gap-2">
+            <input id="inv-vat-on" type="checkbox" class="h-5 w-5" aria-label="Add VAT" />
+            <input id="inv-vat" class="input" type="number" inputmode="decimal" min="0" max="100" step="0.1" value="7.5" />
+          </div>
+          <span class="hint">Tick the box only if you charge VAT.</span>
+        </label>
+      </div>
+
+      <fieldset>
+        <legend class="label text-sm font-semibold">Items</legend>
+        <div id="inv-items" class="mt-2 space-y-3"></div>
+        <button id="inv-add" type="button" class="btn mt-3"><Icon name="plus" size={18} /> Add item</button>
+      </fieldset>
+
+      <label class="field">
+        <span class="label">Payment details or note (optional)</span>
+        <textarea id="inv-note" class="textarea" rows="3" maxlength="400" placeholder="Bank name, account name and number, or a thank-you note"></textarea>
+      </label>
+    </form>
+
+    <section aria-labelledby="inv-prev-h">
+      <h2 id="inv-prev-h" class="mb-2 text-lg font-bold no-print">Preview</h2>
+      <div id="inv-preview" class="card print-area bg-white text-black" style="background:#fff;color:#111"></div>
+      <button id="inv-print" type="button" class="btn btn-primary mt-3 no-print"><Icon name="printer" size={18} /> Print or save as PDF</button>
+    </section>
+  </div>
+
+  <script>
+    import { el, money, parseNum, uid } from '../../scripts/dom';
+
+    const $i = (id: string) => document.getElementById(id) as HTMLInputElement;
+    const itemsEl = document.getElementById('inv-items')!;
+    const preview = document.getElementById('inv-preview')!;
+
+    $i('inv-date').value = new Date().toISOString().slice(0, 10);
+
+    function addItem(desc = '', qty = '1', price = '') {
+      const id = uid();
+      const row = el(
+        'div',
+        { class: 'grid grid-cols-[1fr_4.5rem_6.5rem_2.75rem] items-end gap-2', 'data-item': id },
+        el('input', { class: 'input inv-desc', type: 'text', placeholder: 'Description', 'aria-label': 'Item description', maxLength: 120, value: desc }),
+        el('input', { class: 'input inv-qty', type: 'number', inputMode: 'decimal', min: '0', step: 'any', placeholder: 'Qty', 'aria-label': 'Quantity', value: qty }),
+        el('input', { class: 'input inv-price', type: 'number', inputMode: 'decimal', min: '0', step: 'any', placeholder: 'Price', 'aria-label': 'Unit price', value: price }),
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-quiet btn-icon',
+            'aria-label': 'Remove this item',
+            onclick: () => {
+              if (itemsEl.children.length > 1) row.remove();
+              else row.querySelectorAll('input').forEach((i) => ((i as HTMLInputElement).value = ''));
+              render();
+            },
+          },
+          '×',
+        ),
+      );
+      itemsEl.append(row);
+    }
+
+    function cell(text: string, cls = '') {
+      return el('td', { style: 'padding:6px 8px;border-bottom:1px solid #d5d9e0;' + (cls === 'r' ? 'text-align:right;' : '') }, text);
+    }
+    function head(text: string, right = false) {
+      return el('th', { style: 'padding:6px 8px;border-bottom:2px solid #1f4f86;text-align:' + (right ? 'right' : 'left') + ';font-size:12px;' }, text);
+    }
+
+    function render() {
+      const cur = $i('inv-cur').value;
+      const vatOn = $i('inv-vat-on').checked;
+      const vatRate = parseNum($i('inv-vat').value);
+      let subtotal = 0;
+      const body = el('tbody');
+      itemsEl.querySelectorAll<HTMLElement>('[data-item]').forEach((r) => {
+        const desc = (r.querySelector('.inv-desc') as HTMLInputElement).value.trim();
+        const qty = parseNum((r.querySelector('.inv-qty') as HTMLInputElement).value);
+        const price = parseNum((r.querySelector('.inv-price') as HTMLInputElement).value);
+        if (!desc && !Number.isFinite(price)) return;
+        const q = Number.isFinite(qty) ? qty : 1;
+        const p = Number.isFinite(price) ? price : 0;
+        subtotal += q * p;
+        body.append(el('tr', {}, cell(desc || 'Item'), cell(String(q), 'r'), cell(money(p, cur), 'r'), cell(money(q * p, cur), 'r')));
+      });
+      const vat = vatOn && Number.isFinite(vatRate) ? subtotal * (vatRate / 100) : 0;
+      const total = subtotal + vat;
+
+      const line = (label: string, value: string, bold = false) =>
+        el('div', { style: `display:flex;justify-content:space-between;gap:24px;padding:3px 0;${bold ? 'font-weight:700;font-size:1.1em;border-top:2px solid #1f4f86;margin-top:4px;padding-top:6px;' : ''}` }, el('span', {}, label), el('span', {}, value));
+
+      const note = $i('inv-note') as unknown as HTMLTextAreaElement;
+      preview.replaceChildren(
+        el('div', { style: 'display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:flex-start;' },
+          el('div', {}, el('div', { style: 'font-size:28px;font-weight:800;color:#1f4f86;letter-spacing:1px;' }, 'INVOICE'), el('div', { style: 'margin-top:4px;' }, $i('inv-from').value.trim() || 'Your name or business')),
+          el('div', { style: 'text-align:right;font-size:14px;' }, el('div', {}, `Invoice no: ${$i('inv-num').value.trim() || '-'}`), el('div', {}, `Date: ${$i('inv-date').value || '-'}`)),
+        ),
+        el('div', { style: 'margin-top:16px;' }, el('div', { style: 'font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6076;' }, 'Billed to'), el('div', {}, $i('inv-to').value.trim() || 'Client name')),
+        el('table', { style: 'width:100%;border-collapse:collapse;margin-top:16px;font-size:14px;' },
+          el('thead', {}, el('tr', {}, head('Description'), head('Qty', true), head('Unit price', true), head('Amount', true))),
+          body,
+        ),
+        el('div', { style: 'margin-top:12px;margin-left:auto;max-width:280px;font-size:14px;' },
+          line('Subtotal', money(subtotal, cur)),
+          vatOn ? line(`VAT (${Number.isFinite(vatRate) ? vatRate : 0}%)`, money(vat, cur)) : null,
+          line('Total due', money(total, cur), true),
+        ),
+        note.value.trim() ? el('div', { style: 'margin-top:16px;font-size:13px;white-space:pre-wrap;border-top:1px solid #d5d9e0;padding-top:8px;' }, note.value.trim()) : null,
+      );
+    }
+
+    addItem();
+    document.getElementById('inv-add')!.addEventListener('click', () => {
+      if (itemsEl.children.length >= 30) return;
+      addItem();
+      render();
+    });
+    document.getElementById('inv-form')!.addEventListener('input', render);
+    document.getElementById('inv-form')!.addEventListener('submit', (e) => e.preventDefault());
+    document.getElementById('inv-print')!.addEventListener('click', () => window.print());
+    render();
+  </script>
+</Base>

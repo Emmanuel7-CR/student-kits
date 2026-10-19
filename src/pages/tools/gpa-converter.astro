@@ -1,0 +1,87 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="GPA Converter (5.0 to 4.0 and back)"
+  description="Estimate your CGPA on the 4.0 or 5.0 scale and learn why course-by-course conversion is more accurate."
+>
+  <nav class="mb-3 text-sm" aria-label="Breadcrumb">
+    <a class="link" href="/tools/">Tools</a> <span class="text-muted">/</span> <span>GPA Converter</span>
+  </nav>
+  <h1 class="text-3xl font-extrabold tracking-tight">GPA Converter</h1>
+  <p class="mt-2 max-w-2xl text-muted">A quick estimate of your CGPA on the other scale.</p>
+
+  <div class="mt-6 grid gap-6 md:grid-cols-2">
+    <form class="card space-y-4" id="conv-form" novalidate>
+      <label class="field">
+        <span class="label">Your CGPA</span>
+        <input id="conv-value" class="input" type="number" inputmode="decimal" min="0" step="0.01" placeholder="e.g. 4.12" />
+      </label>
+      <div class="grid grid-cols-2 gap-3">
+        <label class="field">
+          <span class="label">From</span>
+          <select id="conv-from" class="select">
+            <option value="5">5-point scale</option>
+            <option value="4">4-point scale</option>
+          </select>
+        </label>
+        <label class="field">
+          <span class="label">To</span>
+          <select id="conv-to" class="select">
+            <option value="4">4-point scale</option>
+            <option value="5">5-point scale</option>
+          </select>
+        </label>
+      </div>
+      <div id="conv-out" class="result-box" role="status" aria-live="polite">Enter your CGPA to see the estimate.</div>
+    </form>
+
+    <div class="card prose-fsk">
+      <h2 class="text-lg font-bold">Read this before you rely on it</h2>
+      <p>
+        This tool scales your CGPA in proportion (for example 4.00 out of 5 becomes 3.20 out of 4). It is only an estimate.
+        Foreign universities and credential evaluators often convert grade by grade using their own tables, so ask the one you
+        are applying to what they require.
+      </p>
+      <p>
+        <strong>A more accurate way:</strong> open the <a href="/tools/cgpa/">CGPA Calculator</a>, enter your courses on the
+        scale you used, then switch the scale. Your letter grades carry over, so the result is worked out from your actual
+        grades instead of the average.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    import { classify, round2, SCALES, type ScaleId } from '../../lib/cgpa';
+    const value = document.getElementById('conv-value') as HTMLInputElement;
+    const from = document.getElementById('conv-from') as HTMLSelectElement;
+    const to = document.getElementById('conv-to') as HTMLSelectElement;
+    const out = document.getElementById('conv-out') as HTMLElement;
+
+    function run() {
+      const v = parseFloat(value.value);
+      const f = from.value as ScaleId;
+      const t = to.value as ScaleId;
+      if (!Number.isFinite(v)) {
+        out.textContent = 'Enter your CGPA to see the estimate.';
+        return;
+      }
+      if (v < 0 || v > SCALES[f].max) {
+        out.textContent = `A CGPA on the ${SCALES[f].label} must be between 0 and ${SCALES[f].max}.`;
+        return;
+      }
+      if (f === t) {
+        out.textContent = 'Choose two different scales.';
+        return;
+      }
+      const est = round2((v / SCALES[f].max) * SCALES[t].max);
+      out.textContent = `Estimate: ${est.toFixed(2)} out of ${SCALES[t].max}.0 (${classify(est, t)} on typical bands for that scale).`;
+    }
+    [value, from, to].forEach((e) => e.addEventListener('input', run));
+    from.addEventListener('change', () => {
+      to.value = from.value === '5' ? '4' : '5';
+      run();
+    });
+  </script>
+</Base>

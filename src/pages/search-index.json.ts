@@ -1,0 +1,25 @@
+import type { APIRoute } from 'astro';
+import { tools } from '../data/tools';
+import scholarships from '../data/scholarships.json';
+
+export const GET: APIRoute = () => {
+  const items = [
+    ...tools.map((t) => ({
+      title: t.title,
+      url: `/tools/${t.slug}/`,
+      kind: 'Tool',
+      text: `${t.blurb} ${t.keywords.join(' ')}`,
+    })),
+    ...scholarships.entries.map((s) => ({
+      title: s.name,
+      url: '/scholarships/',
+      kind: s.kind === 'loan' ? 'Loan' : 'Scholarship',
+      text: `${s.provider} ${s.level} ${s.who}`,
+    })),
+    { title: 'All tools', url: '/tools/', kind: 'Page', text: 'tools calculators generators' },
+    { title: 'Scholarships and loans', url: '/scholarships/', kind: 'Page', text: 'scholarship loan funding deadline' },
+    { title: 'Library', url: '/library/', kind: 'Page', text: 'past questions notes' },
+    { title: 'About and sources', url: '/about/', kind: 'Page', text: 'about sources how we check' },
+  ];
+  return new Response(JSON.stringify(items), { headers: { 'Content-Type': 'application/json' } });
+};

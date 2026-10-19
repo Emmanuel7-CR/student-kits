@@ -1,0 +1,101 @@
+---
+import Icon from './Icon.astro';
+
+const path = Astro.url.pathname;
+const links = [
+  { href: '/tools/', label: 'Tools', icon: 'grid' },
+  { href: '/scholarships/', label: 'Scholarships', icon: 'award' },
+  { href: '/library/', label: 'Library', icon: 'book' },
+  { href: '/search/', label: 'Search', icon: 'search' },
+];
+const active = (href: string) => path === href || path.startsWith(href);
+---
+
+<header class="sticky top-0 z-40 border-b border-line bg-surface">
+  <div class="mx-auto flex max-w-5xl items-center gap-3 px-4 py-2">
+    <a href="/" class="flex items-center gap-2 font-bold text-brand-strong no-underline" aria-label="FreeStudentKit home">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand text-lg font-extrabold" style="color: var(--on-primary)" aria-hidden="true">F</span>
+      <span class="text-lg">FreeStudentKit</span>
+    </a>
+
+    <nav class="ml-auto hidden items-center gap-1 md:flex" aria-label="Main">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            class="btn btn-quiet"
+            aria-current={active(l.href) ? 'page' : undefined}
+            style={active(l.href) ? 'background: var(--tint)' : undefined}
+          >
+            {l.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <button
+      type="button"
+      id="theme-toggle"
+      class="btn btn-quiet btn-icon ml-auto md:ml-0"
+      aria-label="Switch between light and dark mode"
+    >
+      <span class="theme-icon-moon"><Icon name="moon" /></span>
+      <span class="theme-icon-sun hidden"><Icon name="sun" /></span>
+    </button>
+  </div>
+</header>
+
+<nav
+  class="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface md:hidden"
+  aria-label="Main (mobile)"
+  style="padding-bottom: env(safe-area-inset-bottom)"
+>
+  <ul class="mx-auto grid max-w-5xl grid-cols-4">
+    {
+      links.map((l) => (
+        <li>
+          <a
+            href={l.href}
+            class="flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-1.5 text-xs font-semibold no-underline"
+            style={active(l.href) ? 'color: var(--primary-strong); background: var(--tint)' : 'color: var(--muted)'}
+            aria-current={active(l.href) ? 'page' : undefined}
+          >
+            <Icon name={l.icon} size={22} />
+            {l.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<script>
+  const root = document.documentElement;
+  const btn = document.getElementById('theme-toggle');
+
+  function isDark(): boolean {
+    const set = root.getAttribute('data-theme');
+    if (set === 'dark') return true;
+    if (set === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  function paint() {
+    const dark = isDark();
+    document.querySelector('.theme-icon-moon')?.classList.toggle('hidden', dark);
+    document.querySelector('.theme-icon-sun')?.classList.toggle('hidden', !dark);
+    btn?.setAttribute('aria-pressed', String(dark));
+  }
+
+  btn?.addEventListener('click', () => {
+    const next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('fsk-theme', next);
+    } catch {
+      /* storage can be blocked; the choice still applies for this visit */
+    }
+    paint();
+  });
+  paint();
+</script>

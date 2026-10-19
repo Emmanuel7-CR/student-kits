@@ -1,0 +1,29 @@
+---
+import scholarships from '../data/scholarships.json';
+import { formatDate } from '../lib/scholarships';
+---
+
+<footer class="mt-12 border-t border-line bg-surface">
+  <div class="mx-auto grid max-w-5xl gap-6 px-4 py-8 text-sm sm:grid-cols-3">
+    <div>
+      <p class="font-bold text-brand-strong">FreeStudentKit</p>
+      <p class="mt-1 text-muted">Free tools and honest information for Nigerian students. No sign-up, no payment.</p>
+    </div>
+    <div>
+      <p class="font-semibold">Explore</p>
+      <ul class="mt-1 space-y-1">
+        <li><a class="link" href="/tools/">All tools</a></li>
+        <li><a class="link" href="/scholarships/">Scholarships</a></li>
+        <li><a class="link" href="/library/">Library</a></li>
+        <li><a class="link" href="/about/">About and sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="font-semibold">Good to know</p>
+      <p class="mt-1 text-muted">
+        Never pay anyone to apply for a scholarship or loan. Scholarship data last checked {formatDate(scholarships.checkedOn)}.
+        Always confirm details with your school and the official provider.
+      </p>
+    </div>
+  </div>
+</footer>

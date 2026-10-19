@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import data from '../data/scholarships.json';
+import { formatDate } from '../lib/scholarships';
+---
+
+<Base
+  title="About and sources"
+  description="How FreeStudentKit works, how scholarship information is checked, and the limits of the tools."
+>
+  <h1 class="text-3xl font-extrabold tracking-tight">About and sources</h1>
+  <div class="prose-fsk mt-4 max-w-2xl space-y-4">
+    <p>
+      FreeStudentKit is a free set of tools and checked information for Nigerian students. It has no accounts and no adverts,
+      and your CGPA, semesters and invoices stay on your own device.
+    </p>
+    <h2 class="text-xl font-bold">How scholarships are checked</h2>
+    <p>
+      Each scholarship is traced to its provider's official page or an official Nigerian government notice where one exists.
+      When only news articles or school notices were available, the entry says “Reported”. When sources disagree, it says
+      “Check before applying”. Dates and eligibility are summaries, so always confirm on the official page. The list was last
+      checked on {formatDate(data.checkedOn)}.
+    </p>
+    <h2 class="text-xl font-bold">Limits of the tools</h2>
+    <ul class="list-disc space-y-1 pl-5">
+      <li>Degree class bands and grading scales differ between schools. The CGPA tool uses typical values, so check yours.</li>
+      <li>The GPA converter and aggregate calculator give estimates. Use your school's official figures for anything formal.</li>
+      <li>Project topics are starting ideas, not finished projects. Agree your final topic with your supervisor.</li>
+      <li>Citation output follows the main rules of each style. Check it against your department's guide.</li>
+    </ul>
+    <h2 class="text-xl font-bold">Scams</h2>
+    <p>Genuine scholarships and loans do not charge application fees. Do not send money to anyone who offers to “secure” a place for you.</p>
+  </div>
+</Base>

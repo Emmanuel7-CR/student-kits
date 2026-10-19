@@ -1,0 +1,98 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import topics from '../../data/topics.json';
+---
+
+<Base
+  title="Final Year Project Topic Ideas"
+  description="Starting ideas for final year project topics by department. Use them to spark your own topic, then agree the final one with your supervisor."
+>
+  <nav class="mb-3 text-sm" aria-label="Breadcrumb">
+    <a class="link" href="/tools/">Tools</a> <span class="text-muted">/</span> <span>Project Topic Ideas</span>
+  </nav>
+  <h1 class="text-3xl font-extrabold tracking-tight">Project Topic Ideas</h1>
+  <p class="mt-2 max-w-2xl text-muted">
+    These are starting ideas written for this site, not finished projects. Narrow one to your school, location and data, and
+    agree the final topic with your supervisor.
+  </p>
+
+  <div class="mt-6 grid gap-6 md:grid-cols-[18rem_1fr]">
+    <form class="card space-y-4 md:self-start" id="tp-form" novalidate>
+      <label class="field">
+        <span class="label">Department</span>
+        <select id="tp-dept" class="select">
+          {topics.map((d) => <option value={d.id}>{d.name}</option>)}
+        </select>
+      </label>
+      <label class="field">
+        <span class="label">Keyword (optional)</span>
+        <input id="tp-kw" class="input" type="search" placeholder="e.g. health, solar, fraud" />
+      </label>
+      <button id="tp-shuffle" type="button" class="btn btn-primary w-full">Show different ideas</button>
+    </form>
+    <section aria-labelledby="tp-h">
+      <h2 id="tp-h" class="sr-only">Topic ideas</h2>
+      <p id="tp-count" class="mb-3 text-sm text-muted" role="status" aria-live="polite"></p>
+      <ul id="tp-list" class="space-y-2"></ul>
+    </section>
+  </div>
+
+  <script define:vars={{ topics }}>
+    const dept = document.getElementById('tp-dept');
+    const kw = document.getElementById('tp-kw');
+    const list = document.getElementById('tp-list');
+    const count = document.getElementById('tp-count');
+    let offset = 0;
+
+    function pick() {
+      const d = topics.find((t) => t.id === dept.value);
+      const q = kw.value.trim().toLowerCase();
+      const all = d ? d.topics : [];
+      const hits = q ? all.filter((t) => t.toLowerCase().includes(q)) : all;
+      return { name: d ? d.name : '', hits, total: all.length, q };
+    }
+
+    function render() {
+      const { name, hits, total, q } = pick();
+      list.replaceChildren();
+      if (!hits.length) {
+        count.textContent = `No ${name} ideas match “${q}”. Try a shorter word.`;
+        return;
+      }
+      const shown = [];
+      for (let i = 0; i < Math.min(6, hits.length); i += 1) shown.push(hits[(offset + i) % hits.length]);
+      count.textContent = `${shown.length} of ${hits.length} ${q ? 'matching ' : ''}ideas for ${name} (${total} in this department).`;
+      for (const t of shown) {
+        const li = document.createElement('li');
+        li.className = 'card flex items-start gap-3';
+        const span = document.createElement('span');
+        span.className = 'flex-1';
+        span.textContent = t;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn btn-quiet btn-icon shrink-0';
+        btn.setAttribute('aria-label', `Copy topic: ${t}`);
+        btn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>';
+        btn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(t);
+            btn.setAttribute('aria-label', 'Copied');
+            setTimeout(() => btn.setAttribute('aria-label', `Copy topic: ${t}`), 1500);
+          } catch {}
+        });
+        li.append(span, btn);
+        list.append(li);
+      }
+    }
+
+    dept.addEventListener('change', () => { offset = 0; render(); });
+    kw.addEventListener('input', () => { offset = 0; render(); });
+    document.getElementById('tp-shuffle').addEventListener('click', () => {
+      offset += 6;
+      render();
+    });
+    document.getElementById('tp-form').addEventListener('submit', (e) => e.preventDefault());
+    render();
+  </script>
+</Base>

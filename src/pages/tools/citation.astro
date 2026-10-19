@@ -1,0 +1,188 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+---
+
+<Base
+  title="Citation Generator (APA 7, MLA 9, Harvard)"
+  description="Free reference generator for books, journal articles and websites in APA 7, MLA 9 and Harvard style. It tells you what is missing instead of inventing details."
+>
+  <nav class="mb-3 text-sm" aria-label="Breadcrumb">
+    <a class="link" href="/tools/">Tools</a> <span class="text-muted">/</span> <span>Citation Generator</span>
+  </nav>
+  <h1 class="text-3xl font-extrabold tracking-tight">Citation Generator</h1>
+  <p class="mt-2 max-w-2xl text-muted">
+    Fill in what you have. The reference updates as you type, and the tool tells you what is missing instead of making
+    details up.
+  </p>
+
+  <div class="mt-6 grid gap-6 lg:grid-cols-2">
+    <form id="cite-form" class="card space-y-4" novalidate>
+      <div class="grid grid-cols-2 gap-3">
+        <label class="field">
+          <span class="label">Style</span>
+          <select id="c-style" class="select">
+            <option value="apa">APA 7th</option>
+            <option value="mla">MLA 9th</option>
+            <option value="harvard">Harvard</option>
+          </select>
+        </label>
+        <label class="field">
+          <span class="label">Source type</span>
+          <select id="c-type" class="select">
+            <option value="book">Book</option>
+            <option value="journal">Journal article</option>
+            <option value="website">Website</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="field">
+        <span class="label">Authors</span>
+        <textarea id="c-authors" class="textarea" rows="3" placeholder={'Okafor, Chinedu Nnamdi\nBello, Aisha'}></textarea>
+        <span class="hint">One author per line, as “Last, First” or “First Last”. Leave empty for a website with no author.</span>
+      </label>
+
+      <div class="grid grid-cols-2 gap-3">
+        <label class="field">
+          <span class="label">Year</span>
+          <input id="c-year" class="input" type="text" inputmode="numeric" maxlength="12" placeholder="2024" />
+        </label>
+        <label class="field" data-for="journal">
+          <span class="label">Volume</span>
+          <input id="c-volume" class="input" type="text" />
+        </label>
+        <label class="field" data-for="journal">
+          <span class="label">Issue</span>
+          <input id="c-issue" class="input" type="text" />
+        </label>
+        <label class="field" data-for="journal">
+          <span class="label">Pages</span>
+          <input id="c-pages" class="input" type="text" placeholder="45-60" />
+        </label>
+        <label class="field" data-for="book">
+          <span class="label">Edition (optional)</span>
+          <input id="c-edition" class="input" type="text" placeholder="2nd" />
+        </label>
+        <label class="field" data-for="book" data-style="harvard">
+          <span class="label">Place (Harvard)</span>
+          <input id="c-place" class="input" type="text" placeholder="Lagos" />
+        </label>
+      </div>
+
+      <label class="field">
+        <span class="label" id="c-title-label">Title</span>
+        <input id="c-title" class="input" type="text" />
+      </label>
+      <label class="field" data-for="book website">
+        <span class="label" id="c-pub-label">Publisher</span>
+        <input id="c-publisher" class="input" type="text" />
+      </label>
+      <label class="field" data-for="journal">
+        <span class="label">Journal name</span>
+        <input id="c-journal" class="input" type="text" />
+      </label>
+      <label class="field" data-for="journal book">
+        <span class="label">DOI (optional)</span>
+        <input id="c-doi" class="input" type="text" placeholder="10.1234/example" />
+      </label>
+      <label class="field" data-for="website journal book">
+        <span class="label">Web address (URL)</span>
+        <input id="c-url" class="input" type="url" inputmode="url" placeholder="https://" />
+      </label>
+      <label class="field" data-for="website">
+        <span class="label">Date you visited it</span>
+        <input id="c-accessed" class="input" type="date" />
+      </label>
+    </form>
+
+    <div class="space-y-4 lg:sticky lg:top-20 lg:self-start">
+      <section class="card" aria-labelledby="ref-h">
+        <h2 id="ref-h" class="text-lg font-bold">Your reference</h2>
+        <p id="cite-out" class="result-box mt-3 break-words" role="status" aria-live="polite">Fill in the form to see your reference.</p>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <button id="cite-copy" type="button" class="btn" disabled><Icon name="copy" size={18} /> <span>Copy reference</span></button>
+        </div>
+      </section>
+      <p class="text-sm text-muted">
+        Titles are shown as you type them, so apply your style's capitalisation yourself (APA and Harvard use sentence case for
+        book and article titles). Always check against your department's guide.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    import { cite, type CiteInput } from '../../lib/citation';
+    import { copyText, el } from '../../scripts/dom';
+
+    const $v = (id: string) => (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement).value;
+    const out = document.getElementById('cite-out') as HTMLElement;
+    const copyBtn = document.getElementById('cite-copy') as HTMLButtonElement;
+    const typeSel = document.getElementById('c-type') as HTMLSelectElement;
+    const styleSel = document.getElementById('c-style') as HTMLSelectElement;
+    let plain = '';
+
+    function read(): CiteInput {
+      return {
+        style: $v('c-style') as CiteInput['style'],
+        type: $v('c-type') as CiteInput['type'],
+        authors: $v('c-authors'),
+        year: $v('c-year'),
+        title: $v('c-title'),
+        publisher: $v('c-publisher'),
+        edition: $v('c-edition'),
+        place: $v('c-place'),
+        journal: $v('c-journal'),
+        volume: $v('c-volume'),
+        issue: $v('c-issue'),
+        pages: $v('c-pages'),
+        doi: $v('c-doi'),
+        url: $v('c-url'),
+        accessed: $v('c-accessed'),
+      };
+    }
+
+    function toggleFields() {
+      const type = typeSel.value;
+      const style = styleSel.value;
+      document.querySelectorAll<HTMLElement>('[data-for]').forEach((f) => {
+        const types = f.dataset.for!.split(' ');
+        const styleOnly = f.dataset.style;
+        f.hidden = !types.includes(type) || (styleOnly !== undefined && styleOnly !== style);
+      });
+      document.getElementById('c-pub-label')!.textContent = type === 'website' ? 'Website name' : 'Publisher';
+      document.getElementById('c-title-label')!.textContent =
+        type === 'journal' ? 'Article title' : type === 'website' ? 'Page title' : 'Book title';
+    }
+
+    function render() {
+      const r = cite(read());
+      const empty = !$v('c-title') && !$v('c-authors') && !$v('c-publisher') && !$v('c-journal');
+      if (!r.ok) {
+        plain = '';
+        copyBtn.disabled = true;
+        out.textContent = empty ? 'Fill in the form to see your reference.' : `Still needed: ${r.missing.join(', ')}.`;
+        return;
+      }
+      plain = r.plain;
+      copyBtn.disabled = false;
+      out.replaceChildren(...r.segments.map((s) => (s.italic ? el('i', {}, s.text) : document.createTextNode(s.text))));
+    }
+
+    document.getElementById('cite-form')!.addEventListener('input', () => {
+      toggleFields();
+      render();
+    });
+    document.getElementById('cite-form')!.addEventListener('submit', (e) => e.preventDefault());
+
+    copyBtn.addEventListener('click', async () => {
+      const ok = await copyText(plain);
+      const label = copyBtn.querySelector('span')!;
+      label.textContent = ok ? 'Copied (plain text; italicise titles in your document)' : 'Copy not available here';
+      setTimeout(() => (label.textContent = 'Copy reference'), 2500);
+    });
+
+    toggleFields();
+    render();
+  </script>
+</Base>

@@ -1,0 +1,93 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="Post-UTME Aggregate Calculator"
+  description="Combine your UTME and Post-UTME scores into one aggregate. Adjust the weights to match your school's published formula."
+>
+  <nav class="mb-3 text-sm" aria-label="Breadcrumb">
+    <a class="link" href="/tools/">Tools</a> <span class="text-muted">/</span> <span>Aggregate Calculator</span>
+  </nav>
+  <h1 class="text-3xl font-extrabold tracking-tight">Post-UTME Aggregate Calculator</h1>
+  <p class="mt-2 max-w-2xl text-muted">
+    Many schools combine the UTME and Post-UTME scores into one aggregate for admission. Schools use different formulas, so
+    set the weights to match the one your school published.
+  </p>
+
+  <div class="mt-6 grid gap-6 md:grid-cols-2">
+    <form class="card space-y-4" novalidate>
+      <label class="field">
+        <span class="label">UTME score (out of 400)</span>
+        <input id="ag-utme" class="input" type="number" inputmode="numeric" min="0" max="400" step="1" />
+      </label>
+      <div class="grid grid-cols-2 gap-3">
+        <label class="field">
+          <span class="label">Post-UTME score</span>
+          <input id="ag-put" class="input" type="number" inputmode="decimal" min="0" step="0.5" />
+        </label>
+        <label class="field">
+          <span class="label">Post-UTME out of</span>
+          <input id="ag-putmax" class="input" type="number" inputmode="numeric" min="1" value="100" />
+        </label>
+      </div>
+      <fieldset>
+        <legend class="label text-sm font-semibold">Weights (marks each part is worth)</legend>
+        <div class="mt-1 grid grid-cols-2 gap-3">
+          <label class="field">
+            <span class="label font-normal">UTME</span>
+            <input id="ag-wu" class="input" type="number" inputmode="decimal" min="0" value="50" />
+          </label>
+          <label class="field">
+            <span class="label font-normal">Post-UTME</span>
+            <input id="ag-wp" class="input" type="number" inputmode="decimal" min="0" value="50" />
+          </label>
+        </div>
+        <p class="mt-1 text-sm text-muted">The default 50 and 50 gives an aggregate out of 100.</p>
+      </fieldset>
+      <div id="ag-out" class="result-box" role="status" aria-live="polite">Enter both scores to see your aggregate.</div>
+    </form>
+
+    <div class="card prose-fsk">
+      <h2 class="text-lg font-bold">How it is worked out</h2>
+      <p>
+        Aggregate = (UTME ÷ 400 × UTME weight) + (Post-UTME ÷ its maximum × Post-UTME weight). With the default weights and a
+        Post-UTME marked out of 100, that is the same as UTME ÷ 8 plus Post-UTME ÷ 2.
+      </p>
+      <p>
+        Some schools also add O'Level points or use different weights. If yours does, this tool will not match its official
+        figure, so use the school's published formula and cut-off for anything that matters.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const g = (id: string) => document.getElementById(id) as HTMLInputElement;
+    const out = document.getElementById('ag-out') as HTMLElement;
+    const ids = ['ag-utme', 'ag-put', 'ag-putmax', 'ag-wu', 'ag-wp'];
+
+    function run() {
+      const [u, p, pm, wu, wp] = ids.map((id) => parseFloat(g(id).value));
+      if (![u, p].every(Number.isFinite)) {
+        out.textContent = 'Enter both scores to see your aggregate.';
+        return;
+      }
+      if (!Number.isFinite(pm) || pm <= 0 || !Number.isFinite(wu) || !Number.isFinite(wp) || wu < 0 || wp < 0 || wu + wp === 0) {
+        out.textContent = 'Check the Post-UTME maximum and the weights.';
+        return;
+      }
+      if (u < 0 || u > 400) {
+        out.textContent = 'UTME score must be between 0 and 400.';
+        return;
+      }
+      if (p < 0 || p > pm) {
+        out.textContent = `Post-UTME score must be between 0 and ${pm}.`;
+        return;
+      }
+      const total = (u / 400) * wu + (p / pm) * wp;
+      out.textContent = `Aggregate: ${total.toFixed(2)} out of ${wu + wp}.`;
+    }
+    ids.forEach((id) => g(id).addEventListener('input', run));
+    run();
+  </script>
+</Base>

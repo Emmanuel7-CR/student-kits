@@ -1,0 +1,130 @@
+[
+  {
+    "id": "csc",
+    "name": "Computer Science",
+    "topics": [
+      "Development of a Machine Learning-Based Spam Detection System",
+      "Design and Implementation of a Blockchain Attendance Management System",
+      "AI-Powered Medical Diagnosis Assistant Using Symptom Input",
+      "Real-Time Object Detection App for Visually Impaired Users",
+      "Cloud-Based Collaborative Note-Taking Platform for Students",
+      "Smart Traffic Management System Using Computer Vision",
+      "Cryptocurrency Wallet Application with Multi-Signature Security",
+      "Automated Resume Screening System Using NLP",
+      "IoT-Based Environmental Pollution Monitoring Network",
+      "Online Peer-to-Peer Tutoring Marketplace"
+    ]
+  },
+  {
+    "id": "eee",
+    "name": "Electrical Engineering",
+    "topics": [
+      "Design of a Smart Street Lighting System with Daylight Harvesting",
+      "Wireless Power Transfer System for Low-Power IoT Devices",
+      "PLC-Based Industrial Conveyor Belt Automation",
+      "Solar Charge Controller with MPPT Algorithm",
+      "Design of a Variable-Frequency Drive for Induction Motors",
+      "Smart Home Automation System via Voice Commands",
+      "High-Efficiency Inverter Design for Rural Electrification",
+      "Real-Time Power Quality Monitoring Using ESP32",
+      "Automatic Transfer Switch for Backup Power Systems",
+      "Design of a Capacitive Touch Screen Controller"
+    ]
+  },
+  {
+    "id": "mec",
+    "name": "Mechanical Engineering",
+    "topics": [
+      "Design and Fabrication of a Small-Scale Wind Turbine Blade",
+      "Thermal Analysis of a Finned Heat Exchanger",
+      "Design of a Pneumatic Pick-and-Place Robotic Arm",
+      "Optimization of CNC Machining Parameters for Aluminum",
+      "Design of a Portable Biomass Gasification Stove",
+      "Stress Analysis of a Composite Bicycle Frame Using FEA",
+      "Design and Testing of a Speed Bump Energy Harvester",
+      "Fabrication of an Automated Seed Planting Machine",
+      "Analysis of Vibration in High-Speed Rotating Shafts",
+      "Design of a Low-Cost Water Purification System"
+    ]
+  },
+  {
+    "id": "acc",
+    "name": "Accounting",
+    "topics": [
+      "Impact of Artificial Intelligence on External Auditing Practices",
+      "Tax Compliance and Revenue Generation in Nigeria",
+      "Adoption of Cloud Accounting Software by SMEs in Lagos",
+      "Earnings Management and Corporate Governance in Nigerian Banks",
+      "Effect of Audit Quality on Investor Confidence",
+      "IFRS 9 Adoption and Loan Loss Provisioning in Banks",
+      "Budget Implementation and Financial Performance of Local Government",
+      "Corporate Social Responsibility Reporting in the Oil and Gas Sector",
+      "Internal Control Systems and Fraud Prevention",
+      "Transfer Pricing and Tax Avoidance by Multinational Companies"
+    ]
+  },
+  {
+    "id": "bus",
+    "name": "Business Administration",
+    "topics": [
+      "Digital Transformation and Competitive Advantage in Nigerian Banks",
+      "Work-From-Home Policy and Employee Productivity Post-COVID",
+      "Customer Relationship Management and Customer Retention",
+      "Entrepreneurship Education and Youth Employment in Nigeria",
+      "Impact of Brand Identity on Consumer Purchase Intention",
+      "Corporate Culture and Organizational Performance",
+      "E-Commerce Adoption Among Small Retailers in Abuja",
+      "Leadership Style and Employee Morale in the Public Sector",
+      "Impact of Fintech on Traditional Banking Services",
+      "Emotional Intelligence and Managerial Effectiveness"
+    ]
+  },
+  {
+    "id": "med",
+    "name": "Nursing and Medicine",
+    "topics": [
+      "Knowledge and Practice of Standard Precautions Among ICU Nurses",
+      "Self-Medication Practices and Associated Risks Among Undergraduates",
+      "Effectiveness of Health Education on Malaria Prevention",
+      "Nurse-Patient Ratio and Patient Outcomes in Secondary Hospitals",
+      "Adherence to HIV/AIDS Treatment Protocols in ART Clinics",
+      "Assessment of Maternal Health Services in Peri-Urban Areas",
+      "Nutritional Status and Academic Performance of Primary School Children",
+      "Burnout and Coping Strategies Among Healthcare Workers",
+      "Knowledge of Cervical Cancer Screening Among Women 25–45",
+      "Childhood Immunization Coverage and Barriers in Rural LGAs"
+    ]
+  },
+  {
+    "id": "law",
+    "name": "Law",
+    "topics": [
+      "Regulation of Cryptocurrency and Digital Assets in Nigeria",
+      "Constitutional Limitations on State Power to Tax",
+      "Enforcement of Arbitration Awards in Nigeria: Challenges",
+      "Women's Land Rights Under Customary Law in Southeast Nigeria",
+      "The Right to a Fair Hearing in Administrative Proceedings",
+      "Cyberstalking and Legal Protection for Online Harassment Victims",
+      "Regulation of Social Media and Freedom of Expression",
+      "Oil Spill Liability and Environmental Justice in the Niger Delta",
+      "Human Trafficking: Legal Framework and Law Enforcement Gaps",
+      "Corporate Insolvency and Creditor Protection Under CAMA 2020"
+    ]
+  },
+  {
+    "id": "edu",
+    "name": "Education",
+    "topics": [
+      "Effect of Technology Integration on Student Learning Outcomes",
+      "Teacher Motivation and Quality of Education in Public Schools",
+      "Inclusive Education Practices for Students with Disabilities",
+      "Parental Involvement and Academic Achievement in Secondary Schools",
+      "Assessment of Early Childhood Education Programs in Nigeria",
+      "Impact of Social Media on Study Habits of Undergraduates",
+      "Curriculum Relevance and Graduate Employability in Nigerian Universities",
+      "Peer Learning and Collaborative Problem-Solving Skills",
+      "Effect of Classroom Size on Effective Teaching and Learning",
+      "Professional Development and Teacher Effectiveness"
+    ]
+  }
+]

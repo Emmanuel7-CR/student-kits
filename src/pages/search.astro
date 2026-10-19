@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Base title="Search" description="Search FreeStudentKit tools and scholarships.">
+  <h1 class="text-3xl font-extrabold tracking-tight">Search</h1>
+  <form id="s-form" action="/search/" method="get" role="search" class="mt-4 flex max-w-xl gap-2">
+    <label class="sr-only" for="s-q">Search tools and scholarships</label>
+    <input id="s-q" name="q" type="search" class="input" placeholder="Try “CGPA”, “jamb” or “loan”" autocomplete="off" />
+    <button class="btn btn-primary" type="submit"><Icon name="search" size={18} /> Search</button>
+  </form>
+  <p id="s-status" class="mt-4 text-sm text-muted" role="status" aria-live="polite"></p>
+  <ul id="s-results" class="mt-2 max-w-2xl space-y-2"></ul>
+
+  <script>
+    import { el } from '../scripts/dom';
+
+    interface Item { title: string; url: string; kind: string; text: string }
+    const input = document.getElementById('s-q') as HTMLInputElement;
+    const status = document.getElementById('s-status')!;
+    const results = document.getElementById('s-results')!;
+    let index: Item[] | null = null;
+
+    const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9.\s]/g, ' ');
+
+    function score(item: Item, terms: string[]): number {
+      const title = norm(item.title);
+      const text = norm(item.text);
+      let total = 0;
+      for (const t of terms) {
+        if (title.includes(t)) total += 5;
+        else if (text.includes(t)) total += 1;
+        else return 0; // every word must match somewhere
+      }
+      return total;
+    }
+
+    async function run() {
+      const q = input.value.trim();
+      history.replaceState(null, '', q ? `?q=${encodeURIComponent(q)}` : location.pathname);
+      results.replaceChildren();
+      if (q.length < 2) {
+        status.textContent = 'Type at least two letters.';
+        return;
+      }
+      if (!index) {
+        try {
+          index = (await (await fetch('/search-index.json')).json()) as Item[];
+        } catch {
+          status.textContent = 'Search needs the page to load once with data. Try again when you are online.';
+          return;
+        }
+      }
+      const terms = norm(q).split(/\s+/).filter(Boolean);
+      const hits = index
+        .map((i) => ({ i, s: score(i, terms) }))
+        .filter((h) => h.s > 0)
+        .sort((a, b) => b.s - a.s)
+        .slice(0, 12);
+      status.textContent = hits.length ? `${hits.length} result${hits.length === 1 ? '' : 's'} for “${q}”.` : `Nothing found for “${q}”. Try a shorter word.`;
+      results.replaceChildren(
+        ...hits.map(({ i }) =>
+          el('li', {}, el('a', { href: i.url, class: 'card block no-underline hover:bg-tint', style: 'color:inherit' },
+            el('span', { class: 'badge' }, i.kind),
+            el('span', { class: 'ml-2 font-bold' }, i.title),
+          )),
+        ),
+      );
+    }
+
+    document.getElementById('s-form')!.addEventListener('submit', (e) => { e.preventDefault(); void run(); });
+    input.addEventListener('input', () => void run());
+    const q0 = new URLSearchParams(location.search).get('q');
+    if (q0) { input.value = q0; void run(); }
+  </script>
+</Base>

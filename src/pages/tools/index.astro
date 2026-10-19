@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import { tools } from '../../data/tools';
+---
+
+<Base title="Free student tools" description="CGPA calculator, GPA converter, Post-UTME aggregate calculator, citation generator, project topic ideas, invoice generator and profit calculator. All free.">
+  <h1 class="text-3xl font-extrabold tracking-tight">Tools</h1>
+  <p class="mt-2 max-w-2xl text-muted">Everything here is free, needs no account, and runs in your browser.</p>
+  <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+    {
+      tools.map((t) => (
+        <li>
+          <a href={`/tools/${t.slug}/`} class="card flex h-full gap-4 no-underline transition-colors hover:bg-tint" style="color: inherit">
+            <span class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-tint text-brand-strong">
+              <Icon name={t.icon} size={24} />
+            </span>
+            <span>
+              <span class="block text-lg font-bold">{t.title}</span>
+              <span class="mt-1 block text-sm text-muted">{t.blurb}</span>
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Base>

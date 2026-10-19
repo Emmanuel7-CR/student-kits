@@ -1,0 +1,136 @@
+{
+  "checkedOn": "2026-10-18",
+  "entries": [
+    {
+      "id": "commonwealth-masters-2027",
+      "name": "Commonwealth Master's Scholarships 2027/28",
+      "provider": "Commonwealth Scholarship Commission (UK)",
+      "kind": "scholarship",
+      "level": "Postgraduate",
+      "deadline": "2026-10-20",
+      "deadlineNote": "16:00 BST on Tuesday 20 October 2026. Nigerian applicants apply through a nominator, which may set an earlier date.",
+      "verification": "verified",
+      "official": { "label": "Official CSC page", "url": "https://cscuk.fcdo.gov.uk/masters" },
+      "who": "Nigerian citizens able to start a full-time taught Master's in the UK by September 2027 with at least a 2:1 (or a lower second plus a relevant postgraduate qualification), who cannot afford to study without the award.",
+      "award": "Airfare, full tuition, a monthly stipend (£1,712, or £2,000 in the London area) and a study travel grant. One-year taught Master's only; MBAs are not funded.",
+      "howToApply": "The CSC does not take direct applications from Nigerians. The Federal Ministry of Education notice says to apply through the Federal Scholarship Board's Electronic Application System and to have UK admission, transcripts and NYSC evidence ready.",
+      "sources": [
+        { "label": "CSC Master's page", "url": "https://cscuk.fcdo.gov.uk/masters" },
+        {
+          "label": "Federal Ministry of Education notice",
+          "url": "https://education.gov.ng/wp-content/uploads/2026/09/COMMONWEALTH-SCHOLARSHIPS-AND-FELLOWSHIP-PLAN-CSFP-20272028.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nelfund-2026-27",
+      "name": "NELFUND Student Loan 2026/27",
+      "provider": "Nigerian Education Loan Fund (NELFUND)",
+      "kind": "loan",
+      "level": "Tertiary students",
+      "deadline": "2026-12-31",
+      "deadlineNote": "Reported opening on 23 September 2026 and closing on 31 December 2026. Confirm on the official site.",
+      "verification": "reported",
+      "official": { "label": "NELFUND site", "url": "https://nelf.gov.ng" },
+      "who": "Eligible Nigerian students in tertiary institutions. Reports say you need a valid email, NIN, BVN and JAMB registration number, and your school details must match your records.",
+      "award": "An interest-free education loan, not a scholarship, that must be repaid. Applicants choose institutional fees, an upkeep allowance, or both.",
+      "howToApply": "Apply on the official NELFUND portal. The official site did not show the session or deadline when checked, so the dates come from news reports.",
+      "sources": [
+        {
+          "label": "Insight Northeast Nigeria, 23 Sep 2026",
+          "url": "https://insightnortheastng.net/apply-nelfund-2026-2027-student-loan-application-opens-set-deadline/"
+        },
+        {
+          "label": "Nigeria Education News on LASU, 27 Sep 2026",
+          "url": "https://thenigeriaeducationnews.com/2026/09/27/2026-2027-nelfund-lasu-opens-applications-warns-students-over-data-mismatch/"
+        }
+      ]
+    },
+    {
+      "id": "nnpc-snepco-university",
+      "name": "NNPC/SNEPCo National University Scholarship",
+      "provider": "NNPC and Shell Nigeria Exploration and Production Company",
+      "kind": "scholarship",
+      "level": "Undergraduate, 2nd year",
+      "deadline": "2026-11-30",
+      "deadlineNote": "The page says to apply on or before 30 November 2026, but its header also says applications have ended.",
+      "verification": "conflicting",
+      "official": { "label": "Application platform", "url": "https://candidate.scholastica.ng/schemes/NNPCLTDSNEPCo26" },
+      "who": "Nigerian citizens in their second year of full-time study at a public NUC-accredited Nigerian university, with at least 3.5 on a 5-point CGPA and no existing oil and gas scholarship.",
+      "award": "A yearly grant from second year to graduation. The page does not state the amount.",
+      "howToApply": "Check the platform page for whether applications are open before you start. Applying is free.",
+      "sources": [{ "label": "Organiser's scheme page", "url": "https://candidate.scholastica.ng/schemes/2024nnpcsnepco" }]
+    },
+    {
+      "id": "mtn-foundation-2026",
+      "name": "MTN Foundation Scholarships 2026",
+      "provider": "MTN Nigeria Foundation",
+      "kind": "scholarship",
+      "level": "300-level STEM, 400-level medicine, blind students",
+      "deadline": "2026-05-31",
+      "deadlineNote": "The 2026 round closed on 31 May 2026. The next round has not been announced.",
+      "verification": "reported",
+      "official": { "label": "MTN scholarships page (per the article)", "url": "https://www.mtn.ng/scholarships/" },
+      "who": "300-level STEM students, 400-level medical students at public institutions and teaching hospitals, and blind students in 200 and 300 level.",
+      "award": "Reported as ₦300,000 a year for 400 recipients, renewable until graduation with a minimum CGPA of 3.5 (STEM) or 2.5 (blind students).",
+      "howToApply": "Watch the MTN scholarships page for the next round.",
+      "sources": [
+        { "label": "Techeconomy, 2 May 2026", "url": "https://techeconomy.ng/apply-to-mtn-foundation-2026-scholarship-programmes" }
+      ]
+    },
+    {
+      "id": "ptdf-iss-2026-27",
+      "name": "PTDF In-Country Scholarship 2026/27",
+      "provider": "Petroleum Technology Development Fund (PTDF)",
+      "kind": "scholarship",
+      "level": "Undergraduate, Master's, PhD",
+      "deadline": "2026-06-05",
+      "deadlineNote": "The portal was reported open from 27 April to 5 June 2026. The next round has not been announced.",
+      "verification": "reported",
+      "official": null,
+      "who": "Students at Nigerian public universities in sponsored courses. The full guidelines were not available when checked.",
+      "award": "Not stated in the notice that was checked.",
+      "howToApply": "Look for the PTDF guidelines and portal when the next round opens.",
+      "sources": [
+        {
+          "label": "University notice, May 2026",
+          "url": "https://www.slu.edu.ng/news/application-for-2026-27-ptdf-in-country-scholarship-scheme-iss-for-undergraduate-and-postgraduate-awards.html"
+        }
+      ]
+    },
+    {
+      "id": "nlng-ugss-2026",
+      "name": "NLNG Undergraduate Scholarship Scheme 2026",
+      "provider": "Nigeria LNG Limited (NLNG)",
+      "kind": "scholarship",
+      "level": "First-year undergraduates",
+      "deadline": "2025-12-12",
+      "deadlineNote": "The 2026 round closed on 12 December 2025. The next round has not been announced.",
+      "verification": "reported",
+      "official": { "label": "NLNG scholarships portal (per the article)", "url": "https://nlngscholarships.smapply.io/" },
+      "who": "Full-time first-year students at federal or state universities, aged 18 to 25, with five O'Level credits including English and Mathematics in one sitting and a JAMB UTME score of at least 200, and no other scholarship.",
+      "award": "Not stated in the article that was checked.",
+      "howToApply": "Watch the NLNG scholarships portal for the next round.",
+      "sources": [
+        { "label": "Opportunity Desk, 18 Nov 2025", "url": "https://opportunitydesk.org/2025/11/18/nlng-undergraduate-scholarship-scheme-2026/" }
+      ]
+    },
+    {
+      "id": "fg-bilateral-2025-26",
+      "name": "Federal Government Bilateral Education Agreement awards 2025/26",
+      "provider": "Federal Scholarship Board, Federal Ministry of Education",
+      "kind": "scholarship",
+      "level": "Undergraduate and postgraduate, abroad",
+      "deadline": "2025-01-12",
+      "deadlineNote": "The 2025/26 portal closed on 12 January 2025. The next round has not been announced.",
+      "verification": "verified",
+      "official": { "label": "Federal Ministry of Education", "url": "https://education.gov.ng" },
+      "who": "Undergraduates aged 17 to 20 with seven WAEC distinctions in relevant subjects; postgraduates with at least a Second Class Upper, completed NYSC and within the age limits. Study is in Russia, Morocco, Hungary, Egypt, Algeria and other listed countries, with a one-year language course.",
+      "award": "Study abroad under bilateral agreements. The advert does not state amounts.",
+      "howToApply": "Applications go through the Federal Scholarship Board on education.gov.ng. The advert says there is no processing fee.",
+      "sources": [
+        { "label": "Federal Scholarship Board advert", "url": "https://education.gov.ng/wp-content/uploads/2024/12/2025-2026-BEA-ADVERT-Final.pdf" }
+      ]
+    }
+  ]
+}
