@@ -64,6 +64,20 @@ export const tools: Tool[] = [
     keywords: ['cbt', 'quiz', 'practice', 'exam', 'multiple choice', 'mcq', 'test', 'jamb', 'post utme', 'revision', 'study'],
   },
   {
+    slug: 'flashcards',
+    title: 'Flashcards',
+    blurb: 'Paste terms and meanings, then revise with spaced repetition. Cards you miss come back sooner. Saved on your device.',
+    icon: 'layers',
+    keywords: ['flashcards', 'revision', 'memorise', 'memorize', 'spaced repetition', 'leitner', 'terms', 'definitions', 'study', 'exam'],
+  },
+  {
+    slug: 'study-planner',
+    title: 'Exam Revision Timetable',
+    blurb: 'Enter your exam dates and the hours you can study. Get a day-by-day plan that gives harder, sooner exams more time.',
+    icon: 'calendar',
+    keywords: ['timetable', 'revision', 'study plan', 'exam', 'schedule', 'countdown', 'planner', 'reading'],
+  },
+  {
     slug: 'project-topics',
     title: 'Project Topic Ideas',
     blurb: 'Starting ideas for final year projects by department. Always agree the final topic with your supervisor.',

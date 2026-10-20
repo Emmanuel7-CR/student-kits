@@ -57,6 +57,18 @@ down, set the resource's `status` to `rejected` (or delete it).
   click Restore, or visit `/library/` now and then. The rest of the site does not depend on it.
 - Free accounts allow two active projects.
 
+## Offline use
+
+`public/sw.js` is the service worker. Pages visited once are kept, and the page `/offline/` lets a student
+save every tool in one go (stored in the `fsk-offline-v1` cache, which survives updates). On a slow
+connection (over 4 seconds) a saved page is shown instead of waiting. When you change `sw.js`,
+bump `VERSION`. The Library always needs the internet.
+
+## Study tools
+
+Flashcards (Leitner boxes, 3/7/14/30 day gaps) and the revision timetable are client-side only.
+Their data stays in the student's browser. No AI service is used, so there is no running cost.
+
 ## Content notes
 
 - CBT sample questions in `src/data/cbt.json` are original practice questions, not real past questions.

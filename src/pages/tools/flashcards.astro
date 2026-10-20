@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="Flashcards with Spaced Repetition"
+  description="Make flashcards from your notes and revise with a simple spaced repetition schedule. Free, works offline, and your cards stay on your device."
+>
+  <nav class="mb-3 text-sm" aria-label="Breadcrumb">
+    <a class="link" href="/tools/">Tools</a> <span class="text-muted">/</span> <span>Flashcards</span>
+  </nav>
+  <h1 class="text-3xl font-extrabold tracking-tight">Flashcards</h1>
+  <p class="mt-2 max-w-2xl text-muted">
+    Paste terms and meanings from your notes. Cards you know come back less often. Cards you miss come back sooner. Your
+    cards stay on this device, so they are not backed up. Copy them out now and then.
+  </p>
+
+  <div id="fc-root" class="mt-6"></div>
+  <noscript><p class="mt-6">This tool needs JavaScript to run.</p></noscript>
+
+  <script>
+    import '../../scripts/flashcards-ui';
+  </script>
+</Base>
+
+<style is:global>
+  .fc-face {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    overflow-wrap: anywhere;
+    background: var(--surface);
+  }
+  .fc-front {
+    min-height: 8rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  .fc-back {
+    min-height: 5rem;
+    border-color: var(--ok-fg);
+    background: var(--ok-bg);
+  }
+</style>

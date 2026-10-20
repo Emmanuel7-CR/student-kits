@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import { tools } from '../data/tools';
+
+// Pages saved for offline use. The Library needs the internet, so it is left out.
+const pages = ['/', '/tools/', ...tools.map((t) => `/tools/${t.slug}/`), '/scholarships/', '/about/', '/search/'];
+---
+
+<Base
+  title="Use FreeStudentKit Offline"
+  description="Save the tools to your phone once, then use them without data. Works for the CGPA calculator, flashcards, CBT practice, PDF tools and more."
+>
+  <h1 class="text-3xl font-extrabold tracking-tight">Use it without data</h1>
+  <p class="mt-2 max-w-2xl text-muted">
+    Save the tools to this device once, using Wi-Fi if you can. After that, the calculators, flashcards, CBT practice, PDF
+    tools and the rest open with no data. The Library needs the internet because it loads shared items live.
+  </p>
+
+  <section class="card mt-6 max-w-2xl" aria-labelledby="off-h">
+    <h2 id="off-h" class="text-lg font-bold">Save for offline use</h2>
+    <p id="off-status" class="mt-2" role="status" aria-live="polite">Checking…</p>
+    <progress id="off-bar" class="mt-3 w-full" max="100" value="0" hidden aria-label="Saving progress"></progress>
+    <div class="mt-4 flex flex-wrap gap-2">
+      <button id="off-go" type="button" class="btn btn-primary" disabled>Save for offline use</button>
+      <button id="off-remove" type="button" class="btn btn-quiet" hidden>Remove saved copy</button>
+    </div>
+    <p class="mt-3 text-sm text-muted">
+      This downloads about a few megabytes once. Your own work (CGPA semesters, flashcards, CV) is already kept on your
+      device and is not part of this download. Run this again after we update the site to refresh the saved copy.
+    </p>
+  </section>
+
+  <section class="mt-6 max-w-2xl text-sm text-muted">
+    <h2 class="text-base font-bold text-ink">Tips</h2>
+    <ul class="mt-2 list-disc space-y-1 pl-5">
+      <li>On Android Chrome, use the menu and choose "Install app" or "Add to Home screen" to open it like an app.</li>
+      <li>If your phone clears browser data to free space, you will need to save again.</li>
+      <li>Saved pages show what we had when you saved them. Connect now and then so they stay up to date.</li>
+    </ul>
+  </section>
+
+  <noscript><p class="mt-6">This page needs JavaScript to run.</p></noscript>
+  <div id="off-data" data-pages={JSON.stringify(pages)} hidden></div>
+
+  <script>
+    import '../scripts/offline-ui';
+  </script>
+</Base>
