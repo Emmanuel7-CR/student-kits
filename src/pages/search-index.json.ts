@@ -18,7 +18,8 @@ export const GET: APIRoute = () => {
     })),
     { title: 'All tools', url: '/tools/', kind: 'Page', text: 'tools calculators generators' },
     { title: 'Scholarships and loans', url: '/scholarships/', kind: 'Page', text: 'scholarship loan funding deadline' },
-    { title: 'Library', url: '/library/', kind: 'Page', text: 'past questions notes' },
+    { title: 'Library', url: '/library/', kind: 'Page', text: 'past questions notes lecture notes project material department level course code' },
+    { title: 'Share past questions or notes', url: '/library/contribute/', kind: 'Page', text: 'contribute upload share past questions notes' },
     { title: 'About and sources', url: '/about/', kind: 'Page', text: 'about sources how we check' },
   ];
   return new Response(JSON.stringify(items), { headers: { 'Content-Type': 'application/json' } });

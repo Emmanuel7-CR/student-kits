@@ -2,6 +2,11 @@
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import topics from '../../data/topics.json';
+import { departments, grouped } from '../../data/departments';
+
+const have = new Set(topics.map((t) => t.id));
+const groups = grouped(departments.filter((d) => have.has(d.slug)));
+const ethics = departments.filter((d) => d.faculty === 'Health Sciences').map((d) => d.slug);
 ---
 
 <Base
@@ -22,7 +27,11 @@ import topics from '../../data/topics.json';
       <label class="field">
         <span class="label">Department</span>
         <select id="tp-dept" class="select">
-          {topics.map((d) => <option value={d.id}>{d.name}</option>)}
+          {groups.map((g) => (
+            <optgroup label={g.label}>
+              {g.items.map((d) => <option value={d.slug}>{d.name}</option>)}
+            </optgroup>
+          ))}
         </select>
       </label>
       <label class="field">
@@ -34,11 +43,15 @@ import topics from '../../data/topics.json';
     <section aria-labelledby="tp-h">
       <h2 id="tp-h" class="sr-only">Topic ideas</h2>
       <p id="tp-count" class="mb-3 text-sm text-muted" role="status" aria-live="polite"></p>
+      <p id="tp-ethics" class="mb-3 rounded-lg p-3 text-sm" style="background:var(--warn-bg);color:var(--warn-fg)" hidden>
+        Studies with patients or other people usually need approval from your department or an ethics committee first, and the
+        informed consent of everyone who takes part. Ask your supervisor before you collect any data.
+      </p>
       <ul id="tp-list" class="space-y-2"></ul>
     </section>
   </div>
 
-  <script define:vars={{ topics }}>
+  <script define:vars={{ topics, ethics }}>
     const dept = document.getElementById('tp-dept');
     const kw = document.getElementById('tp-kw');
     const list = document.getElementById('tp-list');
@@ -56,6 +69,7 @@ import topics from '../../data/topics.json';
     function render() {
       const { name, hits, total, q } = pick();
       list.replaceChildren();
+      document.getElementById('tp-ethics').hidden = !ethics.includes(dept.value);
       if (!hits.length) {
         count.textContent = `No ${name} ideas match “${q}”. Try a shorter word.`;
         return;

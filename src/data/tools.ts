@@ -57,6 +57,13 @@ export const tools: Tool[] = [
     keywords: ['siwes', 'itf', 'industrial training', 'logbook', 'placement', 'attachment', 'letter', 'it'],
   },
   {
+    slug: 'cbt',
+    title: 'CBT Practice',
+    blurb: 'Timed multiple-choice practice. Use the sample sets or turn your own notes into a quiz.',
+    icon: 'check',
+    keywords: ['cbt', 'quiz', 'practice', 'exam', 'multiple choice', 'mcq', 'test', 'jamb', 'post utme', 'revision', 'study'],
+  },
+  {
     slug: 'project-topics',
     title: 'Project Topic Ideas',
     blurb: 'Starting ideas for final year projects by department. Always agree the final topic with your supervisor.',

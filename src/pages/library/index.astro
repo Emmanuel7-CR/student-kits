@@ -1,0 +1,73 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import { grouped } from '../../data/departments';
+import { KINDS, LEVELS } from '../../lib/library';
+
+const groups = grouped();
+---
+
+<Base
+  title="Library: past questions and notes shared by students"
+  description="Browse past questions, lecture notes and project material shared by students, checked before they appear. Filter by department, level and course code."
+>
+  <h1 class="text-3xl font-extrabold tracking-tight">Library</h1>
+  <p class="mt-2 max-w-2xl text-muted">
+    Past questions and notes shared by students. Every item is checked before it appears, but check it yourself too, and
+    always confirm with your lecturer. Have something to share?
+    <a class="link" href="/library/contribute/">Contribute here</a>.
+  </p>
+
+  <form id="lib-form" class="card mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" novalidate>
+    <label class="field sm:col-span-2 lg:col-span-4">
+      <span class="label">Search by title or course code</span>
+      <input id="lib-q" class="input" type="search" maxlength="60" placeholder="e.g. NSC 201 or anatomy" autocomplete="off" />
+    </label>
+    <label class="field">
+      <span class="label">Department</span>
+      <select id="lib-dept" class="select">
+        <option value="">All departments</option>
+        {groups.map((g) => (
+          <optgroup label={g.label}>
+            {g.items.map((d) => <option value={d.slug}>{d.name}</option>)}
+          </optgroup>
+        ))}
+      </select>
+    </label>
+    <label class="field">
+      <span class="label">Level</span>
+      <select id="lib-level" class="select">
+        <option value="">All levels</option>
+        {LEVELS.map((l) => <option value={String(l)}>{l} level</option>)}
+      </select>
+    </label>
+    <label class="field">
+      <span class="label">Type</span>
+      <select id="lib-kind" class="select">
+        <option value="">All types</option>
+        {KINDS.map((k) => <option value={k.value}>{k.label}</option>)}
+      </select>
+    </label>
+  </form>
+
+  <section class="mt-6" aria-labelledby="lib-h">
+    <h2 id="lib-h" class="sr-only">Results</h2>
+    <p id="lib-status" class="mb-3 text-sm text-muted" role="status" aria-live="polite">Loading…</p>
+    <ul id="lib-list" class="space-y-3"></ul>
+    <button id="lib-more" type="button" class="btn mt-4" hidden>Show more</button>
+  </section>
+
+  <div id="lib-empty" class="card mt-2 max-w-2xl" hidden>
+    <span class="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-tint text-brand-strong"><Icon name="book" size={24} /></span>
+    <h2 class="mt-3 text-xl font-bold">Nothing here yet</h2>
+    <p class="mt-2 text-muted">
+      The library grows as students share. If you have notes or past questions you are allowed to share, add them and help
+      the next student.
+    </p>
+    <a class="btn btn-primary mt-3" href="/library/contribute/">Share something</a>
+  </div>
+
+  <script>
+    import '../../scripts/library-ui';
+  </script>
+</Base>

@@ -1,0 +1,130 @@
+---
+import Base from '../../layouts/Base.astro';
+import { grouped } from '../../data/departments';
+import { KINDS, LEVELS } from '../../lib/library';
+
+const groups = grouped();
+---
+
+<Base
+  title="Share a past question or notes"
+  description="Add a link or a small file of past questions, notes or project material for other students. Every contribution is checked before it appears."
+>
+  <nav class="mb-3 text-sm" aria-label="Breadcrumb">
+    <a class="link" href="/library/">Library</a> <span class="text-muted">/</span> <span>Contribute</span>
+  </nav>
+  <h1 class="text-3xl font-extrabold tracking-tight">Share with other students</h1>
+  <p class="mt-2 max-w-2xl text-muted">No account needed. What you send is checked first, so it will not show up straight away.</p>
+
+  <div class="mt-4 max-w-2xl rounded-lg p-4 text-sm" style="background:var(--warn-bg);color:var(--warn-fg)">
+    <p class="font-semibold">Before you share</p>
+    <ul class="mt-1 list-disc space-y-1 pl-5">
+      <li>Share only things you made, or that you are allowed to share, such as your own notes or a past question your department gives out.</li>
+      <li>Do not share textbooks, paid courses, or anything marked confidential. Do not share a live exam or answers to a test that has not happened.</li>
+      <li>Do not include other people's phone numbers, matric numbers or private details.</li>
+      <li>Anything that breaks these rules will be removed, and anyone can report an item.</li>
+    </ul>
+  </div>
+
+  <form id="ct-form" class="card mt-6 max-w-2xl space-y-4" novalidate>
+    <label class="field">
+      <span class="label">Title</span>
+      <input id="ct-title" class="input" type="text" maxlength="140" placeholder="e.g. Human Anatomy past questions 2022/2023" />
+      <span class="hint" id="ct-title-err" role="alert"></span>
+    </label>
+
+    <div class="grid gap-3 sm:grid-cols-2">
+      <label class="field sm:col-span-2">
+        <span class="label">Department</span>
+        <select id="ct-dept" class="select">
+          <option value="">Choose a department</option>
+          {groups.map((g) => (
+            <optgroup label={g.label}>
+              {g.items.map((d) => <option value={d.slug}>{d.name}</option>)}
+            </optgroup>
+          ))}
+        </select>
+        <span class="hint" id="ct-dept-err" role="alert"></span>
+      </label>
+      <label class="field">
+        <span class="label">Level</span>
+        <select id="ct-level" class="select">
+          <option value="">Choose</option>
+          {LEVELS.map((l) => <option value={String(l)}>{l} level</option>)}
+        </select>
+        <span class="hint" id="ct-level-err" role="alert"></span>
+      </label>
+      <label class="field">
+        <span class="label">What is it?</span>
+        <select id="ct-kind" class="select">
+          {KINDS.map((k) => <option value={k.value}>{k.label}</option>)}
+        </select>
+      </label>
+      <label class="field">
+        <span class="label">Course code (optional)</span>
+        <input id="ct-code" class="input" type="text" maxlength="12" placeholder="CSC 201" />
+        <span class="hint" id="ct-code-err" role="alert"></span>
+      </label>
+      <label class="field">
+        <span class="label">Semester (optional)</span>
+        <select id="ct-sem" class="select">
+          <option value="">Not sure</option>
+          <option value="1">1st semester</option>
+          <option value="2">2nd semester</option>
+        </select>
+      </label>
+      <label class="field">
+        <span class="label">Session (optional)</span>
+        <input id="ct-session" class="input" type="text" maxlength="9" placeholder="2023/2024" inputmode="numeric" />
+        <span class="hint" id="ct-session-err" role="alert"></span>
+      </label>
+      <label class="field">
+        <span class="label">Your name or nickname (optional)</span>
+        <input id="ct-who" class="input" type="text" maxlength="40" autocomplete="off" />
+        <span class="hint">Shown on the item. Leave empty to stay anonymous.</span>
+      </label>
+    </div>
+
+    <label class="field">
+      <span class="label">Short description (optional)</span>
+      <textarea id="ct-desc" class="textarea" rows="3" maxlength="500" placeholder="What is in it? Is it complete? Any answers included?"></textarea>
+    </label>
+
+    <fieldset class="space-y-3">
+      <legend class="label text-sm font-semibold">How are you sharing it?</legend>
+      <div class="flex flex-wrap gap-4">
+        <label class="flex items-center gap-2"><input type="radio" name="ct-mode" value="link" checked class="h-5 w-5" /> A link</label>
+        <label class="flex items-center gap-2"><input type="radio" name="ct-mode" value="file" class="h-5 w-5" /> Upload a file</label>
+      </div>
+      <label class="field" id="ct-link-wrap">
+        <span class="label">Link</span>
+        <input id="ct-url" class="input" type="url" inputmode="url" placeholder="https://drive.google.com/…" />
+        <span class="hint">Google Drive, OneDrive or any site. Make sure anyone with the link can open it.</span>
+        <span class="hint" id="ct-url-err" role="alert"></span>
+      </label>
+      <label class="field" id="ct-file-wrap" hidden>
+        <span class="label">File (PDF, JPG, PNG or WebP, up to 4 MB)</span>
+        <input id="ct-file" class="input" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" />
+        <span class="hint" id="ct-file-err" role="alert"></span>
+      </label>
+    </fieldset>
+
+    <!-- Honeypot: people never see this, simple bots fill it in. -->
+    <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+      <label>Leave this empty <input id="ct-website" type="text" tabindex="-1" autocomplete="off" /></label>
+    </div>
+
+    <label class="flex items-start gap-2 text-sm">
+      <input id="ct-agree" type="checkbox" class="mt-0.5 h-5 w-5 shrink-0" />
+      <span>I made this or I am allowed to share it, and it follows the rules above.</span>
+    </label>
+    <p class="hint" id="ct-agree-err" role="alert"></p>
+
+    <button id="ct-send" type="submit" class="btn btn-primary">Send for checking</button>
+    <p id="ct-msg" class="rounded-lg p-3 text-sm" role="status" aria-live="polite" hidden></p>
+  </form>
+
+  <script>
+    import '../../scripts/contribute-ui';
+  </script>
+</Base>

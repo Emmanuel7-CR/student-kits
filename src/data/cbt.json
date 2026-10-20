@@ -1,0 +1,697 @@
+{
+ "note": "Original sample questions written for FreeStudentKit. They are not past questions.",
+ "sets": [
+  {
+   "id": "english",
+   "title": "Use of English: sample practice",
+   "blurb": "Grammar, vocabulary and spelling. A short warm-up, not a past paper.",
+   "level": "General",
+   "questions": [
+    {
+     "q": "Choose the correct sentence.",
+     "options": [
+      "Each of the students have submitted a form.",
+      "Each of the students has submitted a form.",
+      "Each of the students are submitting a form.",
+      "Each of the student has submit a form."
+     ],
+     "answer": 1,
+     "explanation": "“Each” is singular, so it takes the singular verb “has”, and “students” is plural after “of”."
+    },
+    {
+     "q": "Choose the word closest in meaning to “benevolent”.",
+     "options": [
+      "kind",
+      "cruel",
+      "careless",
+      "lazy"
+     ],
+     "answer": 0,
+     "explanation": "Benevolent means well-meaning and kind."
+    },
+    {
+     "q": "Choose the word opposite in meaning to “scarce”.",
+     "options": [
+      "rare",
+      "limited",
+      "costly",
+      "abundant"
+     ],
+     "answer": 3,
+     "explanation": "Scarce means in short supply. The opposite is plentiful, or abundant."
+    },
+    {
+     "q": "She has been living in Benin ___ 2019.",
+     "options": [
+      "for",
+      "from",
+      "since",
+      "at"
+     ],
+     "answer": 2,
+     "explanation": "“Since” is used with a point in time. “For” is used with a length of time (for five years)."
+    },
+    {
+     "q": "The police ___ investigating the case.",
+     "options": [
+      "is",
+      "are",
+      "has",
+      "was being"
+     ],
+     "answer": 1,
+     "explanation": "“Police” is a plural noun and takes a plural verb."
+    },
+    {
+     "q": "Choose the correct spelling.",
+     "options": [
+      "Accommodation",
+      "Acommodation",
+      "Accomodation",
+      "Acomodation"
+     ],
+     "answer": 0,
+     "explanation": "Accommodation has double c and double m."
+    },
+    {
+     "q": "If I ___ you, I would apologise.",
+     "options": [
+      "am",
+      "was being",
+      "be",
+      "were"
+     ],
+     "answer": 3,
+     "explanation": "In a formal “if” sentence about something unreal, standard English uses “were” for every subject."
+    },
+    {
+     "q": "What is the plural of “phenomenon”?",
+     "options": [
+      "phenomenons",
+      "phenomenas",
+      "phenomena",
+      "phenomenae"
+     ],
+     "answer": 2,
+     "explanation": "Phenomenon comes from Greek and its plural is phenomena."
+    },
+    {
+     "q": "He is very good ___ mathematics.",
+     "options": [
+      "in",
+      "at",
+      "on",
+      "with"
+     ],
+     "answer": 1,
+     "explanation": "We say “good at” a subject or skill."
+    },
+    {
+     "q": "The news of the strike was ___.",
+     "options": [
+      "shocking",
+      "shocked",
+      "shock",
+      "shocks"
+     ],
+     "answer": 0,
+     "explanation": "“Shocking” describes the news. “Shocked” describes how a person feels."
+    },
+    {
+     "q": "Which of these is a complete sentence?",
+     "options": [
+      "Because the power failed.",
+      "When the lecturer arrived.",
+      "Although it rained.",
+      "The power failed."
+     ],
+     "answer": 3,
+     "explanation": "The other options begin with a linking word and leave the idea unfinished, so they need a main clause."
+    },
+    {
+     "q": "Choose the correct passive form of “The student wrote the report.”",
+     "options": [
+      "The report is wrote by the student.",
+      "The report has wrote the student.",
+      "The report was written by the student.",
+      "The student was written by the report."
+     ],
+     "answer": 2,
+     "explanation": "The passive uses a form of “be” plus the past participle (written)."
+    },
+    {
+     "q": "The company has changed ___ policy.",
+     "options": [
+      "it's",
+      "its",
+      "it is",
+      "whose"
+     ],
+     "answer": 1,
+     "explanation": "“Its” shows ownership. “It's” means “it is” or “it has”."
+    },
+    {
+     "q": "By next July, she ___ her degree.",
+     "options": [
+      "will have completed",
+      "completes",
+      "completed",
+      "is completing"
+     ],
+     "answer": 0,
+     "explanation": "The future perfect (will have + past participle) describes something finished before a future time."
+    },
+    {
+     "q": "The word “punctual” means ___.",
+     "options": [
+      "speaking loudly",
+      "working slowly",
+      "dressing neatly",
+      "arriving at the right time"
+     ],
+     "answer": 3,
+     "explanation": "Punctual means on time."
+    }
+   ]
+  },
+  {
+   "id": "computer",
+   "title": "Computer basics: sample practice",
+   "blurb": "Hardware, software, safety and the internet, at GST level.",
+   "level": "General",
+   "questions": [
+    {
+     "q": "What does CPU stand for?",
+     "options": [
+      "Central Program Utility",
+      "Central Processing Unit",
+      "Computer Personal Unit",
+      "Control Power Unit"
+     ],
+     "answer": 1,
+     "explanation": "The CPU is the part that carries out instructions."
+    },
+    {
+     "q": "Which of these is an input device?",
+     "options": [
+      "Keyboard",
+      "Monitor",
+      "Printer",
+      "Speaker"
+     ],
+     "answer": 0,
+     "explanation": "Input devices send data into the computer. Monitors, printers and speakers send data out."
+    },
+    {
+     "q": "How many bits are in one byte?",
+     "options": [
+      "4",
+      "16",
+      "10",
+      "8"
+     ],
+     "answer": 3,
+     "explanation": "One byte is eight bits."
+    },
+    {
+     "q": "RAM is described as volatile memory because ___.",
+     "options": [
+      "it can never be changed",
+      "it is only used for storage",
+      "its contents are lost when the power is off",
+      "it is slower than a hard disk"
+     ],
+     "answer": 2,
+     "explanation": "RAM holds data the computer is using now and is cleared when power is lost."
+    },
+    {
+     "q": "Which of these is an operating system?",
+     "options": [
+      "Microsoft Excel",
+      "Android",
+      "Google Chrome",
+      "Adobe Reader"
+     ],
+     "answer": 1,
+     "explanation": "Android runs the phone. The others are applications that run on an operating system."
+    },
+    {
+     "q": "A file ending in .pdf is a ___.",
+     "options": [
+      "Portable Document Format file",
+      "Public Data File",
+      "Printed Document Form",
+      "Program Download File"
+     ],
+     "answer": 0,
+     "explanation": "PDF files keep their layout on different devices."
+    },
+    {
+     "q": "In Windows, which keys copy the selected text?",
+     "options": [
+      "Ctrl + V",
+      "Ctrl + X",
+      "Ctrl + Z",
+      "Ctrl + C"
+     ],
+     "answer": 3,
+     "explanation": "Ctrl+C copies, Ctrl+V pastes, Ctrl+X cuts and Ctrl+Z undoes."
+    },
+    {
+     "q": "Phishing is ___.",
+     "options": [
+      "a way of speeding up the internet",
+      "a kind of backup",
+      "tricking people with fake messages to get their private details",
+      "a program that cleans a computer"
+     ],
+     "answer": 2,
+     "explanation": "Never share a password, PIN or OTP because of a message or call you did not expect."
+    },
+    {
+     "q": "What does URL stand for?",
+     "options": [
+      "Universal Radio Link",
+      "Uniform Resource Locator",
+      "United Resource List",
+      "User Reference Line"
+     ],
+     "answer": 1,
+     "explanation": "A URL is a web address."
+    },
+    {
+     "q": "Which of these is the strongest password?",
+     "options": [
+      "T7!rq#Lm9vP2",
+      "password123",
+      "12345678",
+      "Adaeze2004"
+     ],
+     "answer": 0,
+     "explanation": "Strong passwords are long, mix characters, and do not use names, dates or common words."
+    },
+    {
+     "q": "A computer virus is ___.",
+     "options": [
+      "a part of the motherboard",
+      "a type of printer",
+      "a free antivirus tool",
+      "a harmful program that can copy itself and damage files"
+     ],
+     "answer": 3,
+     "explanation": "Viruses spread through unsafe files and links."
+    },
+    {
+     "q": "Which program is a spreadsheet application?",
+     "options": [
+      "Microsoft Word",
+      "Microsoft PowerPoint",
+      "Microsoft Excel",
+      "Notepad"
+     ],
+     "answer": 2,
+     "explanation": "Excel works with rows, columns and formulas."
+    },
+    {
+     "q": "HTML is mainly used to ___.",
+     "options": [
+      "store large databases",
+      "structure the content of web pages",
+      "design computer chips",
+      "connect to Wi-Fi"
+     ],
+     "answer": 1,
+     "explanation": "HTML describes headings, paragraphs, links and images on a page."
+    },
+    {
+     "q": "Which of these is an example of cloud storage?",
+     "options": [
+      "Google Drive",
+      "A flash drive",
+      "A hard disk in a laptop",
+      "A DVD"
+     ],
+     "answer": 0,
+     "explanation": "Cloud storage keeps your files on servers you reach over the internet."
+    },
+    {
+     "q": "Wi-Fi allows a device to ___.",
+     "options": [
+      "print without ink",
+      "charge without a battery",
+      "run without an operating system",
+      "connect to a network without cables"
+     ],
+     "answer": 3,
+     "explanation": "Wi-Fi is a wireless way to connect to a local network."
+    }
+   ]
+  },
+  {
+   "id": "numeracy",
+   "title": "Numeracy: sample practice",
+   "blurb": "Percentages, fractions, ratios, averages and simple equations.",
+   "level": "General",
+   "questions": [
+    {
+     "q": "What is 15% of ₦8,000?",
+     "options": [
+      "₦1,500",
+      "₦1,200",
+      "₦800",
+      "₦120"
+     ],
+     "answer": 1,
+     "explanation": "15% of 8,000 = 0.15 × 8,000 = 1,200."
+    },
+    {
+     "q": "Simplify 3/4 + 1/8.",
+     "options": [
+      "7/8",
+      "4/12",
+      "1/2",
+      "5/8"
+     ],
+     "answer": 0,
+     "explanation": "3/4 = 6/8, and 6/8 + 1/8 = 7/8."
+    },
+    {
+     "q": "Solve for x: 2x + 5 = 17.",
+     "options": [
+      "11",
+      "5",
+      "12",
+      "6"
+     ],
+     "answer": 3,
+     "explanation": "2x = 12, so x = 6."
+    },
+    {
+     "q": "After a 10% discount a shirt costs ₦4,500. What was the original price?",
+     "options": [
+      "₦4,950",
+      "₦4,050",
+      "₦5,000",
+      "₦5,500"
+     ],
+     "answer": 2,
+     "explanation": "The discounted price is 90% of the original: 4,500 ÷ 0.9 = 5,000."
+    },
+    {
+     "q": "Find the mean of 12, 15, 18 and 25.",
+     "options": [
+      "15",
+      "17.5",
+      "18",
+      "70"
+     ],
+     "answer": 1,
+     "explanation": "The sum is 70, and 70 ÷ 4 = 17.5."
+    },
+    {
+     "q": "What is the simple interest on ₦50,000 at 8% a year for 3 years?",
+     "options": [
+      "₦12,000",
+      "₦4,000",
+      "₦62,000",
+      "₦1,200"
+     ],
+     "answer": 0,
+     "explanation": "Interest = 50,000 × 0.08 × 3 = 12,000."
+    },
+    {
+     "q": "₦24,000 is shared in the ratio 3 : 5. What is the larger share?",
+     "options": [
+      "₦9,000",
+      "₦12,000",
+      "₦8,000",
+      "₦15,000"
+     ],
+     "answer": 3,
+     "explanation": "There are 8 parts. Each part is 3,000, so 5 parts = 15,000."
+    },
+    {
+     "q": "What is the area of a rectangle 12 m long and 7.5 m wide?",
+     "options": [
+      "19.5 m²",
+      "45 m²",
+      "90 m²",
+      "180 m²"
+     ],
+     "answer": 2,
+     "explanation": "Area = length × width = 12 × 7.5 = 90."
+    },
+    {
+     "q": "Find the value of √144 + 5².",
+     "options": [
+      "17",
+      "37",
+      "29",
+      "149"
+     ],
+     "answer": 1,
+     "explanation": "√144 = 12 and 5² = 25, so the total is 37."
+    },
+    {
+     "q": "Write 0.375 as a fraction in its simplest form.",
+     "options": [
+      "3/8",
+      "375/100",
+      "1/3",
+      "3/4"
+     ],
+     "answer": 0,
+     "explanation": "0.375 = 375/1000, which simplifies to 3/8."
+    },
+    {
+     "q": "A car covers 180 km in 2.5 hours. What is its average speed?",
+     "options": [
+      "450 km/h",
+      "62.5 km/h",
+      "90 km/h",
+      "72 km/h"
+     ],
+     "answer": 3,
+     "explanation": "Speed = distance ÷ time = 180 ÷ 2.5 = 72."
+    },
+    {
+     "q": "Simplify 2⁵ ÷ 2².",
+     "options": [
+      "4",
+      "16",
+      "8",
+      "64"
+     ],
+     "answer": 2,
+     "explanation": "Subtract the powers: 2^(5−2) = 2³ = 8."
+    },
+    {
+     "q": "By what percentage does a number increase when it goes from 40 to 50?",
+     "options": [
+      "10%",
+      "25%",
+      "20%",
+      "12.5%"
+     ],
+     "answer": 1,
+     "explanation": "Increase = 10, and 10 ÷ 40 = 0.25, which is 25%."
+    },
+    {
+     "q": "Find the median of 3, 9, 4, 7, 1.",
+     "options": [
+      "4",
+      "5",
+      "7",
+      "3"
+     ],
+     "answer": 0,
+     "explanation": "In order: 1, 3, 4, 7, 9. The middle value is 4."
+    },
+    {
+     "q": "Three pens cost ₦450. How much do seven pens cost?",
+     "options": [
+      "₦1,350",
+      "₦900",
+      "₦1,500",
+      "₦1,050"
+     ],
+     "answer": 3,
+     "explanation": "One pen costs 150, so seven pens cost 1,050."
+    }
+   ]
+  },
+  {
+   "id": "biology",
+   "title": "Human biology basics: sample practice",
+   "blurb": "Foundation facts for health science students. Not a replacement for your course notes.",
+   "level": "Foundation",
+   "questions": [
+    {
+     "q": "How many chambers does the human heart have?",
+     "options": [
+      "Two",
+      "Four",
+      "Three",
+      "Five"
+     ],
+     "answer": 1,
+     "explanation": "Two atria and two ventricles."
+    },
+    {
+     "q": "Which pigment in red blood cells carries oxygen?",
+     "options": [
+      "Haemoglobin",
+      "Melanin",
+      "Chlorophyll",
+      "Keratin"
+     ],
+     "answer": 0,
+     "explanation": "Haemoglobin binds oxygen in the lungs and releases it in the tissues."
+    },
+    {
+     "q": "Which organ produces insulin?",
+     "options": [
+      "Liver",
+      "Kidney",
+      "Stomach",
+      "Pancreas"
+     ],
+     "answer": 3,
+     "explanation": "Beta cells in the pancreas make insulin, which lowers blood glucose."
+    },
+    {
+     "q": "Which blood group is the universal donor for red blood cells?",
+     "options": [
+      "AB positive",
+      "A positive",
+      "O negative",
+      "B negative"
+     ],
+     "answer": 2,
+     "explanation": "O negative red cells lack A, B and Rh antigens, so they can be given in emergencies."
+    },
+    {
+     "q": "How many bones are in an adult human body?",
+     "options": [
+      "106",
+      "206",
+      "306",
+      "212"
+     ],
+     "answer": 1,
+     "explanation": "Babies are born with more bones, and several fuse as they grow."
+    },
+    {
+     "q": "What is the basic functional unit of the nervous system?",
+     "options": [
+      "The neuron",
+      "The nephron",
+      "The alveolus",
+      "The sarcomere"
+     ],
+     "answer": 0,
+     "explanation": "Neurons carry signals as electrical and chemical messages."
+    },
+    {
+     "q": "Where does most nutrient absorption take place?",
+     "options": [
+      "Stomach",
+      "Large intestine",
+      "Oesophagus",
+      "Small intestine"
+     ],
+     "answer": 3,
+     "explanation": "The small intestine has villi that give a very large absorbing surface."
+    },
+    {
+     "q": "What is the main role of white blood cells?",
+     "options": [
+      "Carrying oxygen",
+      "Clotting blood",
+      "Defending the body against infection",
+      "Making bile"
+     ],
+     "answer": 2,
+     "explanation": "White blood cells are part of the immune system."
+    },
+    {
+     "q": "What is the largest organ of the human body?",
+     "options": [
+      "Liver",
+      "Skin",
+      "Lungs",
+      "Brain"
+     ],
+     "answer": 1,
+     "explanation": "The skin covers the whole body and protects it."
+    },
+    {
+     "q": "Where does gas exchange between air and blood happen?",
+     "options": [
+      "Alveoli",
+      "Bronchi",
+      "Trachea",
+      "Pleura"
+     ],
+     "answer": 0,
+     "explanation": "Oxygen moves into the blood and carbon dioxide moves out across the alveolar walls."
+    },
+    {
+     "q": "Which vitamin can the body make in the skin with sunlight?",
+     "options": [
+      "Vitamin C",
+      "Vitamin K",
+      "Vitamin B12",
+      "Vitamin D"
+     ],
+     "answer": 3,
+     "explanation": "Skin makes vitamin D when exposed to ultraviolet B light."
+    },
+    {
+     "q": "What is a normal resting heart rate for a healthy adult?",
+     "options": [
+      "20 to 40 beats per minute",
+      "120 to 160 beats per minute",
+      "60 to 100 beats per minute",
+      "200 beats per minute"
+     ],
+     "answer": 2,
+     "explanation": "Fit people can be lower than 60, but 60 to 100 is the usual adult range."
+    },
+    {
+     "q": "Which organ filters the blood and makes urine?",
+     "options": [
+      "Spleen",
+      "Kidney",
+      "Gall bladder",
+      "Pancreas"
+     ],
+     "answer": 1,
+     "explanation": "Each kidney has about a million nephrons."
+    },
+    {
+     "q": "Genetic information is stored in ___.",
+     "options": [
+      "DNA",
+      "Glucose",
+      "Starch",
+      "Lipids"
+     ],
+     "answer": 0,
+     "explanation": "DNA carries the instructions for building proteins."
+    },
+    {
+     "q": "Malaria is caused by ___.",
+     "options": [
+      "a virus",
+      "a fungus",
+      "a Salmonella bacterium",
+      "a Plasmodium parasite"
+     ],
+     "answer": 3,
+     "explanation": "Plasmodium is spread by the bite of infected female Anopheles mosquitoes."
+    }
+   ]
+  }
+ ]
+}

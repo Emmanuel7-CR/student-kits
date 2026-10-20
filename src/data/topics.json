@@ -1,130 +1,408 @@
 [
-  {
-    "id": "csc",
-    "name": "Computer Science",
-    "topics": [
-      "Development of a Machine Learning-Based Spam Detection System",
-      "Design and Implementation of a Blockchain Attendance Management System",
-      "AI-Powered Medical Diagnosis Assistant Using Symptom Input",
-      "Real-Time Object Detection App for Visually Impaired Users",
-      "Cloud-Based Collaborative Note-Taking Platform for Students",
-      "Smart Traffic Management System Using Computer Vision",
-      "Cryptocurrency Wallet Application with Multi-Signature Security",
-      "Automated Resume Screening System Using NLP",
-      "IoT-Based Environmental Pollution Monitoring Network",
-      "Online Peer-to-Peer Tutoring Marketplace"
-    ]
-  },
-  {
-    "id": "eee",
-    "name": "Electrical Engineering",
-    "topics": [
-      "Design of a Smart Street Lighting System with Daylight Harvesting",
-      "Wireless Power Transfer System for Low-Power IoT Devices",
-      "PLC-Based Industrial Conveyor Belt Automation",
-      "Solar Charge Controller with MPPT Algorithm",
-      "Design of a Variable-Frequency Drive for Induction Motors",
-      "Smart Home Automation System via Voice Commands",
-      "High-Efficiency Inverter Design for Rural Electrification",
-      "Real-Time Power Quality Monitoring Using ESP32",
-      "Automatic Transfer Switch for Backup Power Systems",
-      "Design of a Capacitive Touch Screen Controller"
-    ]
-  },
-  {
-    "id": "mec",
-    "name": "Mechanical Engineering",
-    "topics": [
-      "Design and Fabrication of a Small-Scale Wind Turbine Blade",
-      "Thermal Analysis of a Finned Heat Exchanger",
-      "Design of a Pneumatic Pick-and-Place Robotic Arm",
-      "Optimization of CNC Machining Parameters for Aluminum",
-      "Design of a Portable Biomass Gasification Stove",
-      "Stress Analysis of a Composite Bicycle Frame Using FEA",
-      "Design and Testing of a Speed Bump Energy Harvester",
-      "Fabrication of an Automated Seed Planting Machine",
-      "Analysis of Vibration in High-Speed Rotating Shafts",
-      "Design of a Low-Cost Water Purification System"
-    ]
-  },
-  {
-    "id": "acc",
-    "name": "Accounting",
-    "topics": [
-      "Impact of Artificial Intelligence on External Auditing Practices",
-      "Tax Compliance and Revenue Generation in Nigeria",
-      "Adoption of Cloud Accounting Software by SMEs in Lagos",
-      "Earnings Management and Corporate Governance in Nigerian Banks",
-      "Effect of Audit Quality on Investor Confidence",
-      "IFRS 9 Adoption and Loan Loss Provisioning in Banks",
-      "Budget Implementation and Financial Performance of Local Government",
-      "Corporate Social Responsibility Reporting in the Oil and Gas Sector",
-      "Internal Control Systems and Fraud Prevention",
-      "Transfer Pricing and Tax Avoidance by Multinational Companies"
-    ]
-  },
-  {
-    "id": "bus",
-    "name": "Business Administration",
-    "topics": [
-      "Digital Transformation and Competitive Advantage in Nigerian Banks",
-      "Work-From-Home Policy and Employee Productivity Post-COVID",
-      "Customer Relationship Management and Customer Retention",
-      "Entrepreneurship Education and Youth Employment in Nigeria",
-      "Impact of Brand Identity on Consumer Purchase Intention",
-      "Corporate Culture and Organizational Performance",
-      "E-Commerce Adoption Among Small Retailers in Abuja",
-      "Leadership Style and Employee Morale in the Public Sector",
-      "Impact of Fintech on Traditional Banking Services",
-      "Emotional Intelligence and Managerial Effectiveness"
-    ]
-  },
-  {
-    "id": "med",
-    "name": "Nursing and Medicine",
-    "topics": [
-      "Knowledge and Practice of Standard Precautions Among ICU Nurses",
-      "Self-Medication Practices and Associated Risks Among Undergraduates",
-      "Effectiveness of Health Education on Malaria Prevention",
-      "Nurse-Patient Ratio and Patient Outcomes in Secondary Hospitals",
-      "Adherence to HIV/AIDS Treatment Protocols in ART Clinics",
-      "Assessment of Maternal Health Services in Peri-Urban Areas",
-      "Nutritional Status and Academic Performance of Primary School Children",
-      "Burnout and Coping Strategies Among Healthcare Workers",
-      "Knowledge of Cervical Cancer Screening Among Women 25–45",
-      "Childhood Immunization Coverage and Barriers in Rural LGAs"
-    ]
-  },
-  {
-    "id": "law",
-    "name": "Law",
-    "topics": [
-      "Regulation of Cryptocurrency and Digital Assets in Nigeria",
-      "Constitutional Limitations on State Power to Tax",
-      "Enforcement of Arbitration Awards in Nigeria: Challenges",
-      "Women's Land Rights Under Customary Law in Southeast Nigeria",
-      "The Right to a Fair Hearing in Administrative Proceedings",
-      "Cyberstalking and Legal Protection for Online Harassment Victims",
-      "Regulation of Social Media and Freedom of Expression",
-      "Oil Spill Liability and Environmental Justice in the Niger Delta",
-      "Human Trafficking: Legal Framework and Law Enforcement Gaps",
-      "Corporate Insolvency and Creditor Protection Under CAMA 2020"
-    ]
-  },
-  {
-    "id": "edu",
-    "name": "Education",
-    "topics": [
-      "Effect of Technology Integration on Student Learning Outcomes",
-      "Teacher Motivation and Quality of Education in Public Schools",
-      "Inclusive Education Practices for Students with Disabilities",
-      "Parental Involvement and Academic Achievement in Secondary Schools",
-      "Assessment of Early Childhood Education Programs in Nigeria",
-      "Impact of Social Media on Study Habits of Undergraduates",
-      "Curriculum Relevance and Graduate Employability in Nigerian Universities",
-      "Peer Learning and Collaborative Problem-Solving Skills",
-      "Effect of Classroom Size on Effective Teaching and Learning",
-      "Professional Development and Teacher Effectiveness"
-    ]
-  }
+ {
+  "id": "computer-science",
+  "name": "Computer Science",
+  "topics": [
+   "Development of a Machine Learning-Based Spam Detection System",
+   "Design and Implementation of a Blockchain Attendance Management System",
+   "AI-Powered Medical Diagnosis Assistant Using Symptom Input",
+   "Real-Time Object Detection App for Visually Impaired Users",
+   "Cloud-Based Collaborative Note-Taking Platform for Students",
+   "Smart Traffic Management System Using Computer Vision",
+   "Cryptocurrency Wallet Application with Multi-Signature Security",
+   "Automated Resume Screening System Using NLP",
+   "IoT-Based Environmental Pollution Monitoring Network",
+   "Online Peer-to-Peer Tutoring Marketplace"
+  ]
+ },
+ {
+  "id": "electrical-engineering",
+  "name": "Electrical Engineering",
+  "topics": [
+   "Design of a Smart Street Lighting System with Daylight Harvesting",
+   "Wireless Power Transfer System for Low-Power IoT Devices",
+   "PLC-Based Industrial Conveyor Belt Automation",
+   "Solar Charge Controller with MPPT Algorithm",
+   "Design of a Variable-Frequency Drive for Induction Motors",
+   "Smart Home Automation System via Voice Commands",
+   "High-Efficiency Inverter Design for Rural Electrification",
+   "Real-Time Power Quality Monitoring Using ESP32",
+   "Automatic Transfer Switch for Backup Power Systems",
+   "Design of a Capacitive Touch Screen Controller"
+  ]
+ },
+ {
+  "id": "mechanical-engineering",
+  "name": "Mechanical Engineering",
+  "topics": [
+   "Design and Fabrication of a Small-Scale Wind Turbine Blade",
+   "Thermal Analysis of a Finned Heat Exchanger",
+   "Design of a Pneumatic Pick-and-Place Robotic Arm",
+   "Optimization of CNC Machining Parameters for Aluminum",
+   "Design of a Portable Biomass Gasification Stove",
+   "Stress Analysis of a Composite Bicycle Frame Using FEA",
+   "Design and Testing of a Speed Bump Energy Harvester",
+   "Fabrication of an Automated Seed Planting Machine",
+   "Analysis of Vibration in High-Speed Rotating Shafts",
+   "Design of a Low-Cost Water Purification System"
+  ]
+ },
+ {
+  "id": "accounting",
+  "name": "Accounting",
+  "topics": [
+   "Impact of Artificial Intelligence on External Auditing Practices",
+   "Tax Compliance and Revenue Generation in Nigeria",
+   "Adoption of Cloud Accounting Software by SMEs in Lagos",
+   "Earnings Management and Corporate Governance in Nigerian Banks",
+   "Effect of Audit Quality on Investor Confidence",
+   "IFRS 9 Adoption and Loan Loss Provisioning in Banks",
+   "Budget Implementation and Financial Performance of Local Government",
+   "Corporate Social Responsibility Reporting in the Oil and Gas Sector",
+   "Internal Control Systems and Fraud Prevention",
+   "Transfer Pricing and Tax Avoidance by Multinational Companies"
+  ]
+ },
+ {
+  "id": "business-administration",
+  "name": "Business Administration",
+  "topics": [
+   "Digital Transformation and Competitive Advantage in Nigerian Banks",
+   "Work-From-Home Policy and Employee Productivity Post-COVID",
+   "Customer Relationship Management and Customer Retention",
+   "Entrepreneurship Education and Youth Employment in Nigeria",
+   "Impact of Brand Identity on Consumer Purchase Intention",
+   "Corporate Culture and Organizational Performance",
+   "E-Commerce Adoption Among Small Retailers in Abuja",
+   "Leadership Style and Employee Morale in the Public Sector",
+   "Impact of Fintech on Traditional Banking Services",
+   "Emotional Intelligence and Managerial Effectiveness"
+  ]
+ },
+ {
+  "id": "law",
+  "name": "Law",
+  "topics": [
+   "Regulation of Cryptocurrency and Digital Assets in Nigeria",
+   "Constitutional Limitations on State Power to Tax",
+   "Enforcement of Arbitration Awards in Nigeria: Challenges",
+   "Women's Land Rights Under Customary Law in Southeast Nigeria",
+   "The Right to a Fair Hearing in Administrative Proceedings",
+   "Cyberstalking and Legal Protection for Online Harassment Victims",
+   "Regulation of Social Media and Freedom of Expression",
+   "Oil Spill Liability and Environmental Justice in the Niger Delta",
+   "Human Trafficking: Legal Framework and Law Enforcement Gaps",
+   "Corporate Insolvency and Creditor Protection Under CAMA 2020"
+  ]
+ },
+ {
+  "id": "education",
+  "name": "Education",
+  "topics": [
+   "Effect of Technology Integration on Student Learning Outcomes",
+   "Teacher Motivation and Quality of Education in Public Schools",
+   "Inclusive Education Practices for Students with Disabilities",
+   "Parental Involvement and Academic Achievement in Secondary Schools",
+   "Assessment of Early Childhood Education Programs in Nigeria",
+   "Impact of Social Media on Study Habits of Undergraduates",
+   "Curriculum Relevance and Graduate Employability in Nigerian Universities",
+   "Peer Learning and Collaborative Problem-Solving Skills",
+   "Effect of Classroom Size on Effective Teaching and Learning",
+   "Professional Development and Teacher Effectiveness"
+  ]
+ },
+ {
+  "id": "medicine-and-surgery",
+  "name": "Medicine and Surgery",
+  "topics": [
+   "Prevalence and risk factors of hypertension among adults in an urban community in Nigeria",
+   "Knowledge and utilisation of antenatal care among women attending a primary health centre",
+   "Awareness and practice of breast self-examination among female undergraduates",
+   "Pattern and predictors of self-medication with antimalarial drugs among adults in a local government area",
+   "Awareness of sickle cell genotype and premarital testing among university students",
+   "Factors associated with late presentation to the emergency unit of a teaching hospital",
+   "Attitude of medical students towards persons with mental illness",
+   "Pattern of road traffic injuries seen at a teaching hospital over five years: a record review"
+  ]
+ },
+ {
+  "id": "nursing",
+  "name": "Nursing Science",
+  "topics": [
+   "Knowledge and practice of hand hygiene among nurses in a tertiary hospital",
+   "Factors affecting exclusive breastfeeding among mothers attending postnatal clinics",
+   "Nurses knowledge and practice of infection prevention and control",
+   "Job satisfaction and intention to migrate among nurses in Nigerian hospitals",
+   "Patients perception of nurse-patient communication on a hospital ward",
+   "Knowledge of pressure ulcer prevention among nurses",
+   "Burnout and coping strategies among nurses working night shifts",
+   "Adherence to treatment among hypertensive patients: the role of nurse-led health education"
+  ]
+ },
+ {
+  "id": "pharmacy",
+  "name": "Pharmacy",
+  "topics": [
+   "Prevalence and determinants of self-medication among university students",
+   "Community pharmacists dispensing of antibiotics without prescription: knowledge and practice",
+   "Awareness of counterfeit and substandard medicines among consumers",
+   "Comparative quality assessment of brands of paracetamol tablets sold in a town using pharmacopoeial tests",
+   "Patients knowledge and adherence to antihypertensive therapy in community pharmacies",
+   "Household medicine storage and disposal practices",
+   "Phytochemical screening and antimicrobial activity of a locally used medicinal plant extract",
+   "Pharmacists knowledge and attitude towards adverse drug reaction reporting"
+  ]
+ },
+ {
+  "id": "medical-laboratory-science",
+  "name": "Medical Laboratory Science",
+  "topics": [
+   "Prevalence of malaria parasitaemia among pregnant women attending antenatal clinics",
+   "Haemoglobin genotype distribution among students of a Nigerian university",
+   "Prevalence and antibiotic susceptibility pattern of bacteria isolated from urinary tract infections",
+   "ABO and Rhesus blood group distribution among blood donors",
+   "Prevalence of hepatitis B surface antigen among blood donors in a hospital",
+   "Haematological parameters of petrol station attendants compared with controls",
+   "Bacteriological quality of sachet water sold in a town",
+   "Awareness and practice of laboratory safety among medical laboratory personnel"
+  ]
+ },
+ {
+  "id": "public-health",
+  "name": "Public Health",
+  "topics": [
+   "Knowledge and practice of malaria prevention among households",
+   "Water, sanitation and hygiene practices and diarrhoea among children under five in a rural community",
+   "Uptake of childhood immunisation and barriers among mothers",
+   "Awareness and uptake of the HPV vaccine among adolescents and parents",
+   "Knowledge and prevention practices of cholera in a flood-prone community",
+   "Health-seeking behaviour of rural dwellers: use of traditional and orthodox care",
+   "Occupational health hazards among commercial motorcyclists",
+   "Prevalence of tobacco and alcohol use among secondary school students"
+  ]
+ },
+ {
+  "id": "biochemistry",
+  "name": "Biochemistry",
+  "topics": [
+   "Phytochemical composition and antioxidant activity of leaf extract of a common Nigerian vegetable",
+   "Effect of an aqueous plant extract on blood glucose in diabetic rats",
+   "Proximate and mineral composition of locally processed foods such as moringa leaf powder or cassava flour",
+   "Heavy metal levels in water and fish from a local river",
+   "Amylase activity in malted and unmalted sorghum",
+   "Detection of adulterants in palm oil sold in local markets",
+   "Antioxidant capacity of commonly consumed spices",
+   "Comparison of nutrient content of locally available and imported rice"
+  ]
+ },
+ {
+  "id": "microbiology",
+  "name": "Microbiology",
+  "topics": [
+   "Bacteriological quality of sachet and borehole water in a town",
+   "Antibiotic resistance patterns of Escherichia coli isolated from clinical samples",
+   "Microbial contamination of street-vended foods",
+   "Antimicrobial activity of ginger, garlic and neem extracts against common pathogens",
+   "Bacteria isolated from the mobile phones of students and their antibiotic susceptibility",
+   "Fungal contamination of stored grains and garri in local markets",
+   "Microbial load of fresh fruit juices sold by roadside vendors",
+   "Bacterial contamination of hospital surfaces and healthcare workers hands"
+  ]
+ },
+ {
+  "id": "mass-communication",
+  "name": "Mass Communication",
+  "topics": [
+   "Influence of social media on political participation among Nigerian youths",
+   "Fake news and misinformation: awareness and verification habits among undergraduates",
+   "Role of radio in health campaigns in rural communities",
+   "Framing of insecurity in two Nigerian national newspapers",
+   "Influence of Nollywood films on the cultural values of youths",
+   "Citizen journalism on WhatsApp and Facebook in Nigeria: opportunities and risks",
+   "Crisis communication strategies of a Nigerian telecommunications company",
+   "Influence of advertising on the buying behaviour of undergraduates"
+  ]
+ },
+ {
+  "id": "political-science",
+  "name": "Political Science",
+  "topics": [
+   "Voter apathy and youth participation in Nigerian elections",
+   "Electronic transmission of results and the credibility of elections in Nigeria",
+   "Federalism and resource control in Nigeria",
+   "Local government autonomy and grassroots development",
+   "Insecurity and democratic consolidation in Nigeria",
+   "Internal democracy in Nigerian political parties",
+   "Effectiveness of anti-corruption agencies in Nigeria",
+   "ECOWAS and conflict resolution in West Africa"
+  ]
+ },
+ {
+  "id": "economics",
+  "name": "Economics",
+  "topics": [
+   "Effect of exchange rate fluctuations on inflation in Nigeria",
+   "Public debt and economic growth in Nigeria",
+   "Impact of remittances on household welfare",
+   "Determinants of unemployment among university graduates",
+   "Agricultural output and economic growth in Nigeria",
+   "Effect of fuel subsidy removal on household expenditure",
+   "Financial inclusion and poverty reduction among small traders",
+   "Effect of oil price shocks on the Nigerian economy"
+  ]
+ },
+ {
+  "id": "sociology",
+  "name": "Sociology",
+  "topics": [
+   "Causes and effects of drug abuse among youths in a community",
+   "Cultism in tertiary institutions: causes and control measures",
+   "Effect of single parenthood on the academic performance of children",
+   "Rural to urban migration and its effect on rural communities",
+   "Social media use and family relationships",
+   "Perception of gender-based violence among university students",
+   "Child labour and school dropout in a local community",
+   "Kidnapping and community responses in Nigeria"
+  ]
+ },
+ {
+  "id": "psychology",
+  "name": "Psychology",
+  "topics": [
+   "Relationship between social media use and academic procrastination",
+   "Test anxiety and academic performance among undergraduates",
+   "Parenting styles and self-esteem of adolescents",
+   "Religiosity and psychological well-being among university students",
+   "Job stress and job satisfaction among bank employees",
+   "Peer pressure and substance use among adolescents",
+   "Emotional intelligence and leadership effectiveness",
+   "Public attitudes towards persons with mental illness"
+  ]
+ },
+ {
+  "id": "english",
+  "name": "English and Literary Studies",
+  "topics": [
+   "A stylistic analysis of the language of a Nigerian novel",
+   "Code-switching and code-mixing among university students",
+   "Nigerian Pidgin in advertising and social media",
+   "A comparative study of themes in the works of two Nigerian authors",
+   "The use of proverbs in a selected African novel",
+   "Common errors in the written English of undergraduates",
+   "A feminist reading of a selected Nigerian novel",
+   "The language of political campaigns in Nigeria"
+  ]
+ },
+ {
+  "id": "history",
+  "name": "History and International Studies",
+  "topics": [
+   "Colonial administration and indirect rule in a Nigerian region",
+   "The Nigerian Civil War: causes, conduct and consequences",
+   "The role of women in the Nigerian nationalist movement",
+   "The history and political structure of a traditional kingdom in your area",
+   "The transatlantic slave trade and its impact on communities in the Niger Delta",
+   "The palm oil trade and the economy of the Niger Delta in the nineteenth century",
+   "Military rule and its effects on Nigerian politics",
+   "The formation and evolution of ECOWAS"
+  ]
+ },
+ {
+  "id": "banking-and-finance",
+  "name": "Banking and Finance",
+  "topics": [
+   "Effect of mobile banking and the cashless policy on customer satisfaction",
+   "Financial inclusion and the growth of small and medium enterprises",
+   "Monetary policy rate and commercial bank lending in Nigeria",
+   "Credit risk management and bank performance",
+   "Adoption of fintech services (POS, USSD, mobile apps) among traders",
+   "Capital market development and economic growth",
+   "Bank recapitalisation and bank performance in Nigeria",
+   "Microfinance banks and poverty alleviation"
+  ]
+ },
+ {
+  "id": "marketing",
+  "name": "Marketing",
+  "topics": [
+   "Effect of social media marketing on consumer purchase intention",
+   "Brand loyalty among students for mobile network providers",
+   "Influence of packaging on consumer buying behaviour",
+   "Customer relationship management and customer retention in small businesses",
+   "Pricing strategies of small businesses during inflation",
+   "Influencer marketing and consumer trust",
+   "Digital marketing adoption among small businesses",
+   "Service quality and customer satisfaction in fast food restaurants"
+  ]
+ },
+ {
+  "id": "public-administration",
+  "name": "Public Administration",
+  "topics": [
+   "Civil service reforms and productivity in Nigeria",
+   "Local government administration and service delivery",
+   "Adoption of e-governance in state ministries",
+   "Budget implementation and transparency in public institutions",
+   "Public procurement and corruption",
+   "Staff motivation and productivity in the public sector",
+   "Community participation in rural development projects",
+   "Public-private partnership in infrastructure delivery"
+  ]
+ },
+ {
+  "id": "guidance-counselling",
+  "name": "Guidance and Counselling",
+  "topics": [
+   "Effect of peer counselling on the study habits of secondary school students",
+   "Factors influencing career choice among senior secondary students",
+   "Home background and academic performance of students",
+   "Counselling strategies for reducing examination malpractice",
+   "Prevalence and effects of bullying in secondary schools",
+   "Effect of cognitive behavioural counselling on test anxiety",
+   "Awareness and use of counselling services among undergraduates",
+   "Substance use among adolescents and the role of the school counsellor"
+  ]
+ },
+ {
+  "id": "agricultural-science",
+  "name": "Agricultural Science",
+  "topics": [
+   "Effect of organic manures on the growth and yield of maize or okra",
+   "Adoption of improved cassava varieties among farmers",
+   "Cost and return analysis of small-scale poultry or catfish production",
+   "Post-harvest losses of tomatoes and storage options",
+   "Effect of climate variability on crop yield in a local area",
+   "Constraints to youth participation in agriculture",
+   "Effect of weed control methods on crop yield",
+   "Formulation of low-cost feed from locally available materials"
+  ]
+ },
+ {
+  "id": "civil-engineering",
+  "name": "Civil Engineering",
+  "topics": [
+   "Compressive strength of concrete with partial replacement of cement by agricultural waste ash",
+   "Causes of building collapse in Nigeria and preventive measures",
+   "Characterisation of lateritic soils for road construction",
+   "Traffic study and congestion at a major junction",
+   "Flood risk assessment and drainage design for a community",
+   "Quality assessment of borehole water and treatment options",
+   "Evaluation of causes of failure on a local road",
+   "Use of sawdust or rice husk ash in sandcrete blocks"
+  ]
+ },
+ {
+  "id": "statistics",
+  "name": "Statistics",
+  "topics": [
+   "Time series modelling and forecasting of inflation rates in Nigeria",
+   "Regression analysis of factors affecting students academic performance",
+   "Statistical analysis of road traffic accident data in a state",
+   "Survival analysis of patients using hospital records",
+   "Markov chain analysis of student progression in a department",
+   "Analysis of crime data using statistical methods",
+   "Measuring poverty in households using survey data",
+   "Forecasting monthly rainfall using ARIMA models"
+  ]
+ }
 ]

@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="CBT Practice: Timed Multiple-Choice Quiz"
+  description="Practise for computer-based tests with timed multiple-choice quizzes. Use the sample sets, or paste questions from your own notes and quiz yourself."
+>
+  <nav class="mb-3 text-sm" aria-label="Breadcrumb">
+    <a class="link" href="/tools/">Tools</a> <span class="text-muted">/</span> <span>CBT Practice</span>
+  </nav>
+  <h1 class="text-3xl font-extrabold tracking-tight">CBT Practice</h1>
+  <p class="mt-2 max-w-2xl text-muted">
+    Get used to timed multiple-choice tests. Try the sample sets, or turn your own notes into a quiz. Your questions and
+    scores stay on your device.
+  </p>
+
+  <div id="cbt-setup" class="mt-6"></div>
+  <div id="cbt-run" class="mt-6" hidden></div>
+  <div id="cbt-result" class="mt-6" hidden></div>
+
+  <noscript><p class="mt-6">This tool needs JavaScript to run.</p></noscript>
+
+  <script>
+    import '../../scripts/cbt-ui';
+  </script>
+</Base>
+
+<style is:global>
+  .cbt-opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    min-height: 48px;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    cursor: pointer;
+    background: var(--surface);
+  }
+  .cbt-opt:has(input:checked) {
+    border-color: var(--primary);
+    background: var(--tint);
+  }
+  .cbt-opt:has(input:focus-visible) {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+  }
+  .cbt-opt.is-right {
+    border-color: var(--ok-fg);
+    background: var(--ok-bg);
+  }
+  .cbt-opt.is-wrong {
+    border-color: var(--warn-fg);
+    background: var(--warn-bg);
+  }
+  .cbt-opt input {
+    margin-top: 0.2rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+  }
+  .cbt-nav button {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+  }
+  .cbt-nav button[data-state='answered'] {
+    background: var(--tint);
+    border-color: var(--primary);
+    font-weight: 700;
+  }
+  .cbt-nav button[aria-current='true'] {
+    outline: 3px solid var(--primary);
+    outline-offset: 1px;
+  }
+</style>
