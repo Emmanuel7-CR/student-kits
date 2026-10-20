@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import { FEEDBACK_KINDS, MAX_CONTACT, MAX_MESSAGE } from '../lib/feedback';
+---
+
+<Base
+  title="Report a Problem or Send Feedback"
+  description="Tell us about a broken tool, wrong information, a copyright concern or an idea for FreeStudentKit. Free, no sign-up."
+>
+  <h1 class="text-3xl font-extrabold tracking-tight">Report a problem or send feedback</h1>
+  <p class="mt-2 max-w-2xl text-muted">
+    Found something wrong, or have an idea? Tell us. For a copyright takedown, choose that option and leave a way to reach you.
+    We read every message.
+  </p>
+
+  <form id="fb-form" class="card mt-6 max-w-2xl space-y-3" novalidate onsubmit="return false">
+    <label class="field">
+      <span class="label">What is this about?</span>
+      <select id="fb-kind" class="select" aria-describedby="fb-kind-err">
+        {FEEDBACK_KINDS.map((k) => <option value={k.value}>{k.label}</option>)}
+      </select>
+      <span id="fb-kind-err" class="hint" style="color:var(--warn-fg)"></span>
+    </label>
+    <label class="field">
+      <span class="label">Your message</span>
+      <textarea id="fb-message" class="textarea" rows="6" maxlength={MAX_MESSAGE} aria-describedby="fb-message-err"></textarea>
+      <span id="fb-message-err" class="hint" style="color:var(--warn-fg)"></span>
+    </label>
+    <label class="field">
+      <span class="label">Email or phone (optional, needed for a takedown)</span>
+      <input id="fb-contact" class="input" type="text" maxlength={MAX_CONTACT} autocomplete="off" aria-describedby="fb-contact-err" />
+      <span id="fb-contact-err" class="hint" style="color:var(--warn-fg)"></span>
+    </label>
+    <div style="position:absolute;left:-9999px" aria-hidden="true">
+      <label>Website <input id="fb-website" type="text" tabindex="-1" autocomplete="off" /></label>
+    </div>
+    <p class="text-sm text-muted">We only use your contact details to reply to this message.</p>
+    <button id="fb-send" type="submit" class="btn btn-primary">Send</button>
+    <p id="fb-msg" class="rounded-lg p-3 text-sm" role="status" aria-live="polite" hidden></p>
+  </form>
+
+  <noscript><p class="mt-6">This form needs JavaScript to run.</p></noscript>
+
+  <script>
+    import '../scripts/feedback-ui';
+  </script>
+</Base>

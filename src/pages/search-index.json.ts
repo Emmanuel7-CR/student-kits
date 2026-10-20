@@ -21,6 +21,7 @@ export const GET: APIRoute = () => {
     { title: 'Library', url: '/library/', kind: 'Page', text: 'past questions notes lecture notes project material department level course code' },
     { title: 'Share past questions or notes', url: '/library/contribute/', kind: 'Page', text: 'contribute upload share past questions notes' },
     { title: 'Use without data', url: '/offline/', kind: 'Page', text: 'offline save no data internet airtime install app home screen' },
+    { title: 'Report a problem or send feedback', url: '/feedback/', kind: 'Page', text: 'feedback report problem bug wrong information copyright takedown contact idea' },
     { title: 'About and sources', url: '/about/', kind: 'Page', text: 'about sources how we check' },
   ];
   return new Response(JSON.stringify(items), { headers: { 'Content-Type': 'application/json' } });

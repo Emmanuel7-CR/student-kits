@@ -127,3 +127,26 @@ if (supported && record) {
     }
   });
 }
+
+// Install button: shown only when the browser says the app can be installed.
+interface InstallEvent extends Event {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: string }>;
+}
+let deferred: InstallEvent | null = null;
+const installCard = $('#off-install-card');
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferred = e as InstallEvent;
+  installCard.hidden = false;
+});
+$('#off-install').addEventListener('click', async () => {
+  if (!deferred) return;
+  await deferred.prompt();
+  await deferred.userChoice.catch(() => undefined);
+  deferred = null;
+  installCard.hidden = true;
+});
+window.addEventListener('appinstalled', () => {
+  installCard.hidden = true;
+});

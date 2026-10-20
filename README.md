@@ -44,6 +44,12 @@ and the site only shows files of approved rows. Delete the file when you reject 
 **Reports**: Table Editor → `reports`. Each has a reason and the resource id. To take something
 down, set the resource's `status` to `rejected` (or delete it).
 
+### Feedback and takedowns
+
+The page `/feedback/` writes to `public.feedback` (Table Editor → feedback). The public can insert but never read.
+Rows with `kind = 'takedown'` are copyright complaints: find the item in `resources`, set it to `rejected`, delete its
+file, and reply using the `contact` column. Set `handled = true` when done. Open rows are capped at 300.
+
 ### Built-in limits
 
 - Anyone can add at most 300 pending rows in total and 150 unapproved files; after that

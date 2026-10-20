@@ -179,3 +179,25 @@ describe('offline helpers', () => {
     expect(sizeLabel(3.5 * 1024 * 1024)).toBe('3.5 MB');
   });
 });
+
+import { validateFeedback } from '../src/lib/feedback';
+describe('feedback form', () => {
+  const ok = { kind: 'bug', message: 'The CGPA page shows the wrong class', contact: '', page: '/tools/cgpa/' };
+  it('accepts a good message and keeps only a plain page path', () => {
+    const r = validateFeedback(ok);
+    expect(r.ok && r.row).toEqual({ kind: 'bug', message: 'The CGPA page shows the wrong class', contact: null, page: '/tools/cgpa/' });
+    const r2 = validateFeedback({ ...ok, page: 'https://evil.example/?x=1' });
+    expect(r2.ok && r2.row.page).toBeNull();
+  });
+  it('checks kind and message length', () => {
+    const r = validateFeedback({ ...ok, kind: 'spam', message: 'short' });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(Object.keys(r.errors).sort()).toEqual(['kind', 'message']);
+    expect(validateFeedback({ ...ok, message: 'x'.repeat(1001) }).ok).toBe(false);
+  });
+  it('needs contact details for a takedown', () => {
+    const bad = validateFeedback({ ...ok, kind: 'takedown' });
+    expect(bad.ok).toBe(false);
+    expect(validateFeedback({ ...ok, kind: 'takedown', contact: 'me@example.com' }).ok).toBe(true);
+  });
+});
